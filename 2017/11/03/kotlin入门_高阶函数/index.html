@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门_高阶函数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="高阶函数把函数当做参数的函数称为高阶函数。举个普通的栗子：lock函数： 123456789fun &amp;lt;T&amp;gt; lock(lock: Lock, body: () -&amp;gt; T): T &amp;#123;    lock.lock()    try &amp;#123;        return body()    &amp;#125;    finally &amp;#123;        lock.unloc">
+<meta name="keywords" content="kotlin,高阶函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门_高阶函数">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/kotlin入门_高阶函数/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="高阶函数把函数当做参数的函数称为高阶函数。举个普通的栗子：lock函数： 123456789fun &amp;lt;T&amp;gt; lock(lock: Lock, body: () -&amp;gt; T): T &amp;#123;    lock.lock()    try &amp;#123;        return body()    &amp;#125;    finally &amp;#123;        lock.unloc">
+<meta property="og:updated_time" content="2018-03-10T08:06:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门_高阶函数">
+<meta name="twitter:description" content="高阶函数把函数当做参数的函数称为高阶函数。举个普通的栗子：lock函数： 123456789fun &amp;lt;T&amp;gt; lock(lock: Lock, body: () -&amp;gt; T): T &amp;#123;    lock.lock()    try &amp;#123;        return body()    &amp;#125;    finally &amp;#123;        lock.unloc">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门_高阶函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/03/kotlin入门_高阶函数/" class="article-date">
+  <time datetime="2017-11-03T08:24:09.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门_高阶函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p>把函数当做参数的函数称为<code>高阶函数</code>。举个普通的栗子：lock函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;T&gt; lock(lock: Lock, body: () -&gt; T): T &#123;</span><br><span class="line">    lock.lock()</span><br><span class="line">    try &#123;</span><br><span class="line">        return body()</span><br><span class="line">    &#125;</span><br><span class="line">    finally &#123;</span><br><span class="line">        lock.unlock()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如这是一个被多线程调用的函数，为了保持同步，我们传一个锁对象进去。执行body函数的过程，lock上锁，在<code>finally</code>语句块解锁。</p>
+<p><code>body:() -&gt; T</code> 这个函数被当做参数传给lock函数，这就是高阶函数。</p>
+<p>这样使用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fun toBeSynchronized() = sharedResource.operation()</span><br><span class="line">val result = lock(lock, ::toBeSynchronized)</span><br></pre></td></tr></table></figure>
+<p>这是高阶函数的基本用法，我们会经常用到一些高阶函数，比如这些：</p>
+<p>标准库里又很多<strong>常见高阶函数</strong>，例如:</p>
+<ul>
+<li><p>run() 、with() 和 let() 函数：接受返回 R 类型的函数，返回 R 类型;</p>
+</li>
+<li><p>apply() 和 also() 函数：接受返回 Unit 类型的函数，返回 T 类型;</p>
+</li>
+<li><p>takeIf() 和 takeUnless() 函数：接受返回 (T) -&gt; Boolean 类型函数，返回 T? 类型;</p>
+</li>
+<li><p>repeat() 函数：执行指定次数的操作。 </p>
+</li>
+</ul>
+<h2 id="run-、with-和-let"><a href="#run-、with-和-let" class="headerlink" title="run() 、with() 和 let()"></a>run() 、with() 和 let()</h2><p>这几个函数的源代码相当简单，我们看一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline fun &lt;R&gt; run(block: () -&gt; R): R = block()</span><br><span class="line">inline fun &lt;T, R&gt; T.run(block: T.() -&gt; R): R = block()</span><br><span class="line">inline fun &lt;T, R&gt; with(receiver: T, block: T.() -&gt; R): R = receiver.block()</span><br><span class="line">inline fun &lt;T, R&gt; T.let(block: (T) -&gt; R): R = block(this)</span><br></pre></td></tr></table></figure>
+<p><a href="#ref">参考</a></p>
+<h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><p>通常，更好的做法是，传递一个lambda表达式，给lock函数，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock(lock, &#123;sharedResource.operation()&#125;)</span><br></pre></td></tr></table></figure>
+<p>所谓lambda表达式，有这么一些特点：</p>
+<ol>
+<li>lambda 表达式总是被大括号括着</li>
+<li>其参数（如果有的话）在 -&gt; 之前声明（参数类型可以省略）；</li>
+<li>函数体（如果存在的话）在 -&gt; 后面。</li>
+</ol>
+<p>kotlin中有个约定，如果函数最后的参数是<em>函数</em>，并且传递的是lambda表达式，可以把lambda表达式函数体放在括号外边。上面代码可以这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lock(lock) &#123;</span><br><span class="line">	sharedResource.operation()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 一个 lambda 表达式或匿名函数是一个“函数字面值”，即一个未声明的函数， 但立即做为表达式传递。考虑下面的例子：</p>
+<h2 id="it：单个参数的隐式名称"><a href="#it：单个参数的隐式名称" class="headerlink" title="it：单个参数的隐式名称"></a>it：单个参数的隐式名称</h2><p>另一个有用的约定是，如果函数字面值只有一个参数， 那么它的声明可以省略（连同 -&gt;），其名称是 <code>it</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ints.map &#123; it * 2 &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="下划线用于未使用的变量（自-1-1-起）"><a href="#下划线用于未使用的变量（自-1-1-起）" class="headerlink" title="下划线用于未使用的变量（自 1.1 起）"></a>下划线用于未使用的变量（自 1.1 起）</h2><p>如果 lambda 表达式的参数未使用，那么可以用下划线取代其名称：<br><code>map.forEach { _, value -&gt; println(&quot;$value!&quot;)</code></p>
+<h2 id="在-lambda-表达式中解构（自-1-1-起）"><a href="#在-lambda-表达式中解构（自-1-1-起）" class="headerlink" title="在 lambda 表达式中解构（自 1.1 起）"></a>在 lambda 表达式中解构（自 1.1 起）</h2><p>在 lambda 表达式中解构是作为解构声明的一部分描述的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123; a //-&gt; …… &#125; // 一个参数 it作为默认参数</span><br><span class="line">&#123; a, b //-&gt; …… &#125; // 两个参数</span><br><span class="line">&#123; (a, b) //-&gt; …… &#125; // 一个解构对</span><br><span class="line">&#123; (a, b), c //-&gt; …… &#125; // 一个解构对以及其他参数</span><br><span class="line"></span><br><span class="line">// 判断变量x是否大于5</span><br><span class="line">compare(&#123; x -&gt; x &gt; 5&#125;) 一个参数 it作为默认参数</span><br><span class="line"></span><br><span class="line">// 判断x是否大于y ,就传2个参数</span><br><span class="line">compare(&#123;x, y -&gt; (x - y) &gt; 0&#125;) </span><br><span class="line"></span><br><span class="line">// 判断一个map中的某个item的x&gt;y，解构对的用法</span><br><span class="line">compare(&#123;(x, y) -&gt; x &gt; y)&#125;)</span><br><span class="line"></span><br><span class="line">// 结构对+其他参数</span><br><span class="line">compare(&#123;x, y), c -&gt; x &gt; (y + c))</span><br></pre></td></tr></table></figure>
+<h2 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h2><p>参考c++语言特性的移植。kotlin也用<em>inline</em>修饰符修饰。</p>
+<p>当然，把root函数放在循环中不是个不明智的选择，但想象一下，在某个程序上下文内必须频繁地调用某个类似root的函数，其调用函数的花销会有多大：当遇到普通函数的调用指令时，程序会保存当前函数的执行现场，将函数中的局部变量以及函数地址压入堆栈，然后再将即将调用的新函数加载到内存中，这要经历复制参数值、跳转到所调用函数的内存位置、执行函数代码、存储函数返回值等过程，当函数执行完后，再获取之前正在调用的函数的地址，回去继续执行那个函数，运行时间开销简直太多了。<br>C++内联函数提供了替代函数调用的方案，通过inline声明，编译器首先在函数调用处使用函数体本身语句替换了函数调用语句，然后编译替换后的代码。因此，通过内联函数，编译器不需要跳转到内存其他地址去执行函数调用，也不需要保留函数调用时的现场数据。</p>
+<p><a href="http://www.cnblogs.com/QG-whz/p/4641479.html" target="_blank" rel="noopener">c++内联函数</a></p>
+<p>inline 修饰符<strong>影响函数本身和传给它的 lambda 表达式：所有这些都将内联到调用处。</strong></p>
+<h2 id="禁止内联"><a href="#禁止内联" class="headerlink" title="禁止内联"></a>禁止内联</h2><p>有时候，在一个内联函数的参数中，禁止作为参数的函数内联，可以使用<em>noinline</em>禁止内联。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inline fun foo(inlined: () -&gt; Unit, noinline notInlined: () -&gt; Unit) &#123;</span><br><span class="line">    // ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="非局部返回"><a href="#非局部返回" class="headerlink" title="非局部返回"></a>非局部返回</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun foo() &#123;</span><br><span class="line">    ordinaryFunction &#123;</span><br><span class="line">        return // 错误：不能使 `foo` 在此处返回</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种返回是禁止的。因为lambda表达式不能让包含他的函数返回。</p>
+<p>如果ordinaryFunction是内联函数，则可以，因为内联函数的话，编译器会在调用出替换这段代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun foo() &#123;</span><br><span class="line">    inlineFunction &#123;</span><br><span class="line">        return // 错误：不能使 `foo` 在此处返回</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="具体化的类型参数"><a href="#具体化的类型参数" class="headerlink" title="具体化的类型参数"></a>具体化的类型参数</h2><pre><code>inline fun &lt;reified T&gt; TreeNode.findParentOfType(): T? {
+    var p = parent
+    while (p != null &amp;&amp; p !is T) {
+        p = p.parent
+    }
+    return p as T?
+}
+</code></pre><p><span id="ref">参考：</span></p>
+<p><a href="http://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html" target="_blank" rel="noopener">常见高阶函数</a><br><a href="http://www.jianshu.com/p/03db2203e0f2" target="_blank" rel="noopener">经常用高阶函数</a><br><a href="https://zhuanlan.zhihu.com/p/27159901" target="_blank" rel="noopener">常见高阶函数</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/03/kotlin入门_高阶函数/" data-id="cjel566hk00126pqe4dn34tu3" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/07/kotlin入门_函数复合与柯里化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin入门-函数复合与curry化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/01/kotlin入门_伴生对象与扩展方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门_伴生对象与扩展</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

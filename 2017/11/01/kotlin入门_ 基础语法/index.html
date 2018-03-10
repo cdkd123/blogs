@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门-基础语法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0 android开发环境搭建安装android studio 3.0新建.kt文件官方文档网站：http://www.kotlindoc.cn/ 1 基本语法1.1 包名和import12package my.demoimport java.util.* 包名不一定要和路径名一致。 1.2 定义函数1.2.1 函数带有两个int类型参数，并且返回int类型值：123fun sum(a: Int,">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门-基础语法">
+<meta property="og:url" content="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="0 android开发环境搭建安装android studio 3.0新建.kt文件官方文档网站：http://www.kotlindoc.cn/ 1 基本语法1.1 包名和import12package my.demoimport java.util.* 包名不一定要和路径名一致。 1.2 定义函数1.2.1 函数带有两个int类型参数，并且返回int类型值：123fun sum(a: Int,">
+<meta property="og:updated_time" content="2017-12-08T10:30:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门-基础语法">
+<meta name="twitter:description" content="0 android开发环境搭建安装android studio 3.0新建.kt文件官方文档网站：http://www.kotlindoc.cn/ 1 基本语法1.1 包名和import12package my.demoimport java.util.* 包名不一定要和路径名一致。 1.2 定义函数1.2.1 函数带有两个int类型参数，并且返回int类型值：123fun sum(a: Int,">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门_ 基础语法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_ 基础语法/" class="article-date">
+  <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门-基础语法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0-android开发环境搭建"><a href="#0-android开发环境搭建" class="headerlink" title="0 android开发环境搭建"></a>0 android开发环境搭建</h2><p>安装android studio 3.0<br>新建.kt文件<br>官方文档网站：<a href="http://www.kotlindoc.cn/" target="_blank" rel="noopener">http://www.kotlindoc.cn/</a></p>
+<h2 id="1-基本语法"><a href="#1-基本语法" class="headerlink" title="1 基本语法"></a>1 基本语法</h2><h2 id="1-1-包名和import"><a href="#1-1-包名和import" class="headerlink" title="1.1 包名和import"></a>1.1 包名和import</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">package my.demo</span><br><span class="line">import java.util.*</span><br></pre></td></tr></table></figure>
+<p><em>包名不一定要和路径名一致。</em></p>
+<h2 id="1-2-定义函数"><a href="#1-2-定义函数" class="headerlink" title="1.2 定义函数"></a>1.2 定义函数</h2><h3 id="1-2-1-函数带有两个int类型参数，并且返回int类型值："><a href="#1-2-1-函数带有两个int类型参数，并且返回int类型值：" class="headerlink" title="1.2.1 函数带有两个int类型参数，并且返回int类型值："></a>1.2.1 函数带有两个int类型参数，并且返回int类型值：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun sum(a: Int, b: Int): Int &#123; </span><br><span class="line">   return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-2-函数体可以是个表达式，并可以从中推断出返回值类型："><a href="#1-2-2-函数体可以是个表达式，并可以从中推断出返回值类型：" class="headerlink" title="1.2.2 函数体可以是个表达式，并可以从中推断出返回值类型："></a>1.2.2 函数体可以是个表达式，并可以从中推断出返回值类型：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun sum(a: Int, b: Int) = a + b</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-3-函数也可以返回无意义的值："><a href="#1-2-3-函数也可以返回无意义的值：" class="headerlink" title="1.2.3 函数也可以返回无意义的值："></a>1.2.3 函数也可以返回无意义的值：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun printSum(a: Int, b: Int): Unit &#123;</span><br><span class="line">   print(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-4-Unit返回值类型可以省略："><a href="#1-2-4-Unit返回值类型可以省略：" class="headerlink" title="1.2.4 Unit返回值类型可以省略："></a>1.2.4 Unit返回值类型可以省略：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun printSum(a: Int, b: Int) &#123; </span><br><span class="line">   print(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-注释的用法"><a href="#1-3-注释的用法" class="headerlink" title="1.3 注释的用法"></a>1.3 注释的用法</h2><h3 id="1-3-1-单行注释"><a href="#1-3-1-单行注释" class="headerlink" title="1.3.1 单行注释"></a>1.3.1 单行注释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// 这是一个单行注释</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-2-多行注释"><a href="#1-3-2-多行注释" class="headerlink" title="1.3.2 多行注释"></a>1.3.2 多行注释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line"> * 这是一个多行注释，</span><br><span class="line"> * 这是第二行</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<h2 id="1-4-定义局部变量"><a href="#1-4-定义局部变量" class="headerlink" title="1.4 定义局部变量"></a>1.4 定义局部变量</h2><h3 id="1-4-1-不变局部变量"><a href="#1-4-1-不变局部变量" class="headerlink" title="1.4.1 不变局部变量"></a>1.4.1 不变局部变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val a: Int = 1</span><br><span class="line">val b = 1 //  推断为Int类型 </span><br><span class="line">val c: Int  // 如果没有初始化就要求说明类型</span><br><span class="line">c = 1 // 明确赋值</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-2-可变变量"><a href="#1-4-2-可变变量" class="headerlink" title="1.4.2 可变变量"></a>1.4.2 可变变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = 5</span><br><span class="line">a ++</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-字符串模板"><a href="#1-5-字符串模板" class="headerlink" title="1.5 字符串模板"></a>1.5 字符串模板</h2><h3 id="1-5-1-字符串模板中使用表达式"><a href="#1-5-1-字符串模板中使用表达式" class="headerlink" title="1.5.1 字符串模板中使用表达式"></a>1.5.1 字符串模板中使用表达式</h3><p>在字符串模板中，我们可以直接使用变量，或者利用变量组合表达式, 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val str = &quot;hello&quot;</span><br><span class="line">val end = &quot;world&quot;</span><br><span class="line">val x = 5</span><br><span class="line">val y = 6</span><br><span class="line">val result: String = &quot;$(str)$(end)$(x+y)&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="1-6-条件表达式"><a href="#1-6-条件表达式" class="headerlink" title="1.6 条件表达式"></a>1.6 条件表达式</h2><h3 id="1-6-1-java和kotlin条件表达式区别"><a href="#1-6-1-java和kotlin条件表达式区别" class="headerlink" title="1.6.1 java和kotlin条件表达式区别"></a>1.6.1 java和kotlin条件表达式区别</h3><p>java 代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return a &gt; b ? a : b</span><br></pre></td></tr></table></figure></p>
+<p>kotlin代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return (if(a &gt; b) a else b)</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-7-使用nullable检测null"><a href="#1-7-使用nullable检测null" class="headerlink" title="1.7 使用nullable检测null"></a>1.7 使用nullable检测null</h3><p>在返回值中，可以标志是否可为null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun parseInt(args: String?): Int? &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用时，这样检测<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun add(left: String?, right: String?) &#123;</span><br><span class="line">    Int x = parseInt(left)</span><br><span class="line">    Int y = parseInt(right)</span><br><span class="line">    </span><br><span class="line">    if(x != null &amp;&amp; y != null) &#123;</span><br><span class="line">        println(&quot;$(x+y)&quot;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        println(&quot;$x is null or $y is null&quot;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://kotlinlang.org/docs/reference/null-safety.html" target="_blank" rel="noopener">类型安全</a></p>
+<h2 id="1-8-类型检查和自动转换"><a href="#1-8-类型检查和自动转换" class="headerlink" title="1.8 类型检查和自动转换"></a>1.8 类型检查和自动转换</h2><p>kotlin 用<em>is</em>检测类型， Any类型的，可以自动转换为数据类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun getStringLength(obj: Any): Int? &#123;</span><br><span class="line">    if (obj is String) &#123;</span><br><span class="line">        // `obj` is automatically cast to `String` in this branch</span><br><span class="line">        return obj.length</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // `obj` is still of type `Any` outside of the type-checked branch</span><br><span class="line">    return null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-9-控制语句"><a href="#1-9-控制语句" class="headerlink" title="1.9 控制语句"></a>1.9 控制语句</h2><h3 id="1-9-1-for语句"><a href="#1-9-1-for语句" class="headerlink" title="1.9.1 for语句"></a>1.9.1 for语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val items = listOf(&quot;apple&quot;, &quot;banana&quot;, &quot;kiwi&quot;)</span><br><span class="line">for (item in items) &#123;</span><br><span class="line">    println(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://kotlinlang.org/docs/reference/control-flow.html#for-loops" target="_blank" rel="noopener">for语句</a></p>
+<h3 id="1-9-2-while语句"><a href="#1-9-2-while语句" class="headerlink" title="1.9.2 while语句"></a>1.9.2 while语句</h3><p>while 和do while语句和java没有区别</p>
+<h3 id="1-9-3-when语句"><a href="#1-9-3-when语句" class="headerlink" title="1.9.3 when语句"></a>1.9.3 when语句</h3><p>和java的switch语句类似，不过他还可以当做表达式。<br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var x = &quot;css&quot;</span><br><span class="line">when (x) &#123;</span><br><span class="line">    &quot;css&quot;      -&gt; println(&quot;css is awesome&quot;)</span><br><span class="line">    &quot;Hello&quot;    -&gt; println(&quot;hello is ok&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>when表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun describe(obj: Any): String =</span><br><span class="line">when (obj) &#123;</span><br><span class="line">    1          -&gt; &quot;One&quot;</span><br><span class="line">    &quot;Hello&quot;    -&gt; &quot;Greeting&quot;</span><br><span class="line">    is Long    -&gt; &quot;Long&quot;</span><br><span class="line">    !is String -&gt; &quot;Not a string&quot;</span><br><span class="line">    else       -&gt; &quot;Unknown&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-9-4-使用range"><a href="#1-9-4-使用range" class="headerlink" title="1.9.4 使用range"></a>1.9.4 使用range</h3><p>使用in操作符检查x是否在某个范围：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val x = 10</span><br><span class="line">val y = 9</span><br><span class="line">if (x in 1..y+1) &#123;</span><br><span class="line">    println(&quot;fits in range&quot;)</span><br><span class="line">&#125;  </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">使用in检查数字是否在（不在）列表索引范围</span><br></pre></td></tr></table></figure></p>
+<p>val list = listOf(“a”, “b”, “c”)<br>​<br>if (-1 !in 0..list.lastIndex) {<br>    println(“-1 is out of range”)<br>}<br>if (list.size !in list.indices) {<br>    println(“list size is out of valid list indices range too”)<br>}<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">循环输入指定范围的值</span><br></pre></td></tr></table></figure></p>
+<p>for (x in 1..5) {<br>    print(x)<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用step循环的步进</span><br></pre></td></tr></table></figure></p>
+<p>for (x in 1..10 step 2) {<br>    print(x)<br>}<br>for (x in 9 downTo 0 step 3) {<br>    print(x)<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### 1.9.5 使用集合</span><br><span class="line"></span><br><span class="line">配合when，in关键词，判断集合是否包含指定元素</span><br></pre></td></tr></table></figure></p>
+<p>when {<br>“element1” in items -&gt; println(“elment is in items”)<br>“element2” in items -&gt; println(“elment2 is in items”)<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">遍历集合</span><br></pre></td></tr></table></figure></p>
+<p>for(item in items) {<br>    println(“$item”)<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">lambda表达式过滤(filter)，映射(map)集合</span><br></pre></td></tr></table></figure></p>
+<p>items.filter(it -&gt; it.key &gt; 5).map(it -&gt; println(it))<br>```</p>
+<p>参考：<br><a href="https://zhuanlan.zhihu.com/p/26520403" target="_blank" rel="noopener">kotlin实现表情图片变字符画</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjel566gp000d6pqed019fvpk" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/01/kotlin入门_属性和属性委托/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin入门-属性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/01/kotlin入门_返回与跳转/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门_返回与跳转</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

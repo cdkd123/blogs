@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门_伴生对象与扩展 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="伴生对象在java中，一些静态字段或方法，经常被static修饰，定义成静态的，kotlin利用伴生对象取代了这一做法。具体的语法如下： 12345678class A &amp;#123;	companion object B &amp;#123; 		val instance: A = A()		val x = 5		fun test() &amp;#123;		&amp;#125;	&amp;#125;&amp;#125; 通过调用B.i">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门_伴生对象与扩展">
+<meta property="og:url" content="http://yoursite.com/2017/11/01/kotlin入门_伴生对象与扩展方法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="伴生对象在java中，一些静态字段或方法，经常被static修饰，定义成静态的，kotlin利用伴生对象取代了这一做法。具体的语法如下： 12345678class A &amp;#123;	companion object B &amp;#123; 		val instance: A = A()		val x = 5		fun test() &amp;#123;		&amp;#125;	&amp;#125;&amp;#125; 通过调用B.i">
+<meta property="og:updated_time" content="2017-11-17T06:39:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门_伴生对象与扩展">
+<meta name="twitter:description" content="伴生对象在java中，一些静态字段或方法，经常被static修饰，定义成静态的，kotlin利用伴生对象取代了这一做法。具体的语法如下： 12345678class A &amp;#123;	companion object B &amp;#123; 		val instance: A = A()		val x = 5		fun test() &amp;#123;		&amp;#125;	&amp;#125;&amp;#125; 通过调用B.i">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门_伴生对象与扩展方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_伴生对象与扩展方法/" class="article-date">
+  <time datetime="2017-11-01T09:18:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门_伴生对象与扩展
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="伴生对象"><a href="#伴生对象" class="headerlink" title="伴生对象"></a>伴生对象</h2><p>在java中，一些静态字段或方法，经常被static修饰，定义成静态的，kotlin利用伴生对象取代了这一做法。具体的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">	companion object B &#123; </span><br><span class="line">		val instance: A = A()</span><br><span class="line">		val x = 5</span><br><span class="line">		fun test() &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过调用B.instance，就可以获取实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val a = A.B.instance // ok</span><br><span class="line">a.B.test() // error</span><br><span class="line">A.B.test() // ok</span><br></pre></td></tr></table></figure>
+<h2 id="伴生对象的一些困惑"><a href="#伴生对象的一些困惑" class="headerlink" title="伴生对象的一些困惑"></a>伴生对象的一些困惑</h2><p>刚开始学习kotlin的时候，可能会对<code>companion object{}</code>和<code>const</code>关键字弄混淆，二者有如下区别:     </p>
+<ul>
+<li>Kotlin用<code>对象表达式和对象声明</code>实现Java匿名内部类这种情况，即匿名类的实现对象为object。</li>
+<li><code>companion object{}</code>伴生对象，虽然调用的时候类似<code>static</code>，但它依然是对象的实例成员，并且可以实现接口</li>
+</ul>
+<p><code>const</code> 常量的含义</p>
+<ul>
+<li>用于String或基本类型进行初始化；</li>
+<li>没有自定义getter；</li>
+<li>修饰对象成员或顶级（Top-level）。会更像<code>static final</code>的常量</li>
+</ul>
+<h2 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h2><p>kotlin提供了一种<code>扩展类功能的机制</code> – 扩展方法。通过扩展方法，我们可以对像<code>Array</code>这样的类增加新功能。</p>
+<p>声明一个<em>扩展函数</em>，我们需要用一个<em>接收者类型</em>也就是被扩展的类型来作为他的前缀。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun Array&lt;Int&gt;.swap(index1: Int, index2: Int) &#123;</span><br><span class="line">    val tmp = this[index1] // “this”对应该列表</span><br><span class="line">    this[index1] = this[index2]</span><br><span class="line">    this[index2] = tmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例代码为<code>Array&lt;Int&gt;</code>添加一个swap 函数。</p>
+<p>现在我们用任意的<code>Array&lt;Int&gt;</code>可以使用<code>swap</code>函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val arr = Array&lt;Int&gt;(2, 3, 4)</span><br><span class="line">arr.swap(1, 2)</span><br></pre></td></tr></table></figure>
+<p>我们还可以泛型化该函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;T&gt; Array&lt;T&gt;.swap(index1: Int, index2: Int) &#123;</span><br><span class="line">	  val tmp = this[index1] // “this”对应该列表</span><br><span class="line">    this[index1] = this[index2]</span><br><span class="line">    this[index2] = tmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扩展是静态解析的"><a href="#扩展是静态解析的" class="headerlink" title="扩展是静态解析的"></a>扩展是静态解析的</h2><ul>
+<li>扩展不能真正的修改他们所扩展的类。</li>
+</ul>
+<p><strong>通过定义一个扩展，你并没有在一个类中插入新成员，仅仅是可以通过该类型的变量用点表达式去调用这个新函数</strong>。</p>
+<p>我们想强调的是扩展函数是静态分发的，即他们<em>不是</em>接收者类型的虚方法。这意味着调用的扩展函数是由函数调用所在的表达式的类型来决定的，而不是由表达式运行时求值结果决定的。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">open class C</span><br><span class="line">class D: C()</span><br><span class="line">fun C.foo() = &quot;c&quot;</span><br><span class="line">fun D.foo() = &quot;d&quot;</span><br><span class="line">fun printFoo(c: C) &#123;</span><br><span class="line">    println(c.foo())</span><br><span class="line">&#125;</span><br><span class="line">printFoo(D())</span><br></pre></td></tr></table></figure>
+<p>打印出来的是<code>c</code>. 因为c.foo() 取决于他的声明，而不是实际对象类型。</p>
+<ul>
+<li>扩展相同的成员函数</li>
+</ul>
+<p>如果一个类已经有方法，我们又需要扩展相同签名的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">	fun sum() &#123;</span><br><span class="line">		println(&quot;ok&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun A.sum() &#123;</span><br><span class="line">	println(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们调用：A.sum()，总是会调用<em>成员函数</em>。即输出”ok”。</p>
+<h2 id="可空接收者"><a href="#可空接收者" class="headerlink" title="可空接收者"></a>可空接收者</h2><p>注意可以为可空的接收者类型定义扩展。这样的扩展可以在对象变量上调用， 即使其值为<code>null</code>，并且可以在函数体内检测 <code>this == null</code>，这能让你在没有检测<code>null</code>的时候调用Kotlin中的<code>toString()</code>：检测发生在扩展函数的内部。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun Any?.toString(): String &#123;</span><br><span class="line">    if (this == null) return &quot;null&quot;</span><br><span class="line">    // 空检测之后，“this”会自动转换为非空类型，所以下面的 toString()</span><br><span class="line">    // 解析为 Any 类的成员函数</span><br><span class="line">    return toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扩展属性"><a href="#扩展属性" class="headerlink" title="扩展属性"></a>扩展属性</h2><p>和函数类似，Kotlin 支持扩展属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val &lt;T&gt; List&lt;T&gt;.lastIndex: Int</span><br><span class="line">    get() = size - 1</span><br></pre></td></tr></table></figure>
+<p>注意：由于扩展没有实际的将成员插入类中，因此对扩展属性来说幕后字段是无效的。这就是为什么扩展属性不能有初始化器。他们的行为只能由显式提供的 <code>getters/setters</code> 定义。<br>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val Foo.bar = 1 // 错误：扩展属性不能有初始化器</span><br></pre></td></tr></table></figure>
+<h2 id="扩展伴生对象"><a href="#扩展伴生对象" class="headerlink" title="扩展伴生对象"></a>扩展伴生对象</h2><p>前面提到，一个类可以定义伴生对象，也可以针对伴生对象扩展</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package foo.bar.goo</span><br><span class="line"> class A  &#123;</span><br><span class="line"> 		companion object &#123;</span><br><span class="line"> 			</span><br><span class="line"> 		&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> fun A.Companion.sum() &#123;</span><br><span class="line">    // ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用时，仍然以<code>A.sum()</code>形式调用。</p>
+<h2 id="扩展作用域"><a href="#扩展作用域" class="headerlink" title="扩展作用域"></a>扩展作用域</h2><p>如果想在别的文件或类中调用定义的扩展，可以使用导入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">package foo.bar</span><br><span class="line">fun Baz.goo() &#123; …… &#125;</span><br></pre></td></tr></table></figure>
+<p>导入扩展方法名，或者所有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package com.example.usage</span><br><span class="line"></span><br><span class="line">import foo.bar.goo // 导入所有名为“goo”的扩展</span><br><span class="line">                   // 或者</span><br><span class="line">import foo.bar.*   // 从“foo.bar”导入一切</span><br><span class="line"></span><br><span class="line">fun usage(baz: Baz) &#123;</span><br><span class="line">    baz.goo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扩展分发者与接受者"><a href="#扩展分发者与接受者" class="headerlink" title="扩展分发者与接受者"></a>扩展分发者与接受者</h2><p>略~~</p>
+<h2 id="扩展设计的动机"><a href="#扩展设计的动机" class="headerlink" title="扩展设计的动机"></a>扩展设计的动机</h2><p>在java中的<code>Utils</code>太多太多，每次使用某个方法，就要调用Utils.xxx(), Utils.zzz(),  很不方便，使用扩展，更高效，灵活。</p>
+<p>参考：<a href="http://www.jianshu.com/p/7bca7dbaa40b" target="_blank" rel="noopener">单例与伴生对象</a><br>來源：简书</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_伴生对象与扩展方法/" data-id="cjel566gu000f6pqer6jnd5ur" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/03/kotlin入门_高阶函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin入门_高阶函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门-几种常见类</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

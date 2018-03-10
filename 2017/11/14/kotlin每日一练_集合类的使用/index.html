@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin每日一练_集合类的使用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言看了kotlin也一个多月了，总想写点代码，但总有一些概念不清楚，刚好借着练习（打码）的时机，去复习下概念。 kotlin中文网上面的资源已经相当多了。用于练习的资料，目测有：  kotlin-koans 一个已经写好测试代码，设计了很多任务，练习者只管完成任务就好了。相当方便。 kotlin-koans在线网站 和1.一样，只不过，无须下载开发工具导入项目，一切工作在网页完成即可。 gith">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin每日一练_集合类的使用">
+<meta property="og:url" content="http://yoursite.com/2017/11/14/kotlin每日一练_集合类的使用/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言看了kotlin也一个多月了，总想写点代码，但总有一些概念不清楚，刚好借着练习（打码）的时机，去复习下概念。 kotlin中文网上面的资源已经相当多了。用于练习的资料，目测有：  kotlin-koans 一个已经写好测试代码，设计了很多任务，练习者只管完成任务就好了。相当方便。 kotlin-koans在线网站 和1.一样，只不过，无须下载开发工具导入项目，一切工作在网页完成即可。 gith">
+<meta property="og:updated_time" content="2018-03-10T08:02:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin每日一练_集合类的使用">
+<meta name="twitter:description" content="前言看了kotlin也一个多月了，总想写点代码，但总有一些概念不清楚，刚好借着练习（打码）的时机，去复习下概念。 kotlin中文网上面的资源已经相当多了。用于练习的资料，目测有：  kotlin-koans 一个已经写好测试代码，设计了很多任务，练习者只管完成任务就好了。相当方便。 kotlin-koans在线网站 和1.一样，只不过，无须下载开发工具导入项目，一切工作在网页完成即可。 gith">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin每日一练_集合类的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/14/kotlin每日一练_集合类的使用/" class="article-date">
+  <time datetime="2017-11-14T11:01:43.000Z" itemprop="datePublished">2017-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin每日一练_集合类的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>看了kotlin也一个多月了，总想写点代码，但总有一些概念不清楚，刚好借着练习（打码）的时机，去复习下概念。</p>
+<p><a href="https://kotlincn.net" target="_blank" rel="noopener">kotlin中文网</a>上面的资源已经相当多了。用于练习的资料，目测有：</p>
+<ol>
+<li><code>kotlin-koans</code> 一个已经写好测试代码，设计了很多任务，练习者只管完成任务就好了。相当方便。</li>
+<li><code>kotlin-koans在线网站</code> 和1.一样，只不过，无须下载开发工具导入项目，一切工作在网页完成即可。</li>
+<li><code>github的一些成熟开源项目</code> 不乏大厂的项目。可以多多关注。</li>
+</ol>
+<p>这一章，主要使用标准库的<code>Collections</code>的一些常用工具类函数，初试kotlin的威力。</p>
+<p>这些函数<strong>包含但不限于</strong>：</p>
+<h2 id="to"><a href="#to" class="headerlink" title="to"></a>to</h2><p>在<code>Collections</code>中，有很多以<code>to</code> 开头的方法，可以把接受对象，转换成指定对象。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">list.toSet()</span><br><span class="line">list.toCollection(HashSet&lt;Int&gt;())</span><br><span class="line">list.toShortArray()</span><br><span class="line">// toLongArray</span><br><span class="line">// toShortArray</span><br><span class="line">// toDoubleArray</span><br><span class="line">// 。。。还有很多</span><br></pre></td></tr></table></figure>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Returns a list containing only elements matching the given [predicate].</span><br><span class="line"> */</span><br><span class="line">public inline fun &lt;T&gt; Iterable&lt;T&gt;.filter(predicate: (T) -&gt; Boolean): List&lt;T&gt; &#123;</span><br><span class="line">    return filterTo(ArrayList&lt;T&gt;(), predicate)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法作用是根据指定条件返回数据。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val positiveNumbers = list.filter &#123; it &gt; 0 &#125;</span><br></pre></td></tr></table></figure>
+<p>即返回list中大于0的元素集合。</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Returns a list containing the results of applying </span><br><span class="line"> * the given [transform] function to each element in the original collection.</span><br><span class="line"> */</span><br><span class="line">public inline fun &lt;T, R&gt; Iterable&lt;T&gt;.map(transform: (T) -&gt; R): List&lt;R&gt; &#123;</span><br><span class="line">    return mapTo(ArrayList&lt;R&gt;(collectionSizeOrDefault(10)), transform)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法返回的列表是原来集合的每个元素用<code>transform</code>方法处理之后的列表。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val squares = list.map &#123; it * it &#125; // 把list中每个item=item*item，最终形成一个新的list。</span><br></pre></td></tr></table></figure>
+<h2 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h2><p>还有个方法<code>flatMap</code>可以拆分列表。这个方法其实很有用，非常适合拆分一些字符串，按组分类的列表。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val result = listOf(&quot;abc&quot;, &quot;12&quot;).flatMap &#123; it.toList() &#125;</span><br><span class="line">result == listOf(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;1&apos;, &apos;2&apos;) // true, 因为flatMap已经把字符串拆分</span><br></pre></td></tr></table></figure>
+<h2 id="any-all-cout-firstOrNull"><a href="#any-all-cout-firstOrNull" class="headerlink" title="any, all, cout, firstOrNull"></a>any, all, cout, firstOrNull</h2><p>这些方法也挺有用。</p>
+<ol>
+<li><code>any</code> 接受一个lambda表达式，根据条件查找集合中任何符合lambda表达式条件的元素，存在返回true，否则，返回false。</li>
+<li><code>all</code> 接受一个lambda表达式，根据条件判断集合所有元素是否符合条件。</li>
+<li><code>count</code> 接受一个lambda表达式，统计集合中所有符合条件的元素个数。</li>
+<li><code>firstOrNull</code> 接受一个lambda表达式，查找第一个符合条件的元素。</li>
+</ol>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fun example2(list: List&lt;Int&gt;) &#123;</span><br><span class="line"></span><br><span class="line">    val isZero: (Int) -&gt; Boolean = &#123; it == 0 &#125;</span><br><span class="line"></span><br><span class="line">    val hasZero: Boolean = list.any(isZero) // list是否有0</span><br><span class="line"></span><br><span class="line">    val allZeros: Boolean = list.all(isZero) // list是否所有值都是0</span><br><span class="line"></span><br><span class="line">    val numberOfZeros: Int = list.count(isZero) // list包含多少个0</span><br><span class="line"></span><br><span class="line">    val firstPositiveNumber: Int? = list.firstOrNull &#123; it &gt; 0 &#125; // 获取 list 里第一个大于0的元素</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="maxBy"><a href="#maxBy" class="headerlink" title="maxBy"></a>maxBy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Returns the first element yielding the largest value of </span><br><span class="line"> * the given function or `null` if there are no elements.</span><br><span class="line"> */</span><br><span class="line"> public inline fun &lt;T, R : Comparable&lt;R&gt;&gt; Iterable&lt;T&gt;.maxBy(selector: (T) -&gt; R): T?</span><br></pre></td></tr></table></figure>
+<p>返回第一个<code>最大值的元素</code>，当然这个<strong>最大</strong>，还是要根据给定的方法决定。如果没数据返回<code>null</code>.<br>当然，有max，就有相反的<code>min</code>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val max = listOf(1, 42, 4).max() // 返回42</span><br><span class="line">val longestString = listOf(&quot;a&quot;, &quot;b&quot;).maxBy &#123; it.length &#125; // 返回1</span><br></pre></td></tr></table></figure>
+<h2 id="sortedBy"><a href="#sortedBy" class="headerlink" title="sortedBy"></a>sortedBy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * Returns a list of all elements sorted according to natural sort order of the </span><br><span class="line"> * value returned by specified [selector] function.</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>返回排序好的列表</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val result = listOf(&quot;a&quot;, &quot;bbb&quot;, &quot;cc&quot;).sortedBy &#123; it.length &#125;</span><br><span class="line">result == listOf(&quot;a&quot;, &quot;cc&quot;, &quot;bbb&quot;) // 返回true</span><br></pre></td></tr></table></figure>
+<h2 id="sumBy"><a href="#sumBy" class="headerlink" title="sumBy"></a>sumBy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Returns the sum of all values produced by [selector] function applied </span><br><span class="line"> * to each element in the collection.</span><br><span class="line"> */</span><br><span class="line">public inline fun &lt;T&gt; Iterable&lt;T&gt;.sumBy(selector: (T) -&gt; Int): Int</span><br></pre></td></tr></table></figure>
+<p>返回返回每个元素代入<code>selector</code>函数，返回结果的累加。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listOf(1, 3).sum() == 4</span><br><span class="line">listOf(&quot;a&quot;, &quot;b&quot;, &quot;cc&quot;).sumBy &#123; it.length &#125; == 4</span><br></pre></td></tr></table></figure>
+<p>第一个累加列表的所有整数。<br>第二个累加列表的字符串长度。</p>
+<h2 id="groupBy"><a href="#groupBy" class="headerlink" title="groupBy"></a>groupBy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Groups elements of the original collection by the key returned by </span><br><span class="line"> * the given [keySelector] function applied to each element and returns </span><br><span class="line"> * a map where each group key is associated with a list of corresponding elements.</span><br><span class="line"> * The returned map preserves the entry iteration order of the keys produced </span><br><span class="line"> * from the original collection.</span><br><span class="line"> * @sample samples.collections.Collections.Transformations.groupBy</span><br><span class="line"> */</span><br><span class="line">public inline fun &lt;T, K&gt; Iterable&lt;T&gt;.groupBy(keySelector: (T) -&gt; K): Map&lt;K, List&lt;T&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>这大段大段的注释，是在讲个什么鬼？<br>其实就是分组，每组有个key，所有元素就按这几个key分组。而且key是有序的。返回的结果，自然是个<code>Map&lt;K,List&lt;T&gt;&gt;</code>.</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val result = listOf(&quot;a&quot;, &quot;b&quot;, &quot;ba&quot;, &quot;ccc&quot;, &quot;ad&quot;).groupBy &#123; it.length &#125;</span><br><span class="line"></span><br><span class="line">result == mapOf(1 to listOf(&quot;a&quot;, &quot;b&quot;), 2 to listOf(&quot;ba&quot;, &quot;ad&quot;), 3 to listOf(&quot;ccc&quot;)) // result的结果就是==后面的结果</span><br></pre></td></tr></table></figure>
+<h2 id="partition"><a href="#partition" class="headerlink" title="partition"></a>partition</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Splits the original collection into pair of lists,</span><br><span class="line"> * where *first* list contains elements for which [predicate] yielded `true`,</span><br><span class="line"> * while *second* list contains elements for which [predicate] yielded `false`.</span><br><span class="line"> */</span><br><span class="line">public inline fun &lt;T&gt; Iterable&lt;T&gt;.partition(predicate: (T) -&gt; Boolean): Pair&lt;List&lt;T&gt;, List&lt;T&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>这个方法作用是：把lists分割成一对lists。前一个list包含的元素作用到<code>predicate</code> = <code>true</code>, 后一个list包含的元素作用到<code>predicate</code> = <code>false</code>。</p>
+<p><strong>示例</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">val numbers = listOf(1, 3, -4, 2, -11)</span><br><span class="line"></span><br><span class="line">// The details (how multi-assignment works) will be explained later in the &apos;Conventions&apos; task</span><br><span class="line">val (positive, negative) = numbers.partition &#123; it &gt; 0 &#125;</span><br><span class="line"></span><br><span class="line">positive == listOf(1, 3, 2)</span><br><span class="line">negative == listOf(-4, -11)</span><br></pre></td></tr></table></figure></p>
+<p>这里，就不必多说了吧，正负数分成两个列表。代码中用到一个技巧：<a href="https://www.kotlincn.net/docs/reference/multi-declarations.html" target="_blank" rel="noopener"><strong>解构</strong></a></p>
+<h2 id="fold"><a href="#fold" class="headerlink" title="fold"></a>fold</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * Accumulates value starting with [initial] value and applying [operation] from </span><br><span class="line"> * left to right to current accumulator value and each element.</span><br><span class="line"> */</span><br><span class="line">public inline fun &lt;T, R&gt; Iterable&lt;T&gt;.fold(initial: R, operation: (acc: R, T) -&gt; R): R</span><br></pre></td></tr></table></figure>
+<p>从初始值 <code>initial</code>开始，从左到右累积 <code>operation</code> 计算的结果。有可能是累加，有可能是累乘。</p>
+<p><strong>示例</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val result = listOf(1, 2, 3, 4).fold(1, &#123; partResult, element -&gt; element * partResult &#125;)</span><br><span class="line">result == 24  // true</span><br></pre></td></tr></table></figure></p>
+<p>上面这段代码就是从元素1，开始累乘，elment代表了<code>列表</code>需要每次<strong>累乘</strong>(其他代码中脑补替换该词)的元素。</p>
+<h2 id="java与kotlin搞事情的不同之处"><a href="#java与kotlin搞事情的不同之处" class="headerlink" title="java与kotlin搞事情的不同之处"></a>java与kotlin搞事情的不同之处</h2><p>kotlin之所以宣称简洁，是因为他的代码真的简洁。同样一段代码，用java写，再用kotlin写会感觉极大的<code>轻松和简单</code>。</p>
+<p>例如下面这段对list做了一些复杂操作，最后搞出个结果的<code>java函数</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public Collection&lt;String&gt; doSomethingStrangeWithCollection(Collection&lt;String&gt; collection) &#123;</span><br><span class="line">    Map&lt;Integer, List&lt;String&gt;&gt; groupsByLength = Maps.newHashMap();</span><br><span class="line">    for (String s : collection) &#123;</span><br><span class="line">        List&lt;String&gt; strings = groupsByLength.get(s.length());</span><br><span class="line">        if (strings == null) &#123;</span><br><span class="line">            strings = Lists.newArrayList();</span><br><span class="line">            groupsByLength.put(s.length(), strings);</span><br><span class="line">        &#125;</span><br><span class="line">        strings.add(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int maximumSizeOfGroup = 0;</span><br><span class="line">    for (List&lt;String&gt; group : groupsByLength.values()) &#123;</span><br><span class="line">        if (group.size() &gt; maximumSizeOfGroup) &#123;</span><br><span class="line">            maximumSizeOfGroup = group.size();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (List&lt;String&gt; group : groupsByLength.values()) &#123;</span><br><span class="line">        if (group.size() == maximumSizeOfGroup) &#123;</span><br><span class="line">            return group;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们用kotlin写只需几行代码实现上述功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun doSomethingStrangeWithCollection(collection: Collection&lt;String&gt;): Collection&lt;String&gt;? &#123;</span><br><span class="line"></span><br><span class="line">    val groupsByLength = collection.groupBy &#123; s -&gt; s.length &#125;</span><br><span class="line"></span><br><span class="line">    return groupsByLength.values.maxBy &#123; group -&gt; group.size &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以使用kotlin将极大的提高我们的生产效率！！kotlin万岁！</p>
+<p>参考：</p>
+<p><a href="">#解构</a><br><a href="https://try.kotlinlang.org/#/Kotlin%20Koans/Collections/Introduction/TestShop.kt" target="_blank" rel="noopener">kotlin-koans</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/14/kotlin每日一练_集合类的使用/" data-id="cjel566hq00196pqe454zu9jp" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/17/kotlin资源/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin资源
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/08/kotlin入门-反射/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门_反射</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>android23示例代码阅读 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="12梅花香自苦寒来，保剑锋从磨砺出！                              -- 《增广贤文之勤奋篇》 关键词1安卓 API23 jobService RepeatAlarm 今天看了2个api 23的示例代码项目。前两个admin，androidtv的暂时用不上，直接看第三个了。这里记录一下。 项目在sdk路径下：sdk/samples/android-23/backgrou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android23示例代码阅读">
+<meta property="og:url" content="http://yoursite.com/2017/05/22/android23示例代码阅读/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12梅花香自苦寒来，保剑锋从磨砺出！                              -- 《增广贤文之勤奋篇》 关键词1安卓 API23 jobService RepeatAlarm 今天看了2个api 23的示例代码项目。前两个admin，androidtv的暂时用不上，直接看第三个了。这里记录一下。 项目在sdk路径下：sdk/samples/android-23/backgrou">
+<meta property="og:updated_time" content="2017-12-17T15:32:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android23示例代码阅读">
+<meta name="twitter:description" content="12梅花香自苦寒来，保剑锋从磨砺出！                              -- 《增广贤文之勤奋篇》 关键词1安卓 API23 jobService RepeatAlarm 今天看了2个api 23的示例代码项目。前两个admin，androidtv的暂时用不上，直接看第三个了。这里记录一下。 项目在sdk路径下：sdk/samples/android-23/backgrou">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android23示例代码阅读" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/05/22/android23示例代码阅读/" class="article-date">
+  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android23示例代码阅读
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">梅花香自苦寒来，保剑锋从磨砺出！</span><br><span class="line">                              -- 《增广贤文之勤奋篇》</span><br></pre></td></tr></table></figure>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安卓 API23 jobService RepeatAlarm</span><br></pre></td></tr></table></figure>
+<p>今天看了2个api 23的示例代码项目。前两个admin，androidtv的暂时用不上，直接看第三个了。这里记录一下。</p>
+<p>项目在sdk路径下：<br>sdk/samples/android-23/background/JobScheduler<br>sdk/samples/android-23/background/RepeatingAlarm </p>
+<h2 id="一-JobScheduler"><a href="#一-JobScheduler" class="headerlink" title="一. JobScheduler"></a>一. JobScheduler</h2><h3 id="JobServce的使用场景"><a href="#JobServce的使用场景" class="headerlink" title="JobServce的使用场景"></a>JobServce的使用场景</h3><p>项目主要讲如何使用<code>JobServce</code>。 JobService一般和<code>JobScheduler</code>配合使用，我们一般在JobService获取一个<code>JobScheduler</code>实例，调用其schedue()方法，把一个任务加入调度队列，在下列情况下使用：</p>
+<pre><code>1. APP有可以推迟的非面向用户的工作
+2. APP有当插入设备时您希望优先执行的工作
+3. APP有需要访问网络或 Wi-Fi 连接的任务
+4. APP有希望作为一个批次定期运行的许多任务
+</code></pre><h3 id="如何使用JobService？"><a href="#如何使用JobService？" class="headerlink" title="如何使用JobService？"></a>如何使用JobService？</h3><p>首先在Mainifest.xml里配置服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;service  </span><br><span class="line">	android:name=&quot;.TestJobService&quot;  </span><br><span class="line">	android:enabled=&quot;true&quot;  </span><br><span class="line">	android:exported=&quot;true&quot;  </span><br><span class="line">	android:permission=&quot;android.permission.BIND_JOB_SERVICE&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>TestJobService就是<code>JobService</code>的子类。</p>
+<p>JobService的使用和IntentService类似的:</p>
+<ol>
+<li>继承父类：<code>JobService</code>。</li>
+<li>覆盖：<code>public int onStartCommand(Intent intent, int flags, int startId)</code>,<br><code>public boolean onStartJob(JobParameters params)</code> 两个方法。</li>
+</ol>
+<p>具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class TestJobService extends JobService &#123;</span><br><span class="line">	@Override</span><br><span class="line">	    public boolean onStartJob(JobParameters params) &#123;</span><br><span class="line">	        // We don&apos;t do any real &apos;work&apos; in this sample app. All we&apos;ll</span><br><span class="line">	        // do is track which jobs have landed on our service, and</span><br><span class="line">	        // update the UI accordingly.</span><br><span class="line">	        jobParamsMap.add(params);</span><br><span class="line">	        if (mActivity != null) &#123;</span><br><span class="line">	            mActivity.onReceivedStartJob(params);</span><br><span class="line">	        &#125;</span><br><span class="line">	        Log.i(TAG, &quot;on start job: &quot; + params.getJobId());</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	    @Override</span><br><span class="line">	    public boolean onStopJob(JobParameters params) &#123;</span><br><span class="line">	        // Stop tracking these job parameters, as we&apos;ve &apos;finished&apos; executing.</span><br><span class="line">	        jobParamsMap.remove(params);</span><br><span class="line">	        if (mActivity != null) &#123;</span><br><span class="line">	            mActivity.onReceivedStopJob();</span><br><span class="line">	        &#125;</span><br><span class="line">	        Log.i(TAG, &quot;on stop job: &quot; + params.getJobId());</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	    MainActivity mActivity;</span><br><span class="line">	    private final LinkedList&lt;JobParameters&gt; jobParamsMap = new LinkedList&lt;JobParameters&gt;();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>但是我们也注意到了，存放任务参数的是<code>LinkedList&lt;JobParameters&gt;</code>，如何启动一个任务呢？<br>调用一下下面这个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// Send job to the JobScheduler.</span><br><span class="line">public void scheduleJob(JobInfo t) &#123;</span><br><span class="line">    Log.d(TAG, &quot;Scheduling job&quot;);</span><br><span class="line">    JobScheduler tm =</span><br><span class="line">            (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);</span><br><span class="line">    tm.schedule(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>于是，我们需要传入一个JobInfo对象。使用其内部类JobInfo.Builder构建即可，这里关键要设置jobId，才能区分多个任务。</p>
+<p>对JobInfo的构建参数说明：</p>
+<pre><code>* setMinimumLatency(long minLatencyMillis): 这个函数能让你设置任务的延迟执行时间(单位是毫秒),这个函数与setPeriodic(long time)方法不兼容，如果这两个方法同时调用了就会引起异常；
+*    setOverrideDeadline(long maxExecutionDelayMillis):  这个方法让你可以设置任务最晚的延迟时间。如果到了规定的时间时其他条件还未满足，你的任务也会被启动。与setMinimumLatency(long time)一样，这个方法也会与setPeriodic(long time)，同时调用这两个方法会引发异常。
+*    setPersisted(boolean isPersisted):  这个方法告诉系统当你的设备重启之后你的任务是否还要继续执行。
+*    setRequiredNetworkType(int networkType):  这个方法让你这个任务只有在满足指定的网络条件时才会被执行。默认条件是JobInfo.NETWORK_TYPE_NONE，这意味着不管是否有网络这个任务都会被执行。另外两个可选类型，一种是JobInfo.NETWORK_TYPE_ANY，它表明需要任意一种网络才使得任务可以执行。另一种是JobInfo.NETWORK_TYPE_UNMETERED，它表示设备不是蜂窝网络( 比如在WIFI连接时 )时任务才会被执行。
+*  setRequiresCharging(boolean requiresCharging):  这个方法告诉你的应用，只有当设备在充电时这个任务才会被执行。
+*    setRequiresDeviceIdle(boolean requiresDeviceIdle):  这个方法告诉你的任务只有当用户没有在使用该设备且有一段时间没有使用时才会启动该任务。
+</code></pre><h3 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h3><p>当任务执行完毕之后，你需要调用<code>jobFinished(JobParameters params, boolean needsRescheduled)</code>来让系统知道这个任务已经结束，系统可以将下一个任务添加到队列中。如果你没有调用<code>jobFinished(JobParameters params, boolean needsRescheduled)</code>，你的任务只会执行一次，而应用中的其他任务就不会被执行。</p>
+<p>我们可以在<code>onStartJob(...)</code>方法里启动一个服务或线程，或者，传一个handler进来，用handler自己发送消息，自己处理任务来执行多任务。</p>
+<h3 id="那么，和IntentService用什么区别？"><a href="#那么，和IntentService用什么区别？" class="headerlink" title="那么，和IntentService用什么区别？"></a>那么，和IntentService用什么区别？</h3><p>根据我自己的理解，总结有以下几点区别：</p>
+<ol>
+<li>JobService 可以对任务调度。（调度参数参考JobInfo)。</li>
+<li>IntentService自己开启一个WorkThread执行。JobService 不是，需要用户自定义线程或任务。</li>
+<li>JobService需要调用方法提醒任务结束。IntentService不用。</li>
+</ol>
+<h2 id="二-RepeatingAlarm"><a href="#二-RepeatingAlarm" class="headerlink" title="二. RepeatingAlarm"></a>二. RepeatingAlarm</h2><p>这个项目演示如何用AlarmManager设置定时器，当时间到了，把主activity展示出来。</p>
+<p>其中的关键代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent(getActivity(), MainActivity.class);</span><br><span class="line">intent.setAction(Intent.ACTION_MAIN);</span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);</span><br><span class="line">PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), REQUEST_CODE, intent, 0); </span><br><span class="line">int alarmType = AlarmManager.ELAPSED_REALTIME;</span><br><span class="line">final int FIFTEEN_SEC_MILLIS = 15000;</span><br><span class="line">AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(getActivity().ALARM_SERVICE);</span><br><span class="line">alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime() + FIFTEEN_SEC_MILLIS, FIFTEEN_SEC_MILLIS, pendingIntent);</span><br></pre></td></tr></table></figure>
+<p>使用了一个<code>PendingIntent</code>对象作为定时器设置的一个参数，当定时器时间到了，弹出指定的<code>MainActivity.class</code>. 在示例中还有很多注释，各位不妨有空看看。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjel566fn00016pqec0wsq60c" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/05/31/git常用命令/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/05/22/如何查看android源码/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

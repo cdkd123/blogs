@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: fackbook f8app 源码分析date: 1492596999000 tags: f8appF8app.js刚进入app，就进入了登录界面，当点击x，也会进入主界面，我们这里主要就跟踪一下“程序如何进入FriendsScheduleView界面的。这个文件是f8app的入口文件，我们暂时不看componentDidMount()方法做了什么，直接看render()方法: 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2017/04/19/fackbook_f8app_源码分析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: fackbook f8app 源码分析date: 1492596999000 tags: f8appF8app.js刚进入app，就进入了登录界面，当点击x，也会进入主界面，我们这里主要就跟踪一下“程序如何进入FriendsScheduleView界面的。这个文件是f8app的入口文件，我们暂时不看componentDidMount()方法做了什么，直接看render()方法: 1">
+<meta property="og:updated_time" content="2017-12-17T15:28:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="title: fackbook f8app 源码分析date: 1492596999000 tags: f8appF8app.js刚进入app，就进入了登录界面，当点击x，也会进入主界面，我们这里主要就跟踪一下“程序如何进入FriendsScheduleView界面的。这个文件是f8app的入口文件，我们暂时不看componentDidMount()方法做了什么，直接看render()方法: 1">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-fackbook_f8app_源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/04/19/fackbook_f8app_源码分析/" class="article-date">
+  <time datetime="2017-04-19T10:16:39.000Z" itemprop="datePublished">2017-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: fackbook f8app 源码分析<br>date: 1492596999000</p>
+<h2 id="tags-f8app"><a href="#tags-f8app" class="headerlink" title="tags: f8app"></a>tags: f8app</h2><h2 id="F8app-js"><a href="#F8app-js" class="headerlink" title="F8app.js"></a>F8app.js</h2><p>刚进入app，就进入了登录界面，当点击x，也会进入主界面，我们这里主要就跟踪一下“程序如何进入<em>FriendsScheduleView</em>界面的。<br>这个文件是f8app的入口文件，我们暂时不看<em>componentDidMount()</em>方法做了什么，直接看<em>render()</em>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">render: function() &#123;</span><br><span class="line">    if (!this.props.isLoggedIn) &#123;</span><br><span class="line">      return &lt;LoginScreen /&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">    return (</span><br><span class="line">      &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">        &lt;StatusBar</span><br><span class="line">          translucent=&#123;true&#125;</span><br><span class="line">          backgroundColor=&quot;rgba(0, 0, 0, 0.2)&quot;</span><br><span class="line">          barStyle=&quot;light-content&quot;</span><br><span class="line">         /&gt;</span><br><span class="line">        &lt;F8Navigator /&gt;</span><br><span class="line">        &lt;PushNotificationsController /&gt;</span><br><span class="line">      &lt;/View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这里，看到基本逻辑是：如果未登录，直接进入登录界面<em>LoginScreen</em>, 否则，就进入主界面，主界面放在了<em>F8Navigator</em>组件中，下面的<em>PushNotificationsController</em>是和推送通知相关。</p>
+<p>然后，我们就去看<em>F8Navigator</em>组件的<em>render()</em>方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">render: function() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;Navigator</span><br><span class="line">        ref=&quot;navigator&quot;</span><br><span class="line">        style=&#123;styles.container&#125;</span><br><span class="line">        configureScene=&#123;(route) =&gt; &#123;</span><br><span class="line">          if (Platform.OS === &apos;android&apos;) &#123;</span><br><span class="line">            return Navigator.SceneConfigs.FloatFromBottomAndroid;</span><br><span class="line">          &#125;</span><br><span class="line">          // TODO: Proper scene support</span><br><span class="line">          // 如果是分享界面，界面从右进入。</span><br><span class="line">          if (route.shareSettings || route.friend) &#123;</span><br><span class="line">            return Navigator.SceneConfigs.FloatFromRight;</span><br><span class="line">          // 其他界面，就从下往上进入。</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            return Navigator.SceneConfigs.FloatFromBottom;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">        initialRoute=&#123;&#123;&#125;&#125;</span><br><span class="line">        renderScene=&#123;this.renderScene&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>在这个方法里，其实也没做什么事情，使用了一个Navigator组件，配置了它的部分属性而已。所有其他的界面切换，都可以使用这个导航器了。<br>重点在于<em>this.renderScene()</em>方法，里面做了相当多简单if判断。我们看到这句:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (route.friend) &#123;</span><br><span class="line">      return (</span><br><span class="line">        &lt;FriendsScheduleView</span><br><span class="line">          friend=&#123;route.friend&#125;</span><br><span class="line">          navigator=&#123;navigator&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>就知道，程序根据route传达的friend变量，判断进入Schedule视图的。Schedule里面其实就是2个列表。比较奇特的是，可以左右滑动。那么，这个app是如何做到的呢？</p>
+<p>下次再议！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/19/fackbook_f8app_源码分析/" data-id="cjel566fv00026pqe8oaytxe6" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/05/04/小娘惹的搞笑人生/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

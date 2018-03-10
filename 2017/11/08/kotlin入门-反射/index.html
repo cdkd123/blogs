@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门_反射 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="kotlin的反射程序运行时，我们经常会想获取一个类的属性，和方法名称，尤其是别人给了一个jar文件，通过反编译可以知道方法名称，参数，但就是不知道功能时。这时候，通过引用”方法“名称，并调用invoke()方法（java的方式）。kotlin会有自己的方式实现这些反射功能。 类引用一个类，在kotlin中，也能获取他的引用： 1234class MyClass &amp;#123;&amp;#125;val w">
+<meta name="keywords" content="kotlin,反射">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门_反射">
+<meta property="og:url" content="http://yoursite.com/2017/11/08/kotlin入门-反射/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="kotlin的反射程序运行时，我们经常会想获取一个类的属性，和方法名称，尤其是别人给了一个jar文件，通过反编译可以知道方法名称，参数，但就是不知道功能时。这时候，通过引用”方法“名称，并调用invoke()方法（java的方式）。kotlin会有自己的方式实现这些反射功能。 类引用一个类，在kotlin中，也能获取他的引用： 1234class MyClass &amp;#123;&amp;#125;val w">
+<meta property="og:updated_time" content="2018-03-10T08:08:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门_反射">
+<meta name="twitter:description" content="kotlin的反射程序运行时，我们经常会想获取一个类的属性，和方法名称，尤其是别人给了一个jar文件，通过反编译可以知道方法名称，参数，但就是不知道功能时。这时候，通过引用”方法“名称，并调用invoke()方法（java的方式）。kotlin会有自己的方式实现这些反射功能。 类引用一个类，在kotlin中，也能获取他的引用： 1234class MyClass &amp;#123;&amp;#125;val w">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门-反射" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/08/kotlin入门-反射/" class="article-date">
+  <time datetime="2017-11-08T09:25:02.000Z" itemprop="datePublished">2017-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门_反射
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="kotlin的反射"><a href="#kotlin的反射" class="headerlink" title="kotlin的反射"></a>kotlin的反射</h2><p>程序运行时，我们经常会想获取一个类的属性，和方法名称，尤其是别人给了一个jar文件，通过反编译可以知道方法名称，参数，但就是不知道功能时。这时候，通过引用”方法“名称，并调用invoke()方法（java的方式）。kotlin会有自己的方式实现这些反射功能。</p>
+<h2 id="类引用"><a href="#类引用" class="headerlink" title="类引用"></a>类引用</h2><p>一个类，在kotlin中，也能获取他的引用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val widget = MyClass::class</span><br></pre></td></tr></table></figure>
+<p>这样就获取了类引用。</p>
+<h2 id="绑定的类引用"><a href="#绑定的类引用" class="headerlink" title="绑定的类引用"></a>绑定的类引用</h2><p>子类在引用时，可以绑定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val widget: Widget = ...</span><br><span class="line">if(widget is GoodWidget) &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里，我们就获取一个Widget类或子类的引用。</p>
+<h2 id="函数引用"><a href="#函数引用" class="headerlink" title="函数引用"></a>函数引用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun isOdd(x: Int): Boolean = x%2 != 0</span><br></pre></td></tr></table></figure>
+<p>可以把这个函数当做值传递，例如，传递给一个函数的参数，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val list: List = listOf(1, 2, 3)</span><br><span class="line">val result = list.filter(::isOdd) // 结果[1,3]</span><br></pre></td></tr></table></figure>
+<p>甚至可以用一个”显示声明的变量“存储它，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val odd: (Int) -&gt; Boolean = isOdd</span><br></pre></td></tr></table></figure>
+<p>在当前上下文可以这样引用，但是，如果引用一个其他类的成员函数，或者属性，可以<code>String::toCharArray</code></p>
+<h2 id="属性引用"><a href="#属性引用" class="headerlink" title="属性引用"></a>属性引用</h2><p>函数可以引用，当然属性也可以的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val x = 5</span><br><span class="line"></span><br><span class="line">fun print() &#123;</span><br><span class="line">	println(::x.get()) // 5</span><br><span class="line">	println(::x.name) // x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，可变属性还可以访问<code>::x.set()</code>这样的方法。</p>
+<h2 id="和java反射的互操作"><a href="#和java反射的互操作" class="headerlink" title="和java反射的互操作"></a>和java反射的互操作</h2><p>标准库已经实现了kotlin-&gt;java的反射映射。<br>想要在kotlin中，获取一个java类的属性或者背后字段，可以这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import kotlin.reflect.jvm.*</span><br><span class="line"></span><br><span class="line">class A(val p: Int) </span><br><span class="line"></span><br><span class="line">fun printjava() &#123;</span><br><span class="line">	println(A::p.javaGetter) // 输出public final int A.p.getP()</span><br><span class="line">   println(A::p.javaField) // 输出private final int A.p</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的，想要获取java对应的kotlin字段，使用扩展属性：.kotlin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun getKClass(o: Any): KClass&lt;Any&gt; = o.javaClass.kotlin</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/08/kotlin入门-反射/" data-id="cjel566go000c6pqerfxnzj7d" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/反射/">反射</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/14/kotlin每日一练_集合类的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin每日一练_集合类的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/08/kotlin入门_偏函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门_偏函数.md</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

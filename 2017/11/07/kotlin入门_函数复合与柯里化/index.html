@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门-函数复合与curry化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="函数复合的基本感念在数学表达式中，经常有u = f(x), v = g(y), 则 y = f(g(x)) 就是y关于x的复合函数，复合函数把前一个关于x的函数u的结果，作为后者函数v的输入，最后得出复合函数的结果。就是几个简单函数嵌套成一个复杂函数。 kotlin也能表达这种复杂的数学公式。 复合函数举个简单的栗子，第一个函数sum(x) 让 x + 1, 第二个函数 mut(x) 让 x *">
+<meta name="keywords" content="kotlin,复合函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门-函数复合与curry化">
+<meta property="og:url" content="http://yoursite.com/2017/11/07/kotlin入门_函数复合与柯里化/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="函数复合的基本感念在数学表达式中，经常有u = f(x), v = g(y), 则 y = f(g(x)) 就是y关于x的复合函数，复合函数把前一个关于x的函数u的结果，作为后者函数v的输入，最后得出复合函数的结果。就是几个简单函数嵌套成一个复杂函数。 kotlin也能表达这种复杂的数学公式。 复合函数举个简单的栗子，第一个函数sum(x) 让 x + 1, 第二个函数 mut(x) 让 x *">
+<meta property="og:updated_time" content="2018-03-10T08:06:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门-函数复合与curry化">
+<meta name="twitter:description" content="函数复合的基本感念在数学表达式中，经常有u = f(x), v = g(y), 则 y = f(g(x)) 就是y关于x的复合函数，复合函数把前一个关于x的函数u的结果，作为后者函数v的输入，最后得出复合函数的结果。就是几个简单函数嵌套成一个复杂函数。 kotlin也能表达这种复杂的数学公式。 复合函数举个简单的栗子，第一个函数sum(x) 让 x + 1, 第二个函数 mut(x) 让 x *">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门_函数复合与柯里化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/07/kotlin入门_函数复合与柯里化/" class="article-date">
+  <time datetime="2017-11-07T06:24:30.000Z" itemprop="datePublished">2017-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门-函数复合与curry化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数复合的基本感念"><a href="#函数复合的基本感念" class="headerlink" title="函数复合的基本感念"></a>函数复合的基本感念</h2><p>在数学表达式中，经常有u = f(x), v = g(y), 则 y = f(g(x)) 就是y关于x的复合函数，复合函数把前一个关于x的函数u的结果，作为后者函数v的输入，最后得出复合函数的结果。就是几个简单函数嵌套成一个复杂函数。</p>
+<p>kotlin也能表达这种复杂的数学公式。</p>
+<h2 id="复合函数"><a href="#复合函数" class="headerlink" title="复合函数"></a>复合函数</h2><p>举个简单的栗子，第一个函数sum(x) 让 x + 1, 第二个函数 mut(x) 让 x * 3，现在我们想复合函数 sum, mut, 得到一个新函数。怎么办?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun sum(val x: Int) = x + 1</span><br><span class="line"></span><br><span class="line">fun mut(val x: Int) = x * 3</span><br></pre></td></tr></table></figure>
+<p>定义复合函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;A, B, C&gt; compose(f: (B) -&gt; C, g: (A) -&gt; B): (A) -&gt; C &#123;</span><br><span class="line">    return &#123; x -&gt; f(g(x)) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就定义了比较通用的复合函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun sum(x: Int): Int = x + 1</span><br><span class="line"></span><br><span class="line">fun mut(x: Int): Int = (x * 3)</span><br><span class="line"></span><br><span class="line">fun &lt;A, B, R&gt; compose(f: (A) -&gt; B, g: (B) -&gt; R): (A) -&gt; R &#123;</span><br><span class="line">    return &#123; x -&gt; g(f(x)) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">     </span><br><span class="line">    val funx = compose(::sum, ::mut)</span><br><span class="line">    funx(5)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，传给类型参数A，B，R都是Int，把函数sum的结果，当做参数，传给mut，最终计算结果。在return语句中，使用了一个lambda表达式，lambda表达式和匿名函数等价的。相当于:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return fun result(x: A) = g(f(x))</span><br></pre></td></tr></table></figure>
+<p>计算过程就是：x+1 = 6, x = 6, x*3 = 18.</p>
+<h2 id="另一种复合函数的写法"><a href="#另一种复合函数的写法" class="headerlink" title="另一种复合函数的写法"></a>另一种复合函数的写法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">infix fun &lt;A, P, R&gt; Function1&lt;A, P&gt;.compose(function: Function1&lt;P, R&gt;): Function1&lt;A, R&gt; &#123;</span><br><span class="line">  return fun(a: A): R &#123;</span><br><span class="line">      return function.invoke(this.invoke(a))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//调用</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val fun1 = &#123; i : Int -&gt; i + 1 &#125;</span><br><span class="line">    val fun2 = &#123; i : Int -&gt; i * 3 &#125;</span><br><span class="line">    val result_12 = fun1 compose fun2 //复合后的函数：result_12</span><br><span class="line">    println(result_12( 5 ))  //调用复合后的函数，结果是 14</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val result_12 = fun1 compose fun2</span><br></pre></td></tr></table></figure>
+<p>这是一种<a href="https://www.kotlincn.net/docs/reference/functions.html#中缀表示法" target="_blank" rel="noopener">中缀表示法</a>。</p>
+<h2 id="函数的科里化（currying）基本概念"><a href="#函数的科里化（currying）基本概念" class="headerlink" title="函数的科里化（currying）基本概念"></a>函数的科里化（currying）基本概念</h2><p>在scala，javascript中有这个概念–<strong>函数柯里化</strong>，定义如下：</p>
+<ul>
+<li><p>柯里化(Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。</p>
+</li>
+<li><p>柯里化是一种简化代码的方法。实现了point-free风格，最终让代码变得清晰，易懂。</p>
+</li>
+<li><p>kotlin自身没有currying的相关方法。我们可以自己用kotlin实现一个包含3个参数x，y，z的函数，转化为只用单个参数的3个函数。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;P1, P2, P3, R&gt; Function3&lt;P1, P2, P3, R&gt;.currying():</span><br><span class="line">        (p1: P1) -&gt; (p2: P2) -&gt; (p3: P3) -&gt; R</span><br><span class="line">        = fun(p1: P1) = fun(p2: P2) = fun(p3: P3) = this(p1, p2, p3)</span><br><span class="line"></span><br><span class="line">fun calculate(x: Int, y: Int, z: Int) = x * y + z</span><br><span class="line">val curriedCalculate = ::calculate.currying()</span><br><span class="line"></span><br><span class="line">//调用</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">	val temp2Cal = (::calculate.currying())(2)</span><br><span class="line">	val tempCalculate = (::calculate.currying())(2)(2)</span><br><span class="line">	println(calculate(2,2,2))</span><br><span class="line">	println(curriedCalculate(2)(2)(2))</span><br><span class="line">	println(temp2Cal(2)(4))</span><br><span class="line">	println(tempCalculate(2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码把带3个参数的函数calculate，用自定义的柯里化函数<code>currying()</code>,分解成单个参数的函数。而使用者用的时候，不必关心运算过程。从而实现代码的简化。</p>
+<h2 id="扩展-Pointfree风格"><a href="#扩展-Pointfree风格" class="headerlink" title="扩展 Pointfree风格"></a>扩展 Pointfree风格</h2><p>简单说，<a href="http://www.ruanyifeng.com/blog/2017/03/pointfree.html" target="_blank" rel="noopener">Pointfree</a>就是运算过程抽象化，处理一个值，但是不提到这个值。这样做有很多好处，它能够让代码更清晰和简练，更符合语义，更容易复用，测试也变得轻而易举。</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>另外我读了阮一峰老师的<code>Point-Free</code>，又在思考如何用kotlin 写出pointfree风格的代码。下面这段代码是为了实现一段pointfree风格的<a href="http://www.ruanyifeng.com/blog/2017/03/pointfree.html#Pointfree的示例一" target="_blank" rel="noopener">js</a>功能。</p>
+<h2 id="pointfree-示例代码"><a href="#pointfree-示例代码" class="headerlink" title="pointfree 示例代码"></a>pointfree 示例代码</h2><p>我们想找出一段字符串中，最长的单词长度, js的pointfree风格写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var str = &apos;Lorem ipsum dolor sit amet consectetur adipiscing elit&apos;;</span><br><span class="line"></span><br><span class="line">// 以空格分割单词</span><br><span class="line">var splitBySpace = s =&gt; s.split(&apos; &apos;);</span><br><span class="line"></span><br><span class="line">// 每个单词的长度</span><br><span class="line">var getLength = w =&gt; w.length;</span><br><span class="line"></span><br><span class="line">// 词的数组转换成长度的数组</span><br><span class="line">var getLengthArr = arr =&gt; R.map(getLength, arr); </span><br><span class="line"></span><br><span class="line">// 返回较大的数字</span><br><span class="line">var getBiggerNumber = (a, b) =&gt; a &gt; b ? a : b;</span><br><span class="line"></span><br><span class="line">// 返回最大的一个数字</span><br><span class="line">var findBiggestNumber = arr =&gt; R.reduce(getBiggerNumber, 0, arr);</span><br><span class="line"></span><br><span class="line">var getLongestWordLength = R.pipe(</span><br><span class="line">  R.split(&apos; &apos;),</span><br><span class="line">  R.map(R.length),</span><br><span class="line">  R.reduce(R.max, 0)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">console.log(getLongestWordLength(str));</span><br></pre></td></tr></table></figure>
+<p><a href="http://jsbin.com/vutoxis/edit?js,console" target="_blank" rel="noopener">运算结果</a></p>
+<p>我们用<code>kotlin代码</code>实现一遍，发现其实也是很容易的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;Lorem ipsum dolor sit amet consectetur adipiscing elit&quot;</span><br><span class="line"></span><br><span class="line">fun &lt;A, B, C, D&gt; compose(f: (C) -&gt; D, g: (B) -&gt; C, h: (A) -&gt; B): (A) -&gt; D &#123;</span><br><span class="line">    return &#123; x -&gt; f(g(h(x))) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 以空格分割单词</span><br><span class="line">fun splitWithSpace(str: String): List&lt;String&gt; = str.split(&quot; &quot;)</span><br><span class="line"></span><br><span class="line">// 词的数组转换成长度的数组</span><br><span class="line">fun  getLengthArr(list: List&lt;String&gt;): List&lt;Int&gt; = list.map&#123;</span><br><span class="line">    it -&gt; it.length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 返回2个整数的较大的值</span><br><span class="line"> fun getBiggerOne(a: Int, b: Int): Int = if(a &gt; b) a else b</span><br><span class="line"></span><br><span class="line">// 返回整形数组最大值</span><br><span class="line">fun getBiggestNumber(list: List&lt;Int&gt;): Int </span><br><span class="line">	= list.reduce &#123; r, s -&gt; getBiggerOne(r, s) &#125;</span><br><span class="line"></span><br><span class="line">fun findBiggestWord(str: String): Int &#123;</span><br><span class="line"> </span><br><span class="line">//     var list = splitWithSpace(str)</span><br><span class="line">//     var lengthList = getLengthArr(list)</span><br><span class="line">//     var bigNumber = getBiggestNumber(lengthList)</span><br><span class="line"></span><br><span class="line">   val lengthArr = compose(::getBiggestNumber, ::getLengthArr, ::splitWithSpace)</span><br><span class="line"></span><br><span class="line">	return lengthArr(str)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//调用</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val result = findBiggestWord(str)</span><br><span class="line">    println(&quot;result:&quot; + result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如此，我们在实现过程中，<strong>做到了关心运算的过程，即分割字符串，转化成数组，获取其中的最大值；每个步骤都有语义化的名称，非常的清晰。</strong> 这就是 Pointfree 风格的优势。<strong>全程并不是很关心数据。而是算法！</strong></p>
+<p>参考：<br><a href="http://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/reduce.html" target="_blank" rel="noopener">reduce</a><br><a href="http://www.ruanyifeng.com/blog/2017/03/pointfree.html" target="_blank" rel="noopener">pointfree编程风格</a><br><a href="http://juhezi.me/2017/10/09/kotlin-carrying/" target="_blank" rel="noopener">kotlin的柯里化</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/07/kotlin入门_函数复合与柯里化/" data-id="cjel566gx000i6pqe7c6yerg3" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/08/kotlin入门_偏函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin入门_偏函数.md
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/03/kotlin入门_高阶函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门_高阶函数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门-几种常见类 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据类在写java代码时，经常会使用各种bean对象，用来表示各种类型的数据。我们在kotlin中有专门针对这种“数据类”的定义。 12data class A &amp;#123;&amp;#125; 用关键词data修饰，数据类的定义有很多限制，可以参见数据类的限制, 但同时也会给编程带来很多便利，例如编译器自动根据构造函数生成如下代码：  equals()/hashCode() 对； toString()">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门-几种常见类">
+<meta property="og:url" content="http://yoursite.com/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据类在写java代码时，经常会使用各种bean对象，用来表示各种类型的数据。我们在kotlin中有专门针对这种“数据类”的定义。 12data class A &amp;#123;&amp;#125; 用关键词data修饰，数据类的定义有很多限制，可以参见数据类的限制, 但同时也会给编程带来很多便利，例如编译器自动根据构造函数生成如下代码：  equals()/hashCode() 对； toString()">
+<meta property="og:updated_time" content="2018-03-10T08:08:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门-几种常见类">
+<meta name="twitter:description" content="数据类在写java代码时，经常会使用各种bean对象，用来表示各种类型的数据。我们在kotlin中有专门针对这种“数据类”的定义。 12data class A &amp;#123;&amp;#125; 用关键词data修饰，数据类的定义有很多限制，可以参见数据类的限制, 但同时也会给编程带来很多便利，例如编译器自动根据构造函数生成如下代码：  equals()/hashCode() 对； toString()">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门_数据类密封类嵌套类内部类枚举" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/" class="article-date">
+  <time datetime="2017-11-01T09:18:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门-几种常见类
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="数据类"><a href="#数据类" class="headerlink" title="数据类"></a>数据类</h2><p>在写java代码时，经常会使用各种bean对象，用来表示各种类型的数据。我们在kotlin中有专门针对这种“数据类”的定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data class A &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用关键词<em>data</em>修饰，数据类的定义有很多限制，可以参见<a href="https://www.kotlincn.net/docs/reference/data-classes.html" target="_blank" rel="noopener">数据类的限制</a>, 但同时也会给编程带来很多便利，例如编译器<em>自动根据构造函数生成如下代码</em>：</p>
+<ul>
+<li>equals()/hashCode() 对；</li>
+<li>toString() 格式是 “User(name=John, age=42)”；</li>
+<li>componentN() 函数 按声明顺序对应于所有属性；</li>
+<li>copy() 函数（见下文）。</li>
+</ul>
+<h3 id="copy方法"><a href="#copy方法" class="headerlink" title="copy方法"></a>copy方法</h3><p>在很多情况下，我们需要复制一个对象改变它的一些属性，但其余部分保持不变。 copy() 函数就是为此而生成。对于上文的 User 类，其实现会类似下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fun copy(name: String = this.name, age: Int = this.age) = User(name, age)     </span><br><span class="line">这让我们可以写：</span><br><span class="line">val jack = User(name = &quot;Jack&quot;, age = 1)</span><br><span class="line">val olderJack = jack.copy(age = 2)</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据类和数据解构"><a href="#数据类和数据解构" class="headerlink" title="数据类和数据解构"></a>数据类和数据解构</h3><p>我们还可以采用结构获取数据类对象的相关属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val jane = User(&quot;Jane&quot;, 35)</span><br><span class="line">val (name, age) = jane</span><br><span class="line">println(&quot;$name, $age years of age&quot;) // 输出 &quot;Jane, 35 years of age&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="标准数据类"><a href="#标准数据类" class="headerlink" title="标准数据类"></a>标准数据类</h3><p>标准库提供了 Pair 和 Triple。尽管在很多情况下命名数据类是更好的设计选择， 因为它们通过为属性提供有意义的名称使代码更具可读性。</p>
+<h2 id="密封类"><a href="#密封类" class="headerlink" title="密封类"></a>密封类</h2><p>kotlin中，我们使用sealed修饰一个类，用来表示密封类。</p>
+<ul>
+<li>受限的类继承结构(有限集合的类型,不能有任何其他类型)</li>
+<li>密封类和枚举很像，枚举类的值只有一个，密封类的子类却可以有多个实例。</li>
+<li>密封类自身抽象，不能实例化。</li>
+<li>密封类所有子类都得定义在同一个文件。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sealed class Expr</span><br><span class="line">data class Const(val number: Double) : Expr()</span><br><span class="line">data class Sum(val e1: Expr, val e2: Expr) : Expr()</span><br><span class="line">object NotANumber : Expr()</span><br></pre></td></tr></table></figure>
+<p>密封类常用于when语句，可以简单的覆盖到密封类的所有子类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun party(exp : Expr) : Double = when(exp) &#123;</span><br><span class="line">	exp is Const -&gt; exp.number</span><br><span class="line">	exp is Sum -&gt; party(exp.e1) + party(exp.e2)</span><br><span class="line">	exp is NotANumber -&gt; Double.NaN</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h2><p>在类的内部，还可以嵌套定义类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">	class B &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>内部类就是用<strong>inner</strong>修饰的嵌套类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">	innner class B &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>使用对象表达式创建匿名内部类实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">window.addMouseListener(object: MouseAdapter() &#123;</span><br><span class="line">    override fun mouseClicked(e: MouseEvent) &#123;</span><br><span class="line">        // ……</span><br><span class="line">    &#125;</span><br><span class="line">                                                                                                            </span><br><span class="line">    override fun mouseEntered(e: MouseEvent) &#123;</span><br><span class="line">        // ……</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>如果对象是函数式 Java 接口（即具有单个抽象方法的 Java 接口）的实例， 你可以使用带接口类型前缀的lambda表达式创建它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val listener = ActionListener &#123; println(&quot;clicked&quot;) &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>数据类和密封类，都是为特殊需求设计的类；嵌套类和内部类，匿名内部类为了方便组织类之间的关系而设计的。<br>需要注意的就是数据类，会自动生成一些常用方法。例如<code>componentN(), copy()</code>方法等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/" data-id="cjel566hd000x6pqeokfc0pz2" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/01/kotlin入门_伴生对象与扩展方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin入门_伴生对象与扩展
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/01/kotlin入门_属性和属性委托/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门-属性</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

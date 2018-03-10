@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>kotlin入门-属性 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="属性的懒加载这里会讲到三种属性初始化方式 - 延迟属性（lazy properties）: 其值只在首次访问时计算； - 可观察属性（observable properties）: 监听器会收到有关此属性变更的通知； - 把多个属性储存在一个映射（map）中，而不是每个存在单独的字段中。 kotlin为了支持上述特征，实现了委托属性基本语法是：: by .  property 的get和set方法">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin入门-属性">
+<meta property="og:url" content="http://yoursite.com/2017/11/01/kotlin入门_属性和属性委托/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="属性的懒加载这里会讲到三种属性初始化方式 - 延迟属性（lazy properties）: 其值只在首次访问时计算； - 可观察属性（observable properties）: 监听器会收到有关此属性变更的通知； - 把多个属性储存在一个映射（map）中，而不是每个存在单独的字段中。 kotlin为了支持上述特征，实现了委托属性基本语法是：: by .  property 的get和set方法">
+<meta property="og:updated_time" content="2018-03-10T08:07:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin入门-属性">
+<meta name="twitter:description" content="属性的懒加载这里会讲到三种属性初始化方式 - 延迟属性（lazy properties）: 其值只在首次访问时计算； - 可观察属性（observable properties）: 监听器会收到有关此属性变更的通知； - 把多个属性储存在一个映射（map）中，而不是每个存在单独的字段中。 kotlin为了支持上述特征，实现了委托属性基本语法是：: by .  property 的get和set方法">
+  
+    <link rel="alternate" href="/blogs/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blogs/">Home</a>
+        
+          <a class="main-nav-link" href="/blogs/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin入门_属性和属性委托" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_属性和属性委托/" class="article-date">
+  <time datetime="2017-11-01T09:17:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin入门-属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="属性的懒加载"><a href="#属性的懒加载" class="headerlink" title="属性的懒加载"></a>属性的懒加载</h2><p>这里会讲到三种属性初始化方式</p>
+<pre><code>- 延迟属性（lazy properties）: 其值只在首次访问时计算；
+- 可观察属性（observable properties）: 监听器会收到有关此属性变更的通知；
+- 把多个属性储存在一个映射（map）中，而不是每个存在单独的字段中。
+</code></pre><p>kotlin为了支持上述特征，实现了<strong>委托属性</strong><br>基本语法是：<property>:<type> by <delegate>.  property 的get和set方法就可以委托给Delete的getValue和setValue方法。第一次访问prperty时，就会调用Delete的getValue方法。Delete 实现的getValue和setValue形式如下：</delegate></type></property></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Delegate &#123;</span><br><span class="line">    operator fun getValue(thisRef: Any?, property: KProperty&lt;*&gt;): String &#123;</span><br><span class="line">        return &quot;$thisRef, thank you for delegating &apos;$&#123;property.name&#125;&apos; to me!&quot;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    operator fun setValue(thisRef: Any?, property: KProperty&lt;*&gt;, value: String) &#123;</span><br><span class="line">        println(&quot;$value has been assigned to &apos;$&#123;property.name&#125; in $thisRef.&apos;&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="标准委托"><a href="#标准委托" class="headerlink" title="标准委托"></a>标准委托</h2><p>kotlin有几种委托的工厂方法</p>
+<h3 id="延迟委托"><a href="#延迟委托" class="headerlink" title="延迟委托"></a>延迟委托</h3><p><strong>lazy()</strong>方法，lazy方法接受一个lambda表达式，并返回实例，第一次调用属性的get()方法会执行lambda表达式，并记录结果，返回。第二次调用属性的get(), 则直接返回。不在计算lambda表达式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val lazyValue: String by lazy &#123;</span><br><span class="line">    println(&quot;computed!&quot;)</span><br><span class="line">    &quot;Hello&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    println(lazyValue)</span><br><span class="line">    println(lazyValue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子输出：<br>computed!<br>Hello<br>Hello</p>
+<h3 id="可观察属性"><a href="#可观察属性" class="headerlink" title="可观察属性"></a>可观察属性</h3><p>有些属性在修改(set())时，我们希望观察到发生的变化。这里就需要<strong>可观察属性</strong><br><strong>Delegates.observable() </strong>接受两个参数：初始值和修改时处理程序（handler）。 每当我们给属性赋值时会调用该处理程序（在赋值后执行）。它有三个参数：被赋值的属性、旧值和新值:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import kotlin.properties.Delegates</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    var name: String by Delegates.observable(&quot;&lt;no name&gt;&quot;) &#123;</span><br><span class="line">        prop, old, new -&gt;</span><br><span class="line">        println(&quot;$old -&gt; $new&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val user = User()</span><br><span class="line">    user.name = &quot;first&quot;</span><br><span class="line">    user.name = &quot;second&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子输出：</p>
+<p><no name=""> -&gt; first<br>first -&gt; second</no></p>
+<h3 id="属性放在映射中"><a href="#属性放在映射中" class="headerlink" title="属性放在映射中"></a>属性放在映射中</h3><p>一个常见的用例是在一个映射（map）里存储属性的值。 这经常出现在像解析 JSON 或者做其他“动态”事情的应用中。 在这种情况下，你可以使用映射实例自身作为委托来实现委托属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class User(map: Map&lt;String, Any&gt;) &#123;</span><br><span class="line">	val name: String by map</span><br><span class="line">	val age: Int by map</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构造函数接受一个映射map，类体中定义的属性name，age都映射到map中。</p>
+<p>我们构造User对象，传一个map：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val user = User(mapOf(</span><br><span class="line">    &quot;name&quot; to &quot;John Doe&quot;,</span><br><span class="line">    &quot;age&quot;  to 25</span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(user.name) // Prints &quot;John Doe&quot;</span><br><span class="line">println(user.age) println(user.age)  // Prints 25</span><br></pre></td></tr></table></figure>
+<h2 id="局部委托属性（自-1-1-起）"><a href="#局部委托属性（自-1-1-起）" class="headerlink" title="局部委托属性（自 1.1 起）"></a>局部委托属性（自 1.1 起）</h2><p>我们还可以把局部变量声明为委托属性， 达到懒初始化的目的，例如下面代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun example(computeFoo: () -&gt; Foo) &#123;</span><br><span class="line">    val memoizedFoo by lazy(computeFoo)</span><br><span class="line"></span><br><span class="line">    if (someCondition &amp;&amp; memoizedFoo.isValid()) &#123;</span><br><span class="line">        memoizedFoo.doSomething()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只有第一次访问memoizedFoo，才会初始化，当<strong>someCondition</strong>为假时，memoizedFoo根本不会初始化。这样就节省了部分运算。</p>
+<h2 id="委托的要求"><a href="#委托的要求" class="headerlink" title="委托的要求"></a>委托的要求</h2><p>这里我们总结了委托对象的要求。<br>对于一个只读属性（即 val 声明的），委托必须提供一个名为 getValue 的函数，该函数接受以下参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">thisRef —— 必须与 属性所有者 类型（对于扩展属性——指被扩展的类型）相同或者是它的超类型；</span><br><span class="line">property —— 必须是类型 KProperty&lt;*&gt; 或其超类型。</span><br></pre></td></tr></table></figure></p>
+<p>这个函数必须返回与属性相同的类型（或其子类型）。<br>对于一个可变属性（即 var 声明的），委托必须额外提供一个名为 setValue 的函数，该函数接受以下参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">thisRef —— 同 getValue()；</span><br><span class="line">property —— 同 getValue()；</span><br><span class="line">new value —— 必须和属性同类型或者是它的超类型。</span><br></pre></td></tr></table></figure></p>
+<p>getValue() 或/和 setValue() 函数可以通过委托类的成员函数提供或者由扩展函数提供。 当你需要委托属性到原本未提供的这些函数的对象时后者会更便利。 两函数都需要用 operator 关键字来进行标记。<br>委托类可以实现包含所需 operator 方法的 ReadOnlyProperty 或 ReadWriteProperty 接口之一。 这俩接口是在 Kotlin 标准库中声明的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface ReadOnlyProperty&lt;in R, out T&gt; &#123;</span><br><span class="line">    operator fun getValue(thisRef: R, property: KProperty&lt;*&gt;): T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface ReadWriteProperty&lt;in R, T&gt; &#123;</span><br><span class="line">    operator fun getValue(thisRef: R, property: KProperty&lt;*&gt;): T</span><br><span class="line">    operator fun setValue(thisRef: R, property: KProperty&lt;*&gt;, value: T)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_属性和属性委托/" data-id="cjel566h1000n6pqe5ok9x8qj" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blogs/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          kotlin入门-几种常见类
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blogs/2017/11/01/kotlin入门_ 基础语法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">kotlin入门-基础语法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/03/01/电子货币投资记录/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blogs/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blogs/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
