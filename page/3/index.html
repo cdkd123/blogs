@@ -68,6 +68,97 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-kotlin入门_抽象类和接口" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_抽象类和接口/" class="article-date">
+  <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_抽象类和接口/">kotlin入门_抽象类和接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h2><p>抽象方法用<code>absract</code>修饰，只有声明，没有实现，形如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abstract fun methodOk()</span><br></pre></td></tr></table></figure>
+<p>抽象方法有如下特点：</p>
+<ol>
+<li>抽象方法必须用abstract关键字进行修饰</li>
+<li>抽象方法不用手动添加open，默认被open修饰</li>
+<li>抽象方法没有具体的实现</li>
+<li>含有抽象方法的类成为抽象类，必须由abtract关键字修饰</li>
+</ol>
+<h2 id="抽象属性"><a href="#抽象属性" class="headerlink" title="抽象属性"></a>抽象属性</h2><p>抽象属性就是在var或val前被abstract修饰，抽象属性的声明格式为：</p>
+<ol>
+<li>抽象属性在抽象类中不能被初始化</li>
+<li>在子类没有主构造函数，要对抽象属性，手动初始化。如果子类中有主构造函数，抽象属性可以在主构造函数中声明</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abstract var addr : String</span><br><span class="line">abstract val weight : Float</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var y: String = &quot;hello&quot;</span><br><span class="line">     get() =  y + &quot;,yes&quot; // error , 正确用法：field + &quot;, yes&quot;</span><br><span class="line">     set(value) &#123;</span><br><span class="line">	     field = value</span><br><span class="line">	  &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 抽象类</span><br><span class="line"></span><br><span class="line">含有**抽象属性**或者**抽象方法**的类，称之为抽象类。抽象类必须用abstract修饰。</span><br><span class="line">实例:</span><br></pre></td></tr></table></figure>
+<p>abstract class Person {<br>    abstract val gender: String = “female”<br>    abstract fun haha()<br>    fun eat() {<br>            println(“eat some thing”)<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">抽象类特点如下：</span><br><span class="line"></span><br><span class="line">1. 抽象方法必须为`public或者protected`（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public；</span><br><span class="line">2.	抽象类不能用来创建对象；</span><br><span class="line">3.	如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。如果抽象类中含有抽象属性，再实现子类中必须将抽象属性初始化，除非子类也为抽象类。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 接口</span><br><span class="line"></span><br><span class="line">接口和抽象类不同的是，**接口不能保存状态，可以有属性但必须是抽象的**。</span><br><span class="line">接口是通过关键字 interface 来定义的：</span><br></pre></td></tr></table></figure></p>
+<p>interface MyInterface {<br>    val func : Int<br>    fun bar()<br>    fun foo() {<br>    //函数体是可选的<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 接口中的属性</span><br><span class="line"></span><br><span class="line">接口也可以有属性，但因为接口不能保存状态，所以属性必须是无状态的。</span><br></pre></td></tr></table></figure>
+<p>interface A {<br>    val x: String<br>    fun foo()<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 重写多个接口的冲突</span><br></pre></td></tr></table></figure></p>
+<pre><code>interdace A {      fun foo() { print(“A”) }      fun bar()  }
+interface B {
+   fun foo() { print(&quot;B&quot;) }
+   fun bar() { print(&quot;bar&quot;) }
+} 
+
+class C : A {
+    override fun bar() { print(&quot;bar&quot;) }
+}
+
+class D : A, B {
+    override fun foo() {
+        super&lt;A&gt;.foo()
+        super&lt;B&gt;.foo()
+    }
+
+    override fun bar() {
+        super.bar()
+    }
+} 
+</code></pre><p>```</p>
+<p>我们要在类D中分别调用接口A和B的foo方法，可以用语法<code>super&lt;A&gt;.foo()， super&lt;B&gt;.foo()</code>的形式调用。但是在bar()方法中，调用父类bar方法，没有冲突，就可以直接使用<code>super.foo()</code>形式调用。</p>
+<h2 id="抽象类和接口的差异"><a href="#抽象类和接口的差异" class="headerlink" title="抽象类和接口的差异"></a>抽象类和接口的差异</h2><h3 id="语法层面上的区别"><a href="#语法层面上的区别" class="headerlink" title="语法层面上的区别"></a>语法层面上的区别</h3><ol>
+<li>接口不能保存状态，可以有属性但必须是抽象的，而抽类型可以有属性。</li>
+<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+</ol>
+<h3 id="设计上的区别"><a href="#设计上的区别" class="headerlink" title="设计上的区别"></a>设计上的区别</h3><p>接口和抽象类，一个被子类实现，一个被子类继承，子类都要实现他们的抽象方法，覆盖抽象属性；但表达的现实关系不一样。例如一个鸡，和一个蜻蜓，他们都会飞，他们属于不同类型，那么我们会定义一个Fly的接口，鸡和蜻蜓实现fly接口；但他们都是动物，这里，可以定义Animal抽象类，动物也具有一些普遍特性，比如有血有肉，比如都会吃东西。那就可以用属性和方法实现这些。</p>
+<p>接口，描述的是对象<em>“有没有”</em>的关系。抽象类，描述的是对象<em>”是不是“</em>的关系。是二者在设计上的区别。</p>
+<p>参考：<br><a href="http://blog.csdn.net/io_field/article/details/52860971" target="_blank" rel="noopener">kotlin抽象类和接口</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_抽象类和接口/" data-id="cjh695yj9000reiqey99i7mpx" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-kotlin入门_ 基础语法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blogs/2017/11/01/kotlin入门_ 基础语法/" class="article-date">
@@ -132,94 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjh694n6d000ee0qectwpw8wb" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-kotlin入门_返回与跳转" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/11/01/kotlin入门_返回与跳转/" class="article-date">
-  <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_返回与跳转/">kotlin入门_返回与跳转</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="break，continue，return"><a href="#break，continue，return" class="headerlink" title="break，continue，return"></a>break，continue，return</h2><p>kotlin 有三种结构化跳转表达式：</p>
-<ul>
-<li>return 默认从最直接包围它的函数或者匿名函数返回。</li>
-<li>break 终止最直接包围它的循环。</li>
-<li>continue 继续下一次最直接包围它的循环。</li>
-</ul>
-<h2 id="break和continue与标签"><a href="#break和continue与标签" class="headerlink" title="break和continue与标签"></a>break和continue与标签</h2><p>  <strong>除了和java，c语言一样的语法外</strong>，在 Kotlin 中任何表达式都可以用标签<a href="https://www.kotlincn.net/docs/reference/grammar.html#labelReference" target="_blank" rel="noopener">label</a> 来标记。 标签的格式为标识符后跟 @ 符号，例如：abc@、fooBar@都是有效的标签（参见语法）。 要为一个表达式加标签，我们只要在其前加标签即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val list = listOf(1, 2, 3, 4, 5, 6, 7, 8)</span><br><span class="line">loop@ for(index in list) &#123;</span><br><span class="line">if(index == 5) &#123;</span><br><span class="line">		break// continue</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		println(&quot;$index&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在可以用标签限制break，continue，跳转到指定位置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">loop@ for(index in list) &#123;</span><br><span class="line">	if(index == 5) &#123;</span><br><span class="line">			break@loop</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		println(&quot;$index&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="标签处返回"><a href="#标签处返回" class="headerlink" title="标签处返回"></a>标签处返回</h2><p>用return语句可以返回外层函数，lambda表达式外边。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun foo() &#123;</span><br><span class="line">val ints = listOf(1, 3, 4, 5, 0)</span><br><span class="line">    ints.forEach &#123;</span><br><span class="line">        if (it == 0) return  // nonlocal return from inside lambda directly to the caller of foo()</span><br><span class="line">        print(it)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>返回到标签</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">list.forEach loop@ &#123;</span><br><span class="line">       if ( it == 5 ) &#123;</span><br><span class="line">           return@loop</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           println(&quot;$it&quot;)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   println(&quot;end&quot;)</span><br></pre></td></tr></table></figure>
-<p>返回到隐式标签, 标签名字和接受lambda的函数同名；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">list.forEach &#123;</span><br><span class="line">       if ( it == 5 ) &#123;</span><br><span class="line">           return@forEach</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           println(&quot;$it&quot;)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   println(&quot;end&quot;)</span><br></pre></td></tr></table></figure>
-<p>从匿名函数返回</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun foo() &#123;</span><br><span class="line">    ints.forEach(fun(value: Int) &#123;</span><br><span class="line">        if (value == 0) return  // local return to the caller of the anonymous fun, i.e. the forEach loop</span><br><span class="line">        print(value)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>return标签和值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return@loop 5</span><br></pre></td></tr></table></figure>
-<p>当要返一个回值的时候，解析器优先选用标签限制的 return，上述代码就表示从标签@loop返回1.</p>
-<p>看下面示例：</p>
-<pre><code>fun compare(): Int { 
-
-    val x = 5
-
-    loop@for(i in 0..x) { 
-        if(i == 2) {
-            return@loop i
-        } else {
-            println(&quot;$i&quot;)
-        }
-    }
-
-    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8)
-    list.forEach {
-        if ( it == 5 ) {
-            return@forEach
-        } else {
-            println(&quot;$it&quot;)
-        }
-     }
-    println(&quot;---&quot;)
-    return 5 
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_返回与跳转/" data-id="cjh694n730010e0qe0bjvu365" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjh695yis000feiqek1nanvv6" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -256,7 +260,42 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/31/git常用命令/" data-id="cjh694n5q0004e0qe3dzb38yv" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/31/git常用命令/" data-id="cjh695yid0005eiqek8mgjblw" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-如何查看android源码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/05/22/如何查看android源码/" class="article-date">
+  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 如何查看android源码</p>
+<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><p>我最近一直寻求Source Insight的mac安装版，下载了2个版本都无法安装。内心是奔溃的！！</p>
+<p>于是我在想，有什么其他的IDE可以查看adroid源码吗？立马反应到电脑上还装了一款<code>Sublime Text 3</code>神器啊。于是，打开<code>Sublime Text 3</code>,文件-&gt;打开-&gt;选择android源码目录。哇塞，so方便。</p>
+<p>这里记录一下该IDE在mac系统上的快捷键:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ctrl + /  ---------------------注释</span><br><span class="line">Ctrl + 滚动　--------------字体变大/缩小</span><br><span class="line">Ctrl + N-------------------新建</span><br><span class="line"></span><br><span class="line">软件右下角可以选择文档语法模式</span><br><span class="line">Ctrl + Shift + P ------------------命令模式</span><br><span class="line">命令：</span><br><span class="line">sshtml模糊匹配-----语法切换到html模式，同理所得，ss+相应文件名匹配相应模式，如ssphp、ssjava等</span><br><span class="line">Ctrl+Shift +k -----------删除一行</span><br><span class="line">Ctrl + w ------------快速闭合标签</span><br><span class="line">Ctrl + P -----------菜单上的解释是gotoanythings，用&quot;#&quot;匹配，</span><br></pre></td></tr></table></figure>
+<p>来，show一张看源码时的酸爽：</p>
+<p><img style="{width:400px; height: 300px}" src="http://oojk8e1qn.bkt.clouddn.com/sublimeandroidsource.png"></p>
+<p>图1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/22/如何查看android源码/" data-id="cjh695yk9001reiqerk2bnmdd" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -294,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/新公司一点感受/" data-id="cjh694n7x001ve0qegn711bgd" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/新公司一点感受/" data-id="cjh695ykh001veiqeprjy9upx" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -335,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/最近的知识点总结/" data-id="cjh694n81001ye0qebhlk13qq" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/最近的知识点总结/" data-id="cjh695ykj001yeiqecsl5obgw" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -412,42 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjh694n530000e0qew72z9yfd" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-如何查看android源码" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/05/22/如何查看android源码/" class="article-date">
-  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 如何查看android源码</p>
-<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><p>我最近一直寻求Source Insight的mac安装版，下载了2个版本都无法安装。内心是奔溃的！！</p>
-<p>于是我在想，有什么其他的IDE可以查看adroid源码吗？立马反应到电脑上还装了一款<code>Sublime Text 3</code>神器啊。于是，打开<code>Sublime Text 3</code>,文件-&gt;打开-&gt;选择android源码目录。哇塞，so方便。</p>
-<p>这里记录一下该IDE在mac系统上的快捷键:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ctrl + /  ---------------------注释</span><br><span class="line">Ctrl + 滚动　--------------字体变大/缩小</span><br><span class="line">Ctrl + N-------------------新建</span><br><span class="line"></span><br><span class="line">软件右下角可以选择文档语法模式</span><br><span class="line">Ctrl + Shift + P ------------------命令模式</span><br><span class="line">命令：</span><br><span class="line">sshtml模糊匹配-----语法切换到html模式，同理所得，ss+相应文件名匹配相应模式，如ssphp、ssjava等</span><br><span class="line">Ctrl+Shift +k -----------删除一行</span><br><span class="line">Ctrl + w ------------快速闭合标签</span><br><span class="line">Ctrl + P -----------菜单上的解释是gotoanythings，用&quot;#&quot;匹配，</span><br></pre></td></tr></table></figure>
-<p>来，show一张看源码时的酸爽：</p>
-<p><img style="{width:400px; height: 300px}" src="http://oojk8e1qn.bkt.clouddn.com/sublimeandroidsource.png"></p>
-<p>图1</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/如何查看android源码/" data-id="cjh694n7o001pe0qea1a7aws5" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjh695yhl0000eiqetlvdg6qx" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -1644,7 +1648,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/14/tapoutXT运动健身食物计划/" data-id="cjh694n7s001re0qe2iu4puon" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/14/tapoutXT运动健身食物计划/" data-id="cjh695yk2001leiqebc6fnmj5" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li></ul>
@@ -1702,7 +1706,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/13/gitpages/" data-id="cjh694n5j0003e0qeb909mw6m" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/13/gitpages/" data-id="cjh695yhy0002eiqeqsbtxgu0" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li></ul>
@@ -1714,9 +1718,9 @@
 
 
   
-    <article id="post-小娘惹的搞笑人生" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java常见异常" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blogs/2017/05/04/小娘惹的搞笑人生/" class="article-date">
+    <a href="/blogs/2017/05/04/java常见异常/" class="article-date">
   <time datetime="2017-05-04T15:51:26.000Z" itemprop="datePublished">2017-05-04</time>
 </a>
     
@@ -1724,37 +1728,38 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/05/04/java常见异常/">java常见异常</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: 小娘惹的搞笑人生</p>
-<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1493913086000</h2><h2 id="印象中的美食节目"><a href="#印象中的美食节目" class="headerlink" title="印象中的美食节目"></a>印象中的美食节目</h2><p>一直对美食类影片情有独钟，记得很早之前看的“国产古装言情美食“类电视剧应该是郑则仕，林心如主演的《食神》吧。这部剧，我记住了片尾的主题曲中的歌词“愿意为你烧菜，也希望请你等待，为你活在火中也不坏！“。剧情，也跌宕起伏，情节婉转动人，加上几位”实力派“演员加盟。这部剧，在电视台时代，相当的火的。在我们那种小村子里都流行了一阵观影潮呢。</p>
-<p><img style="{width:200px; height: 200px}" src="https://img1.doubanio.com/view/photo/photo/public/p2219180117.webp"></p>
-<p>图1</p>
-<p>后来比较喜欢看徐峥主演的那个《满汉全席》，好像因为又很好看的样子。美女，美食，屌丝逆袭的故事，当然大家都爱看啦。不过，印象最深的，仍然是哈林那首《蛋炒饭》。哈哈～</p>
-<p><img style="{width:200px; height: 200px}" src="https://img1.doubanio.com/view/photo/photo/public/p1175857237.webp"></p>
-<p>图2</p>
-<p>乔道麻袋，咱这篇，是要聊“美食”的吧？<br>华语经典好看美食影视，要说起来，那真的是没完没了，现代剧，张卫健的《伙头智多星》，周星驰《食神》，都是耳熟能详的好片了吧。<br>这些老前辈们各有特色。<br>然饿儿，近几年，倒是难得看到一部美食剧如此出彩呢。</p>
-<p>今天，就来安利一部我只看了前七集的电视剧。后面要钱，免费党麻烦去借个爱奇艺会员，or绕道。</p>
-<h2 id="这个电视剧的看点"><a href="#这个电视剧的看点" class="headerlink" title="这个电视剧的看点"></a>这个电视剧的看点</h2><p>记得，前段时间看《食戟之灵》时，心里还在感慨，哎，如今网上卖菜已经不受欢迎了，都去“卖rou”啦。但，人家确实对描述吃食物的感受，入木三分，背景火山喷发，风云变幻，体位变化，娇喘福利，美女湿身。。。嗯？跑题了～～<br>电视剧的名字呢，叫《花间提壶方大厨》。演员，基本都是新人，颜值好像蛮高（不重要！），剧情呢，跌宕起伏？没有！只是一对情侣的日常而已，一言不合就炒菜！一言不合就办案，一言不合就夸对方，“老婆，你做的这菜真好吃！”。眼珠子激动的掉出来。</p>
-<p><img style="{width:200px; height: 200px}" src="https://img1.doubanio.com/view/photo/photo/public/p2458066528.webp"></p>
-<p>图3</p>
-<p><img style="{width:200px; height: 200px}" src="https://img3.doubanio.com/view/photo/photo/public/p2457012415.webp"></p>
-<p>图4</p>
-<p><img style="{width:200px; height: 200px}" src="https://img3.doubanio.com/view/photo/photo/public/p2456532566.webp"></p>
-<p>图5</p>
-<p>传统的古代妇女呢，就是相夫，教子，琴棋书画之类的。这才符合古人审美吧。然而女主不一样，除了样貌耐看点，唯独厨艺独步当地，无人能及。例如，当时某酒楼大厨，都拜倒在其石榴裙下；例如，其夫君，夫君父母，均成为她美食的俘虏；例如，因为她做的几盘菜，酒楼食客为了争抢，大打出手。</p>
-<p>这种不同寻常的妹子，如果再搭配一个当地“小恶霸“，戏份是不是很有看头？</p>
-<p>一部美食剧，自然要表现厨师能力超群，撩拨食客味蕾功夫不俗，还得颜值高，妹子的话，最好秀色可餐，温柔善良，balabala～～，如果只有这些，我想，看多了，也会审美疲劳吧。于是，中间加入了言情，破案，比试厨艺，搞笑！</p>
-<p>这样一盘菜，看你会不会享受咯！</p>
-<p>剧情的饱满程度<br>生活，就是每件事情都用心才好。</p>
-
+        <p>以前很少注意这个，直到前段时间面试时，被问起这个问题。算起来，这也是一种新的角度来关注我们过完的代码经验。可以一窥我们遇到问题的范围有多广啦。</p>
+<p>我印象比较多的就是,</p>
+<ul>
+<li><code>OutOfMemeryExcetption</code></li>
+<li><code>ArrayIndexOutOfBoundsException</code></li>
+<li><code>NullPointException</code></li>
+<li><code>IllegalArgumentException</code></li>
+<li><code>IOException</code></li>
+<li><code>FileInputException</code></li>
+<li><code>SQLException</code></li>
+</ul>
+<h2 id="java异常的分类"><a href="#java异常的分类" class="headerlink" title="java异常的分类"></a>java异常的分类</h2><h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><h2 id="checkedException"><a href="#checkedException" class="headerlink" title="checkedException"></a>checkedException</h2><h2 id="uncheckedException"><a href="#uncheckedException" class="headerlink" title="uncheckedException"></a>uncheckedException</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/04/小娘惹的搞笑人生/" data-id="cjh694n7v001te0qe1mkvyex9" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/04/java常见异常/" data-id="cjh695yif0006eiqecx0h82yg" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/java异常/">java异常</a></li></ul>
+
     </footer>
   </div>
   
