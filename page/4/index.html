@@ -68,9 +68,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-android面试题" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java常见异常" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blogs/2017/05/04/android面试题/" class="article-date">
+    <a href="/blogs/2017/05/04/java常见异常/" class="article-date">
   <time datetime="2017-05-04T15:51:26.000Z" itemprop="datePublished">2017-05-04</time>
 </a>
     
@@ -78,39 +78,38 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/05/04/java常见异常/">java常见异常</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: android面试题</p>
-<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1493913086000</h2><h2 id="final，static，violate-synchronize关键词的意思？"><a href="#final，static，violate-synchronize关键词的意思？" class="headerlink" title="final，static，violate, synchronize关键词的意思？"></a>final，static，violate, synchronize关键词的意思？</h2><p>final修饰类，表示类不可以继承。修饰变量，变量不可以被更改。修饰方法，方法不能被重写。<br>static 修饰类，表示类可以直接当做一个单独类使用，如果修饰是内部类，无需实例化外部类，可以直接new A.B()实例化。<br>不能修饰外部类。</p>
-<h2 id="内部类可以写静态变量吗？"><a href="#内部类可以写静态变量吗？" class="headerlink" title="内部类可以写静态变量吗？"></a>内部类可以写静态变量吗？</h2><p><img src="media/14881782704915/14952956309213.jpg" alt=""></p>
-<h2 id="安卓的类加载机制是怎样的？"><a href="#安卓的类加载机制是怎样的？" class="headerlink" title="安卓的类加载机制是怎样的？"></a>安卓的类加载机制是怎样的？</h2><ul>
-<li>DexClassLoader<br>DexClassLoader用来加载jar、apk，其实还包括zip文件或者直接加载dex文件，它可以被用来<code>执行未安装的代码或者未被应用加载过的代码</code>。</li>
-<li>PathClassLoader<br>PathClassLoader被用来加载本地文件系统上的文件或目录，但不能从网络上加载，关键是它被用来<code>加载系统类和我们的应用程序</code>.</li>
+        <p>以前很少注意这个，直到前段时间面试时，被问起这个问题。算起来，这也是一种新的角度来关注我们过完的代码经验。可以一窥我们遇到问题的范围有多广啦。</p>
+<p>我印象比较多的就是,</p>
+<ul>
+<li><code>OutOfMemeryExcetption</code></li>
+<li><code>ArrayIndexOutOfBoundsException</code></li>
+<li><code>NullPointException</code></li>
+<li><code>IllegalArgumentException</code></li>
+<li><code>IOException</code></li>
+<li><code>FileInputException</code></li>
+<li><code>SQLException</code></li>
 </ul>
-<h2 id="虚拟机的内存机制是怎样的？"><a href="#虚拟机的内存机制是怎样的？" class="headerlink" title="虚拟机的内存机制是怎样的？"></a>虚拟机的内存机制是怎样的？</h2><p>程序计数器，虚拟机栈，本地方法栈，堆，方法区。<br>新生代，老年代，永久代（方法区）<br>内存切换的过程！！！</p>
-<h2 id="内存优化，工具，方法？"><a href="#内存优化，工具，方法？" class="headerlink" title="内存优化，工具，方法？"></a>内存优化，工具，方法？</h2><p>traceview, 查看某个方法的执行时间。<br>android monitor也可以打印trace文件。<br>[参考]<a href="http://mt.sohu.com/20170118/n478995479.shtml" target="_blank" rel="noopener">http://mt.sohu.com/20170118/n478995479.shtml</a><br>界面卡顿如何解决？<br>1.尽量使用RelativeLayout视图，合并多层嵌套视图。<br>2.使用merge, viewStub组件优化，合并视图。<br>3.优化listview，adapter，getView方法，holder缓存视图对象，分割数据，滑动暂停加载图片，异步IO操作，decodeBitmap。<br>[参考]<a href="http://www.cnblogs.com/zqlxtt/p/4682319.html" target="_blank" rel="noopener">http://www.cnblogs.com/zqlxtt/p/4682319.html</a><br>如何监控crash，发送日志？<br>监听crash广播，收到数据，网络发送。</p>
-<p>待续：</p>
-<p>ANR有哪些类型？</p>
-<ol>
-<li><p>KeyDispatchTimeout(5 seconds) –主要类型<br>按键或触摸事件在特定时间内无响应</p>
-</li>
-<li><p>BroadcastTimeout(10 seconds)<br>BroadcastReceiver在特定时间内无法处理完成</p>
-</li>
-<li><p>ServiceTimeout(20 seconds) –小概率类型<br>Service在特定的时间内无法处理完成</p>
-</li>
-</ol>
-<p>activity的基本启动模式？</p>
-<p>软引用和弱引用，强引用的区别是什么？<br>遇到的最难的问题是什么？解决方式是什么？<br>OOM怎么避免？<br>怎么实现生产者和消费者？<br>异常的类型有哪些？分别举几个栗子？<br>java的泛型是如何实现的？</p>
-<p>wordpress<br>修改了一下主题。<br>修改了一下菜单数量和菜单对应的分类。<br>增加了cnzz的umeng统计。<br>删除底部的“自豪的采用wordpress”标签。</p>
-<p>git静态博客<br><a href="http://blog.csdn.net/renfufei/article/details/37725057" target="_blank" rel="noopener">http://blog.csdn.net/renfufei/article/details/37725057</a></p>
-
+<h2 id="java异常的分类"><a href="#java异常的分类" class="headerlink" title="java异常的分类"></a>java异常的分类</h2><h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><h2 id="checkedException"><a href="#checkedException" class="headerlink" title="checkedException"></a>checkedException</h2><h2 id="uncheckedException"><a href="#uncheckedException" class="headerlink" title="uncheckedException"></a>uncheckedException</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/04/android面试题/" data-id="cjh695yhs0001eiqecd9nmuq5" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/04/java常见异常/" data-id="cjk9xomng0007owqedhhj799b" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/java异常/">java异常</a></li></ul>
+
     </footer>
   </div>
   
@@ -156,7 +155,57 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/04/小娘惹的搞笑人生/" data-id="cjh695ykf001teiqedc2eirh7" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/04/小娘惹的搞笑人生/" data-id="cjk9xomu7001rowqe6ueas4tw" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/05/04/android面试题/" class="article-date">
+  <time datetime="2017-05-04T15:51:26.000Z" itemprop="datePublished">2017-05-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: android面试题</p>
+<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1493913086000</h2><h2 id="final，static，violate-synchronize关键词的意思？"><a href="#final，static，violate-synchronize关键词的意思？" class="headerlink" title="final，static，violate, synchronize关键词的意思？"></a>final，static，violate, synchronize关键词的意思？</h2><p>final修饰类，表示类不可以继承。修饰变量，变量不可以被更改。修饰方法，方法不能被重写。<br>static 修饰类，表示类可以直接当做一个单独类使用，如果修饰是内部类，无需实例化外部类，可以直接new A.B()实例化。<br>不能修饰外部类。</p>
+<h2 id="内部类可以写静态变量吗？"><a href="#内部类可以写静态变量吗？" class="headerlink" title="内部类可以写静态变量吗？"></a>内部类可以写静态变量吗？</h2><p><img src="media/14881782704915/14952956309213.jpg" alt=""></p>
+<h2 id="安卓的类加载机制是怎样的？"><a href="#安卓的类加载机制是怎样的？" class="headerlink" title="安卓的类加载机制是怎样的？"></a>安卓的类加载机制是怎样的？</h2><ul>
+<li>DexClassLoader<br>DexClassLoader用来加载jar、apk，其实还包括zip文件或者直接加载dex文件，它可以被用来<code>执行未安装的代码或者未被应用加载过的代码</code>。</li>
+<li>PathClassLoader<br>PathClassLoader被用来加载本地文件系统上的文件或目录，但不能从网络上加载，关键是它被用来<code>加载系统类和我们的应用程序</code>.</li>
+</ul>
+<h2 id="虚拟机的内存机制是怎样的？"><a href="#虚拟机的内存机制是怎样的？" class="headerlink" title="虚拟机的内存机制是怎样的？"></a>虚拟机的内存机制是怎样的？</h2><p>程序计数器，虚拟机栈，本地方法栈，堆，方法区。<br>新生代，老年代，永久代（方法区）<br>内存切换的过程！！！</p>
+<h2 id="内存优化，工具，方法？"><a href="#内存优化，工具，方法？" class="headerlink" title="内存优化，工具，方法？"></a>内存优化，工具，方法？</h2><p>traceview, 查看某个方法的执行时间。<br>android monitor也可以打印trace文件。<br>[参考]<a href="http://mt.sohu.com/20170118/n478995479.shtml" target="_blank" rel="noopener">http://mt.sohu.com/20170118/n478995479.shtml</a><br>界面卡顿如何解决？<br>1.尽量使用RelativeLayout视图，合并多层嵌套视图。<br>2.使用merge, viewStub组件优化，合并视图。<br>3.优化listview，adapter，getView方法，holder缓存视图对象，分割数据，滑动暂停加载图片，异步IO操作，decodeBitmap。<br>[参考]<a href="http://www.cnblogs.com/zqlxtt/p/4682319.html" target="_blank" rel="noopener">http://www.cnblogs.com/zqlxtt/p/4682319.html</a><br>如何监控crash，发送日志？<br>监听crash广播，收到数据，网络发送。</p>
+<p>待续：</p>
+<p>ANR有哪些类型？</p>
+<ol>
+<li><p>KeyDispatchTimeout(5 seconds) –主要类型<br>按键或触摸事件在特定时间内无响应</p>
+</li>
+<li><p>BroadcastTimeout(10 seconds)<br>BroadcastReceiver在特定时间内无法处理完成</p>
+</li>
+<li><p>ServiceTimeout(20 seconds) –小概率类型<br>Service在特定的时间内无法处理完成</p>
+</li>
+</ol>
+<p>activity的基本启动模式？</p>
+<p>软引用和弱引用，强引用的区别是什么？<br>遇到的最难的问题是什么？解决方式是什么？<br>OOM怎么避免？<br>怎么实现生产者和消费者？<br>异常的类型有哪些？分别举几个栗子？<br>java的泛型是如何实现的？</p>
+<p>wordpress<br>修改了一下主题。<br>修改了一下菜单数量和菜单对应的分类。<br>增加了cnzz的umeng统计。<br>删除底部的“自豪的采用wordpress”标签。</p>
+<p>git静态博客<br><a href="http://blog.csdn.net/renfufei/article/details/37725057" target="_blank" rel="noopener">http://blog.csdn.net/renfufei/article/details/37725057</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/04/android面试题/" data-id="cjk9xomkh0001owqe2b0m1m7s" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -191,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/19/fackbook_f8app_源码分析/" data-id="cjh695yi10003eiqen7wh4rsh" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/04/19/fackbook_f8app_源码分析/" data-id="cjk9xoml80002owqeomdezgox" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -245,7 +294,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
     </div>
   </div>
 
@@ -256,6 +305,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blogs/2018/08/01/听高老师讲架构1/">(no title)</a>
+          </li>
         
           <li>
             <a href="/blogs/2018/03/26/遗憾的婚礼见证人/">遗憾的婚礼见证人</a>
@@ -271,10 +324,6 @@
         
           <li>
             <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
-          </li>
-        
-          <li>
-            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
           </li>
         
       </ul>

@@ -68,9 +68,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-kotlin入门_抽象类和接口" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-kotlin入门_类与继承" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blogs/2017/11/01/kotlin入门_抽象类和接口/" class="article-date">
+    <a href="/blogs/2017/11/01/kotlin入门_类与继承/" class="article-date">
   <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
 </a>
     
@@ -86,7 +86,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_抽象类和接口/">kotlin入门_抽象类和接口</a>
+      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_类与继承/">类与继承</a>
     </h1>
   
 
@@ -94,63 +94,72 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h2><p>抽象方法用<code>absract</code>修饰，只有声明，没有实现，形如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abstract fun methodOk()</span><br></pre></td></tr></table></figure>
-<p>抽象方法有如下特点：</p>
-<ol>
-<li>抽象方法必须用abstract关键字进行修饰</li>
-<li>抽象方法不用手动添加open，默认被open修饰</li>
-<li>抽象方法没有具体的实现</li>
-<li>含有抽象方法的类成为抽象类，必须由abtract关键字修饰</li>
-</ol>
-<h2 id="抽象属性"><a href="#抽象属性" class="headerlink" title="抽象属性"></a>抽象属性</h2><p>抽象属性就是在var或val前被abstract修饰，抽象属性的声明格式为：</p>
-<ol>
-<li>抽象属性在抽象类中不能被初始化</li>
-<li>在子类没有主构造函数，要对抽象属性，手动初始化。如果子类中有主构造函数，抽象属性可以在主构造函数中声明</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abstract var addr : String</span><br><span class="line">abstract val weight : Float</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var y: String = &quot;hello&quot;</span><br><span class="line">     get() =  y + &quot;,yes&quot; // error , 正确用法：field + &quot;, yes&quot;</span><br><span class="line">     set(value) &#123;</span><br><span class="line">	     field = value</span><br><span class="line">	  &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 抽象类</span><br><span class="line"></span><br><span class="line">含有**抽象属性**或者**抽象方法**的类，称之为抽象类。抽象类必须用abstract修饰。</span><br><span class="line">实例:</span><br></pre></td></tr></table></figure>
-<p>abstract class Person {<br>    abstract val gender: String = “female”<br>    abstract fun haha()<br>    fun eat() {<br>            println(“eat some thing”)<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">抽象类特点如下：</span><br><span class="line"></span><br><span class="line">1. 抽象方法必须为`public或者protected`（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public；</span><br><span class="line">2.	抽象类不能用来创建对象；</span><br><span class="line">3.	如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。如果抽象类中含有抽象属性，再实现子类中必须将抽象属性初始化，除非子类也为抽象类。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 接口</span><br><span class="line"></span><br><span class="line">接口和抽象类不同的是，**接口不能保存状态，可以有属性但必须是抽象的**。</span><br><span class="line">接口是通过关键字 interface 来定义的：</span><br></pre></td></tr></table></figure></p>
-<p>interface MyInterface {<br>    val func : Int<br>    fun bar()<br>    fun foo() {<br>    //函数体是可选的<br>    }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 接口中的属性</span><br><span class="line"></span><br><span class="line">接口也可以有属性，但因为接口不能保存状态，所以属性必须是无状态的。</span><br></pre></td></tr></table></figure>
-<p>interface A {<br>    val x: String<br>    fun foo()<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 重写多个接口的冲突</span><br></pre></td></tr></table></figure></p>
-<pre><code>interdace A {      fun foo() { print(“A”) }      fun bar()  }
-interface B {
-   fun foo() { print(&quot;B&quot;) }
-   fun bar() { print(&quot;bar&quot;) }
-} 
-
-class C : A {
-    override fun bar() { print(&quot;bar&quot;) }
-}
-
-class D : A, B {
-    override fun foo() {
-        super&lt;A&gt;.foo()
-        super&lt;B&gt;.foo()
-    }
-
-    override fun bar() {
-        super.bar()
-    }
-} 
-</code></pre><p>```</p>
-<p>我们要在类D中分别调用接口A和B的foo方法，可以用语法<code>super&lt;A&gt;.foo()， super&lt;B&gt;.foo()</code>的形式调用。但是在bar()方法中，调用父类bar方法，没有冲突，就可以直接使用<code>super.foo()</code>形式调用。</p>
-<h2 id="抽象类和接口的差异"><a href="#抽象类和接口的差异" class="headerlink" title="抽象类和接口的差异"></a>抽象类和接口的差异</h2><h3 id="语法层面上的区别"><a href="#语法层面上的区别" class="headerlink" title="语法层面上的区别"></a>语法层面上的区别</h3><ol>
-<li>接口不能保存状态，可以有属性但必须是抽象的，而抽类型可以有属性。</li>
-<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
-</ol>
-<h3 id="设计上的区别"><a href="#设计上的区别" class="headerlink" title="设计上的区别"></a>设计上的区别</h3><p>接口和抽象类，一个被子类实现，一个被子类继承，子类都要实现他们的抽象方法，覆盖抽象属性；但表达的现实关系不一样。例如一个鸡，和一个蜻蜓，他们都会飞，他们属于不同类型，那么我们会定义一个Fly的接口，鸡和蜻蜓实现fly接口；但他们都是动物，这里，可以定义Animal抽象类，动物也具有一些普遍特性，比如有血有肉，比如都会吃东西。那就可以用属性和方法实现这些。</p>
-<p>接口，描述的是对象<em>“有没有”</em>的关系。抽象类，描述的是对象<em>”是不是“</em>的关系。是二者在设计上的区别。</p>
-<p>参考：<br><a href="http://blog.csdn.net/io_field/article/details/52860971" target="_blank" rel="noopener">kotlin抽象类和接口</a></p>
+        <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>Kotlin 中使用关键字 class 声明类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Invoice &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类声明由<em>类名、类头（指定其类型参数、主构造函数等）和由大括号包围的类体</em>构成。<br>类头和类体都是<em>可选</em>的； 如果一个类没有类体，可以省略花括号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Empty</span><br></pre></td></tr></table></figure>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>在 Kotlin 中的一个类可以有一个<em>主构造函数</em>和<em>一个或多个次构造函数</em>。主构造函数是类头的一部分：它跟在类名（和可选的类型参数）后。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Person constructor(firstName: String) &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>如果主构造函数没有任何注解或者可见性修饰符，可以省略这个 constructor 关键字。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Person(firstName: String) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <strong>主构造函数不能包含任何的代码</strong>。初始化的代码可以放到以 init 关键字作为前缀的初始化块（initializer blocks）中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Customer(name: String) &#123;</span><br><span class="line">    init &#123;</span><br><span class="line">    		name = 3</span><br><span class="line">        logger.info(&quot;Customer initialized with value $&#123;name&#125;&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，<strong>主构造的参数可以在初始化块中使用</strong>。它们也可以在类体内声明的属性初始化器中使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Customer(name: String) &#123;</span><br><span class="line">    val customerKey = name.toUpperCase()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>事实上，声明属性以及从主构造函数初始化属性，Kotlin 有简洁的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Person(val firstName: String, val lastName: String, var age: Int) &#123;</span><br><span class="line">    // ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与普通属性一样，主构造函数中声明的属性可以是可变的（var）或只读的（val）。<br>如果构造函数有注解或可见性修饰符，这个 constructor 关键字是必需的，并且这些修饰符在它前面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Customer public @Inject constructor(name: String) &#123; …… &#125;</span><br></pre></td></tr></table></figure>
+<p>更多详情，参见 <a href="https://www.kotlincn.net/docs/reference/visibility-modifiers.html#构造函数" target="_blank" rel="noopener">可见性修饰符</a></p>
+<h2 id="次构造函数"><a href="#次构造函数" class="headerlink" title="次构造函数"></a>次构造函数</h2><p>类也可以声明前缀有 constructor的次构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    constructor(parent: Person) &#123;</span><br><span class="line">        parent.children.add(this)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果类有一个主构造函数，每个次构造函数需要委托给主构造函数， 可以直接委托或者通过别的次构造函数间接委托。委托到同一个类的另一个构造函数用 this 关键字即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Person constructor(val name: String) &#123;</span><br><span class="line">    constructor(name: String, gender: Boolean) : this(name) &#123;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    constructor(name: String, age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果一个非抽象类没有声明任何（主或次）构造函数，它会有一个生成的不带参数的主构造函数。构造函数的可见性是 public。如果你不希望你的类有一个公有构造函数，你需要声明一个带有非默认可见性的空的主构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class DontCreateMe private constructor () &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：在 JVM 上，如果主构造函数的所有的参数都有默认值，编译器会生成 一个额外的无参构造函数，它将使用默认值。这使得 Kotlin 更易于使用像 Jackson 或者 JPA 这样的通过无参构造函数创建类的实例的库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Customer(val customerName: String = &quot;&quot;)</span><br></pre></td></tr></table></figure>
+<p>创建类的实例<br>要创建一个类的实例，我们就像普通函数一样调用构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val invoice = Invoice()</span><br><span class="line"></span><br><span class="line">val customer = Customer(&quot;Joe Smith&quot;)</span><br></pre></td></tr></table></figure>
+<p><strong>注意 Kotlin 并没有 new 关键字。</strong></p>
+<p>创建嵌套类、内部类和匿名内部类的类实例在嵌套类中有述。<br>类成员<br>类可以包含：<br>        构造函数和初始化块<br>        函数<br>        属性<br>        嵌套类和内部类<br>        对象声明</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>在 Kotlin 中所有类都有一个共同的超类 <strong>Any</strong>，这对于没有超类型声明的类是默认超类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Example // 从 Any 隐式继承</span><br></pre></td></tr></table></figure>
+<p>Any 不是 java.lang.Object；尤其是，它除了 equals()、hashCode()和toString()外没有任何成员。 更多细节请查阅Java互操作性部分。<br>要声明一个显式的超类型，我们把类型放到类头的冒号之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open class Base(p: Int) `</span><br><span class="line">class Derived(p: Int) : Base(p)</span><br></pre></td></tr></table></figure>
+<p>如果该类有一个主构造函数，其基类型可以（并且必须） 用（基类型的）主构造函数参数就地初始化。<br>如果类没有主构造函数，那么每个次构造函数必须使用 super 关键字初始化其基类型，或委托给另一个构造函数做到这一点。 注意，在这种情况下，不同的次构造函数可以调用基类型的不同的构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MyView : View &#123;</span><br><span class="line">    constructor(ctx: Context) : super(ctx)</span><br><span class="line"></span><br><span class="line">    constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类上的 open 标注与 Java 中 final 相反，它允许其他类从这个类继承。<br><strong>默认情况下，在 Kotlin 中所有的类都是 final</strong>， 对应于 Effective Java书中的第 17 条：要么为继承而设计，并提供文档说明，要么就禁止继承。</p>
+<h2 id="覆盖方法"><a href="#覆盖方法" class="headerlink" title="覆盖方法"></a>覆盖方法</h2><p>我们之前提到过，Kotlin 力求清晰显式。与 Java 不同，Kotlin 需要显式标注可覆盖的成员（我们称之为开放）和覆盖后的成员：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">open class Base &#123;</span><br><span class="line">    open fun v() &#123;&#125;</span><br><span class="line">    fun nv() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Derived() : Base() &#123;</span><br><span class="line">    override fun v() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Derived.v() 函数上必须加上 override标注。如果没写，编译器将会报错。 如果函数没有标注 open 如 Base.nv()，则子类中不允许定义相同签名的函数， 不论加不加 override。在一个 final 类中（没有用 open 标注的类），开放成员是禁止的。<br>标记为 override 的成员本身是开放的，也就是说，它可以在子类中覆盖。如果你想禁止再次覆盖，使用 final 关键字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">open class AnotherDerived() : Base() &#123;</span><br><span class="line">    final override fun v() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="覆盖属性"><a href="#覆盖属性" class="headerlink" title="覆盖属性"></a>覆盖属性</h2><p>属性覆盖与方法覆盖类似；<strong>在超类中声明然后在派生类中重新声明的属性必须以 override 开头，并且它们必须具有兼容的类型。每个声明的属性可以由具有初始化器的属性或者具有 getter 方法的属性覆盖。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">open class Foo &#123;</span><br><span class="line">    open val x: Int get() &#123; …… &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bar1 : Foo() &#123;</span><br><span class="line">    override val x: Int = ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你也可以用一个 var 属性覆盖一个 val 属性，但反之则不行。 </p>
+<p>请注意，你可以在主构造函数中使用 override 关键字作为属性声明的一部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface Foo &#123;</span><br><span class="line">    val count: Int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bar1(override val count: Int) : Foo</span><br><span class="line"></span><br><span class="line">class Bar2 : Foo &#123;</span><br><span class="line">    override var count: Int = 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="调用超类实现"><a href="#调用超类实现" class="headerlink" title="调用超类实现"></a>调用超类实现</h2><p>派生类中的代码可以使用 super 关键字调用其超类的函数与属性访问器的实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">open class Foo &#123;</span><br><span class="line">    open fun f() &#123; println(&quot;Foo.f()&quot;) &#125;</span><br><span class="line">    open val x: Int get() = 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bar : Foo() &#123;</span><br><span class="line">    override fun f() &#123; </span><br><span class="line">        super.f()</span><br><span class="line">        println(&quot;Bar.f()&quot;) </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    override val x: Int get() = super.x + 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在一个内部类中访问外部类的超类，可以通过由外部类名限定的 super 关键字来实现：super@Outer：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Bar : Foo() &#123;</span><br><span class="line">    override fun f() &#123; /* …… */ &#125;</span><br><span class="line">    override val x: Int get() = 0</span><br><span class="line">    </span><br><span class="line">    inner class Baz &#123;</span><br><span class="line">        fun g() &#123;</span><br><span class="line">            super@Bar.f() // 调用 Foo 实现的 f()</span><br><span class="line">            println(super@Bar.x) // 使用 Foo 实现的 x 的 getter</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="覆盖规则"><a href="#覆盖规则" class="headerlink" title="覆盖规则"></a>覆盖规则</h2><p>在 Kotlin 中，实现继承由下述规则规定：如果一个类从它的直接超类继承相同成员的多个实现， 它必须覆盖这个成员并提供其自己的实现（也许用继承来的其中之一）。 为了表示采用从哪个超类型继承的实现，我们使用由尖括号中超类型名限定的 super，如 super<base>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">open class A &#123;</span><br><span class="line">    fun f() &#123; print(&quot;A&quot;) &#125;</span><br><span class="line">    fun a() &#123; print(&quot;a&quot;) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface B &#123;</span><br><span class="line">    fun f() &#123; print(&quot;B&quot;) &#125; // 接口成员默认就是“open”的</span><br><span class="line">    fun b() &#123; print(&quot;b&quot;) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C() : A(), B &#123;</span><br><span class="line">    // 编译器要求覆盖 f()：</span><br><span class="line">    override fun f() &#123;</span><br><span class="line">        </span><br><span class="line">        super&lt;A&gt;.f() // 调用 A.f()</span><br><span class="line">        super&lt;B&gt;.f() // 调用 B.f()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时继承 A 和 B 没问题，并且 a() 和 b() 也没问题因为 C 只继承了每个函数的一个实现。 但是 f() 由 C继承了两个实现，所以我们必须在 C 中覆盖 f() 并且提供我们自己的实现来消除歧义。<br>抽象类<br>类和其中的某些成员可以声明为 abstract。 抽象成员在本类中可以不用实现。 <strong>需要注意的是，我们并不需要用 open 标注一个抽象类或者函数</strong>——因为这不言而喻。<br>我们可以用一个抽象成员覆盖一个非抽象的开放成员</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">open class Base &#123;</span><br><span class="line">    open fun f() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abstract class Derived : Base() &#123;</span><br><span class="line">    override abstract fun f()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="伴生对象-–-java中的静态类"><a href="#伴生对象-–-java中的静态类" class="headerlink" title="伴生对象 – (java中的静态类)"></a>伴生对象 – (java中的静态类)</h2><p>与 Java 或 C# 不同，在 Kotlin 中类没有静态方法。在大多数情况下，它建议简单地使用包级函数。<br>如果你需要写一个可以无需用一个类的实例来调用、但需要访问类内部的函数（例如，工厂方法），你可以把它写成该类内对象声明中的一员。<br>更具体地讲，如果在你的类内声明了一个伴生对象， 你就可以使用像在 Java/C# 中调用静态方法相同的语法来调用其成员，只使用类名作为限定符。</p>
+<h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">interface Animal&#123;</span><br><span class="line">    fun bark()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Food&#123;</span><br><span class="line">    fun eat()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Delegate(animal: Animal, food: Food) : Animal by animal, Food by food &#123;</span><br><span class="line">    override fun eat() &#123;</span><br><span class="line">        println(&quot;mouse&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun bark() &#123;</span><br><span class="line">        println(&quot;Miao&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="伪多继承的实现-–-接口的代理实现"><a href="#伪多继承的实现-–-接口的代理实现" class="headerlink" title="伪多继承的实现 – 接口的代理实现"></a>伪多继承的实现 – 接口的代理实现</h2><p>Kotlin的动态代理更多的是用在一种需要多继承的场景。<br>例如，还是之前我举的我朋友那个项目的例子，他们的问题在于，每个BaseActivity的子类，都会要请求不同的网络，可能A需要获取用户信息，B需要获取活动列表，C既需要活动列表也需要获取用户信息，D却只需要获取图片列表。</p>
+<p>这样一个场景，使用一个代理类实现所有需要获取信息的接口方法。然后让不同的子类去实现所需的接口，请求统一交给代理类完成。这样不仅维护网络请求信息方便，而且每个类不会有额外多出来的方法防止新人接触项目的时候调用错请求方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">interface Animal&#123;</span><br><span class="line">    fun bark()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Food&#123;</span><br><span class="line">    fun eat()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Delegate : Animal, Food &#123;</span><br><span class="line">    override fun eat() &#123;</span><br><span class="line">        println(&quot;mouse&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun bark() &#123;</span><br><span class="line">        println(&quot;Miao&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat(animal: Animal, food: Food) : Animal by animal, Food by food &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@JvmStatic fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val delegate: Delegate = Delegate()</span><br><span class="line"></span><br><span class="line">    Cat(delegate, delegate).bark()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_抽象类和接口/" data-id="cjh695yj9000reiqey99i7mpx" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_类与继承/" data-id="cjk9xomrf000wowqe1vrcp2g8" class="article-share-link">Teilen</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li></ul>
 
     </footer>
   </div>
@@ -223,7 +232,94 @@ class D : A, B {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjh695yis000feiqek1nanvv6" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjk9xomps000jowqe0xgtlsou" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-kotlin入门_返回与跳转" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_返回与跳转/" class="article-date">
+  <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_返回与跳转/">kotlin入门_返回与跳转</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="break，continue，return"><a href="#break，continue，return" class="headerlink" title="break，continue，return"></a>break，continue，return</h2><p>kotlin 有三种结构化跳转表达式：</p>
+<ul>
+<li>return 默认从最直接包围它的函数或者匿名函数返回。</li>
+<li>break 终止最直接包围它的循环。</li>
+<li>continue 继续下一次最直接包围它的循环。</li>
+</ul>
+<h2 id="break和continue与标签"><a href="#break和continue与标签" class="headerlink" title="break和continue与标签"></a>break和continue与标签</h2><p>  <strong>除了和java，c语言一样的语法外</strong>，在 Kotlin 中任何表达式都可以用标签<a href="https://www.kotlincn.net/docs/reference/grammar.html#labelReference" target="_blank" rel="noopener">label</a> 来标记。 标签的格式为标识符后跟 @ 符号，例如：abc@、fooBar@都是有效的标签（参见语法）。 要为一个表达式加标签，我们只要在其前加标签即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val list = listOf(1, 2, 3, 4, 5, 6, 7, 8)</span><br><span class="line">loop@ for(index in list) &#123;</span><br><span class="line">if(index == 5) &#123;</span><br><span class="line">		break// continue</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		println(&quot;$index&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在可以用标签限制break，continue，跳转到指定位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">loop@ for(index in list) &#123;</span><br><span class="line">	if(index == 5) &#123;</span><br><span class="line">			break@loop</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		println(&quot;$index&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="标签处返回"><a href="#标签处返回" class="headerlink" title="标签处返回"></a>标签处返回</h2><p>用return语句可以返回外层函数，lambda表达式外边。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun foo() &#123;</span><br><span class="line">val ints = listOf(1, 3, 4, 5, 0)</span><br><span class="line">    ints.forEach &#123;</span><br><span class="line">        if (it == 0) return  // nonlocal return from inside lambda directly to the caller of foo()</span><br><span class="line">        print(it)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回到标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">list.forEach loop@ &#123;</span><br><span class="line">       if ( it == 5 ) &#123;</span><br><span class="line">           return@loop</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           println(&quot;$it&quot;)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   println(&quot;end&quot;)</span><br></pre></td></tr></table></figure>
+<p>返回到隐式标签, 标签名字和接受lambda的函数同名；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">list.forEach &#123;</span><br><span class="line">       if ( it == 5 ) &#123;</span><br><span class="line">           return@forEach</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           println(&quot;$it&quot;)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   println(&quot;end&quot;)</span><br></pre></td></tr></table></figure>
+<p>从匿名函数返回</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun foo() &#123;</span><br><span class="line">    ints.forEach(fun(value: Int) &#123;</span><br><span class="line">        if (value == 0) return  // local return to the caller of the anonymous fun, i.e. the forEach loop</span><br><span class="line">        print(value)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>return标签和值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return@loop 5</span><br></pre></td></tr></table></figure>
+<p>当要返一个回值的时候，解析器优先选用标签限制的 return，上述代码就表示从标签@loop返回1.</p>
+<p>看下面示例：</p>
+<pre><code>fun compare(): Int { 
+
+    val x = 5
+
+    loop@for(i in 0..x) { 
+        if(i == 2) {
+            return@loop i
+        } else {
+            println(&quot;$i&quot;)
+        }
+    }
+
+    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8)
+    list.forEach {
+        if ( it == 5 ) {
+            return@forEach
+        } else {
+            println(&quot;$it&quot;)
+        }
+     }
+    println(&quot;---&quot;)
+    return 5 
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_返回与跳转/" data-id="cjk9xomrm000zowqe7f5sk7y2" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -260,42 +356,7 @@ class D : A, B {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/31/git常用命令/" data-id="cjh695yid0005eiqek8mgjblw" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-如何查看android源码" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/05/22/如何查看android源码/" class="article-date">
-  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 如何查看android源码</p>
-<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><p>我最近一直寻求Source Insight的mac安装版，下载了2个版本都无法安装。内心是奔溃的！！</p>
-<p>于是我在想，有什么其他的IDE可以查看adroid源码吗？立马反应到电脑上还装了一款<code>Sublime Text 3</code>神器啊。于是，打开<code>Sublime Text 3</code>,文件-&gt;打开-&gt;选择android源码目录。哇塞，so方便。</p>
-<p>这里记录一下该IDE在mac系统上的快捷键:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ctrl + /  ---------------------注释</span><br><span class="line">Ctrl + 滚动　--------------字体变大/缩小</span><br><span class="line">Ctrl + N-------------------新建</span><br><span class="line"></span><br><span class="line">软件右下角可以选择文档语法模式</span><br><span class="line">Ctrl + Shift + P ------------------命令模式</span><br><span class="line">命令：</span><br><span class="line">sshtml模糊匹配-----语法切换到html模式，同理所得，ss+相应文件名匹配相应模式，如ssphp、ssjava等</span><br><span class="line">Ctrl+Shift +k -----------删除一行</span><br><span class="line">Ctrl + w ------------快速闭合标签</span><br><span class="line">Ctrl + P -----------菜单上的解释是gotoanythings，用&quot;#&quot;匹配，</span><br></pre></td></tr></table></figure>
-<p>来，show一张看源码时的酸爽：</p>
-<p><img style="{width:400px; height: 300px}" src="http://oojk8e1qn.bkt.clouddn.com/sublimeandroidsource.png"></p>
-<p>图1</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/如何查看android源码/" data-id="cjh695yk9001reiqerk2bnmdd" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/31/git常用命令/" data-id="cjk9xomlo0004owqewdsqh2f8" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -333,48 +394,7 @@ class D : A, B {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/新公司一点感受/" data-id="cjh695ykh001veiqeprjy9upx" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-最近的知识点总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/05/22/最近的知识点总结/" class="article-date">
-  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 最近的知识点总结</p>
-<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">健全的灵魂寄宿在健全的精神，和健全的身体中！</span><br><span class="line">                              -- 《噬魂师》</span><br></pre></td></tr></table></figure>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安卓 应用 人工智能 dagger2 rxjava retrofit MVP模式</span><br></pre></td></tr></table></figure>
-<p>最近加入新公司，感觉需要学的知识太多了，不过，最要还是搞安卓应用，framework层这一块。所以还算是比较熟悉的领域，我上周研究了一阵子MVP模式。</p>
-<h2 id="MVP模式"><a href="#MVP模式" class="headerlink" title="MVP模式"></a>MVP模式</h2><p>这里我们不得不提到MVC模式，MVVM模式。</p>
-<h3 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h3><p>在前2年，软件开发架构讨论最多的还是MVC模式，即，模型-视图-控制器模式。这里借一张图来说明：<br><img style="{width:200px; height: 200px}" src="图一"><br>其中，Model层用来获取业务数据，关于数据的CRUD，都可以放到这里完成；<br>View层则负责展示数据，刷新界面数据；<br>Control会负责执行业务逻辑;</p>
-<p>3者关系一般是单向控制的。即：<br>control -&gt; model -&gt; view -&gt; control</p>
-<p>但并不一定，有时候，我们可以在view层控制，发送命令给control，继续后面的控制；<br>有时候，我们可以在control层发出命令，改变model，继续后面的控制；</p>
-<h3 id="MVP模式-MVC的改进版"><a href="#MVP模式-MVC的改进版" class="headerlink" title="MVP模式 - MVC的改进版"></a>MVP模式 - MVC的改进版</h3><p>对于MVC模式，model和view可以直接交互，但我们有时候不希望这样，希望所有的界面展示都由一个中间代理presenter来控制，而界面变化后，也由presenter通知model进行数据更改。这里，因此就有了这样的关系：</p>
-<p>model &lt;-&gt; presenter &lt;-&gt;view</p>
-<p>和MVC的区别在于，model和view不再直接交互。二者的交互都通过p进行。</p>
-<h3 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h3><p>对于有些应用，可能界面和数据高度耦合，很难区分开，那么我们就会把presenter层改成ModelView层，<br>3者的关系就变成这样：</p>
-<p>Model &lt;-&gt; ModelView -&gt;View<br>即Model和ModelView是双向通信的，二者变化互相影响，当ModelView变化后，就会引起View的变化。</p>
-<p>参考：<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">阮一峰网络日志</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/最近的知识点总结/" data-id="cjh695ykj001yeiqecsl5obgw" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/新公司一点感受/" data-id="cjk9xomv0001vowqecrn5mrd3" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -451,7 +471,83 @@ class D : A, B {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjh695yhl0000eiqetlvdg6qx" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjk9xomjn0000owqeqmmfe54x" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-最近的知识点总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/05/22/最近的知识点总结/" class="article-date">
+  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 最近的知识点总结</p>
+<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">健全的灵魂寄宿在健全的精神，和健全的身体中！</span><br><span class="line">                              -- 《噬魂师》</span><br></pre></td></tr></table></figure>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安卓 应用 人工智能 dagger2 rxjava retrofit MVP模式</span><br></pre></td></tr></table></figure>
+<p>最近加入新公司，感觉需要学的知识太多了，不过，最要还是搞安卓应用，framework层这一块。所以还算是比较熟悉的领域，我上周研究了一阵子MVP模式。</p>
+<h2 id="MVP模式"><a href="#MVP模式" class="headerlink" title="MVP模式"></a>MVP模式</h2><p>这里我们不得不提到MVC模式，MVVM模式。</p>
+<h3 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h3><p>在前2年，软件开发架构讨论最多的还是MVC模式，即，模型-视图-控制器模式。这里借一张图来说明：<br><img style="{width:200px; height: 200px}" src="图一"><br>其中，Model层用来获取业务数据，关于数据的CRUD，都可以放到这里完成；<br>View层则负责展示数据，刷新界面数据；<br>Control会负责执行业务逻辑;</p>
+<p>3者关系一般是单向控制的。即：<br>control -&gt; model -&gt; view -&gt; control</p>
+<p>但并不一定，有时候，我们可以在view层控制，发送命令给control，继续后面的控制；<br>有时候，我们可以在control层发出命令，改变model，继续后面的控制；</p>
+<h3 id="MVP模式-MVC的改进版"><a href="#MVP模式-MVC的改进版" class="headerlink" title="MVP模式 - MVC的改进版"></a>MVP模式 - MVC的改进版</h3><p>对于MVC模式，model和view可以直接交互，但我们有时候不希望这样，希望所有的界面展示都由一个中间代理presenter来控制，而界面变化后，也由presenter通知model进行数据更改。这里，因此就有了这样的关系：</p>
+<p>model &lt;-&gt; presenter &lt;-&gt;view</p>
+<p>和MVC的区别在于，model和view不再直接交互。二者的交互都通过p进行。</p>
+<h3 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h3><p>对于有些应用，可能界面和数据高度耦合，很难区分开，那么我们就会把presenter层改成ModelView层，<br>3者的关系就变成这样：</p>
+<p>Model &lt;-&gt; ModelView -&gt;View<br>即Model和ModelView是双向通信的，二者变化互相影响，当ModelView变化后，就会引起View的变化。</p>
+<p>参考：<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">阮一峰网络日志</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/22/最近的知识点总结/" data-id="cjk9xomv6001yowqedtp5zc1t" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-如何查看android源码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/05/22/如何查看android源码/" class="article-date">
+  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 如何查看android源码</p>
+<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><p>我最近一直寻求Source Insight的mac安装版，下载了2个版本都无法安装。内心是奔溃的！！</p>
+<p>于是我在想，有什么其他的IDE可以查看adroid源码吗？立马反应到电脑上还装了一款<code>Sublime Text 3</code>神器啊。于是，打开<code>Sublime Text 3</code>,文件-&gt;打开-&gt;选择android源码目录。哇塞，so方便。</p>
+<p>这里记录一下该IDE在mac系统上的快捷键:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ctrl + /  ---------------------注释</span><br><span class="line">Ctrl + 滚动　--------------字体变大/缩小</span><br><span class="line">Ctrl + N-------------------新建</span><br><span class="line"></span><br><span class="line">软件右下角可以选择文档语法模式</span><br><span class="line">Ctrl + Shift + P ------------------命令模式</span><br><span class="line">命令：</span><br><span class="line">sshtml模糊匹配-----语法切换到html模式，同理所得，ss+相应文件名匹配相应模式，如ssphp、ssjava等</span><br><span class="line">Ctrl+Shift +k -----------删除一行</span><br><span class="line">Ctrl + w ------------快速闭合标签</span><br><span class="line">Ctrl + P -----------菜单上的解释是gotoanythings，用&quot;#&quot;匹配，</span><br></pre></td></tr></table></figure>
+<p>来，show一张看源码时的酸爽：</p>
+<p><img style="{width:400px; height: 300px}" src="http://oojk8e1qn.bkt.clouddn.com/sublimeandroidsource.png"></p>
+<p>图1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/22/如何查看android源码/" data-id="cjk9xomuq001towqew5ogqeik" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -1648,7 +1744,7 @@ class D : A, B {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/14/tapoutXT运动健身食物计划/" data-id="cjh695yk2001leiqebc6fnmj5" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/14/tapoutXT运动健身食物计划/" data-id="cjk9xomtr001oowqezxzf23sy" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li></ul>
@@ -1706,59 +1802,10 @@ class D : A, B {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/13/gitpages/" data-id="cjh695yhy0002eiqeqsbtxgu0" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/13/gitpages/" data-id="cjk9xomlg0003owqeee78er42" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java常见异常" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/05/04/java常见异常/" class="article-date">
-  <time datetime="2017-05-04T15:51:26.000Z" itemprop="datePublished">2017-05-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/05/04/java常见异常/">java常见异常</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以前很少注意这个，直到前段时间面试时，被问起这个问题。算起来，这也是一种新的角度来关注我们过完的代码经验。可以一窥我们遇到问题的范围有多广啦。</p>
-<p>我印象比较多的就是,</p>
-<ul>
-<li><code>OutOfMemeryExcetption</code></li>
-<li><code>ArrayIndexOutOfBoundsException</code></li>
-<li><code>NullPointException</code></li>
-<li><code>IllegalArgumentException</code></li>
-<li><code>IOException</code></li>
-<li><code>FileInputException</code></li>
-<li><code>SQLException</code></li>
-</ul>
-<h2 id="java异常的分类"><a href="#java异常的分类" class="headerlink" title="java异常的分类"></a>java异常的分类</h2><h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><h2 id="checkedException"><a href="#checkedException" class="headerlink" title="checkedException"></a>checkedException</h2><h2 id="uncheckedException"><a href="#uncheckedException" class="headerlink" title="uncheckedException"></a>uncheckedException</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/04/java常见异常/" data-id="cjh695yif0006eiqecx0h82yg" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/java异常/">java异常</a></li></ul>
 
     </footer>
   </div>
@@ -1811,7 +1858,7 @@ class D : A, B {
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
     </div>
   </div>
 
@@ -1822,6 +1869,10 @@ class D : A, B {
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blogs/2018/08/01/听高老师讲架构1/">(no title)</a>
+          </li>
         
           <li>
             <a href="/blogs/2018/03/26/遗憾的婚礼见证人/">遗憾的婚礼见证人</a>
@@ -1837,10 +1888,6 @@ class D : A, B {
         
           <li>
             <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
-          </li>
-        
-          <li>
-            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
           </li>
         
       </ul>

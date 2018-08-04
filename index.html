@@ -68,6 +68,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-听高老师讲架构1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2018/08/01/听高老师讲架构1/" class="article-date">
+  <time datetime="2018-07-31T16:44:59.000Z" itemprop="datePublished">2018-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 听高老师讲架构1</p>
+<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1533055499000</h2><h1 id="控制反转的概念"><a href="#控制反转的概念" class="headerlink" title="控制反转的概念"></a>控制反转的概念</h1><p>控制反转（Inversion of Control，英文缩写为IoC）是一种设计思想，并非面向对象编程的专用术语。是一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试；有了IoC容器后，把创建和查找依赖对象、方法的控制权交给了容器或子类，由容器或子类进行注入需要的对象或方法，所以对象与对象之间是松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活。</p>
+<p>控制什么？：控制对象依赖的资源（不只是对象包括比如文件等）。传统Java程序设计中，我们直接在对象内部通过new进行依赖对象创建，是程序主动去创建依赖对象；</p>
+<p>哪些方面反转了？：依赖对象的获取方式被反转了。传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器或被依赖对象来帮忙创建及注入依赖的对象或方法；由容器或被依赖对象帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转。</p>
+<p>IoC很好的体现了面向对象设计法则之一—— 好莱坞法则：“别找我，我会找你”；即由IoC容器帮对象找相应的依赖对象并注入，而不是由对象主动去找。</p>
+<p>在安卓系统中，用到了很多IoC的思想，接下来我们看看 android 系统如何使用proxy-stub 设计模式表达IoC思想，从而实现进程间通信。</p>
+<h1 id="跨进程调用在安卓里怎么实现？"><a href="#跨进程调用在安卓里怎么实现？" class="headerlink" title="跨进程调用在安卓里怎么实现？"></a>跨进程调用在安卓里怎么实现？</h1><p>android 基于linux系统架构，java的每个进程都是基于linux进程的，所以进程间通信必然会跨语言（底层c／c++实现）；android 系统是如何实现进程间通信呢(aidl)？aidl背后的原理又是什么(使用了proxy-stub模式)？为什么会用到 proxy-stub模式去实现进程间通信呢?</p>
+<p>android的进程间通信靠binder driver作为中间件完成通信。binder driver提供了接口，给上层应用 – IBinder 接口，通过jni调用，实现一种编解码的动作，从而使client-server模式的使用变得可行。下面举例说明，activity如何通过Ibinder接口，跨进程调用Service。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">activity      |      IBinder </span><br><span class="line">              |       |</span><br><span class="line">|             |      Binder</span><br><span class="line">|             |       |</span><br><span class="line">             IPC     job   &lt;--  service</span><br><span class="line">----------------------------</span><br><span class="line">binder driver</span><br><span class="line">----------------------------</span><br><span class="line">图1：activity和service的进程示意图</span><br></pre></td></tr></table></figure></p>
+<p>一般，activity通过调用startService, bindService,即可绑定服务Service。实际上，activity最终想调用的，是继承了Ibinder接口的Job的相关业务。</p>
+<p>作为client的activity，想调用Service的op0, op1方法，如果不采用android的proxy-stub机制，透过binder-driver跨进程通行，需要编码(transact)提供给binder driver，图1所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transact(code1, data, replay, 0);</span><br><span class="line">transact(code2, data, replay, 0);</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>图1 编码动作</p>
+<p>code1，code2表示client想调用Job类的方法编号：</p>
+<p>被远程调用的Job，必须要对binder driver 提供的意图解码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class job implement IBinder &#123;</span><br><span class="line">void op1() &#123;...&#125;</span><br><span class="line">void op2() &#123;...&#125;</span><br><span class="line">boolean onTransact(int code, data, reply, ) &#123;</span><br><span class="line">	switch(code) &#123;</span><br><span class="line">	case 0:</span><br><span class="line">	   op0();</span><br><span class="line">	case 1:</span><br><span class="line">     op1();</span><br><span class="line">        ...</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>图2 解码动作<br>所以对客户端，服务端，想要实现IPC必须实现一套“编解码动作”</p>
+<h1 id="为什么要有Proxy-Stub模式，实现android-IPC？"><a href="#为什么要有Proxy-Stub模式，实现android-IPC？" class="headerlink" title="为什么要有Proxy-Stub模式，实现android IPC？"></a>为什么要有Proxy-Stub模式，实现android IPC？</h1><p>为了让减轻用户编解码的负担，android系统提供一种proxy-stub机制，替用户编解码了。<br>下面就是android 框架提供的proxy-stub模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">------------------&gt; IBinder          </span><br><span class="line">|             |       |</span><br><span class="line">|             |      Binder</span><br><span class="line">|             |       |</span><br><span class="line">proxy         |      Stub </span><br><span class="line">|             |       |</span><br><span class="line">activity      |       |</span><br><span class="line">|             |       |</span><br><span class="line">|             |       |</span><br><span class="line">------------  IPC    job   &lt;--  service</span><br><span class="line">图2 proxy-stub模式的应用</span><br></pre></td></tr></table></figure>
+<h1 id="系统（强龙-做的事情"><a href="#系统（强龙-做的事情" class="headerlink" title="系统（强龙)做的事情"></a>系统（强龙)做的事情</h1><p>所谓强龙不压地头蛇，不仅不压地头蛇，还帮助地头蛇减轻开发负担，实现开发效率。<br>在Binder 和跨进程任务Job之间增加一层stub，屏蔽解码动作；<br>在client和IBinder之间，增加一层Proxy，屏蔽编码动作；从而实现了‘狭天子以令诸侯’，解耦跨进程调用的过程的复杂性。</p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>proxy-stub模式，表达了Ioc的思想，即框架控制接口的获取，用户提供框架需要的接口；<br>proxy-stub层代替client和service的通信，会主动call service，哪个方法被调用了。即所谓的“don’t call me, i will call u”。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/01/听高老师讲架构1/" data-id="cjkesynb40000snqemebyph3c" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-遗憾的婚礼见证人" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blogs/2018/03/26/遗憾的婚礼见证人/" class="article-date">
@@ -116,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/26/遗憾的婚礼见证人/" data-id="cjh695ykt0025eiqecatwpnyw" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/03/26/遗憾的婚礼见证人/" data-id="cjk9xomwg0025owqe87vj0scb" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/生活小事/">生活小事</a></li></ul>
@@ -147,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/01/电子货币投资记录/" data-id="cjh695ykl0020eiqe0a5cbhl8" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/03/01/电子货币投资记录/" data-id="cjk9xomvv0020owqemp0xmen5" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -205,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/25/u3d动画状态机/" data-id="cjh695yk5001peiqe2s2mc9td" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/25/u3d动画状态机/" data-id="cjk9xomtg001kowqeyis2m6rk" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li></ul>
@@ -302,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/06/kotlin听课笔记/" data-id="cjh695yjn0018eiqex7ccenrl" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/12/06/kotlin听课笔记/" data-id="cjk9xomrx0013owqedm2bwtta" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li></ul>
@@ -368,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/03/计算机专业的变化/" data-id="cjh695ykp0023eiqepy1xk7ul" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/12/03/计算机专业的变化/" data-id="cjk9xomw90022owqefkcglmdt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/评论/">评论</a></li></ul>
@@ -407,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/01/kotlin入门-DSL的使用/" data-id="cjh695yij000aeiqeke8swril" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/12/01/kotlin入门-DSL的使用/" data-id="cjk9xommu0006owqe4kmodos1" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/html/">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -467,7 +512,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/01/navigator_link/" data-id="cjh695yjy001ieiqeh5bn1msc" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/12/01/navigator_link/" data-id="cjk9xomt8001howqeii90tawp" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -504,7 +549,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/28/kotlin代码演示_缩减代码/" data-id="cjh695yih0007eiqevoe169s7" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/28/kotlin代码演示_缩减代码/" data-id="cjk9xomo00008owqenrhqkljo" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -574,64 +619,10 @@ val result = list.filter{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/24/kotlin入门-lambda表达式/" data-id="cjh695yio000beiqeg4895i3v" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/24/kotlin入门-lambda表达式/" data-id="cjk9xomob000bowqevwwgo6qm" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-kotlin资源" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/11/17/kotlin资源/" class="article-date">
-  <time datetime="2017-11-17T03:36:16.000Z" itemprop="datePublished">2017-11-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/11/17/kotlin资源/">kotlin资源</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>kotlin的资源多如牛毛，有时候可能会有种信息泛滥的感觉。这里，给一些我觉得常见的资源。循序渐进的去了解kotlin会更好一点。</p>
-<h2 id="kotlin的练习网站"><a href="#kotlin的练习网站" class="headerlink" title="kotlin的练习网站"></a>kotlin的练习网站</h2><p>这是一个在线练习网站，可以针对所有kotlin语法知识点进行<strong>刻意</strong>练习，这个项目叫”kotlin-koans“，就如我们小学语文练习<strong>完形填空</strong>，一个小任务，会描述”任务目标“，在哪里修改代码，甚至<strong>测试代码</strong>都帮你写好了。如果觉得写不出来答案，或者写得不对，可随时切换到<em>完成版本</em>的分支，查看答案。</p>
-<p><strong>地址</strong><br><a href="https://try.kotlinlang.org/" target="_blank" rel="noopener">kotlin心印在线练习</a><br><a href="https://github.com/Kotlin/kotlin-koans" target="_blank" rel="noopener">git地址</a></p>
-<h2 id="kotlin中文网"><a href="#kotlin中文网" class="headerlink" title="kotlin中文网"></a>kotlin中文网</h2><p>中文学习者可以说一切都从这里开始的，几乎可以找到各种关于kotlin的语法：有一群热心的kotlin中文翻译人员随时跟进国外的kotlin新动态。</p>
-<p><strong>地址</strong><br><a href="https://www.kotlincn.net" target="_blank" rel="noopener">kotlin中文网</a></p>
-<h2 id="kotlin相关书籍"><a href="#kotlin相关书籍" class="headerlink" title="kotlin相关书籍"></a>kotlin相关书籍</h2><p>全英文版，给英语基础好的人留着～～</p>
-<p><strong>地址</strong><br><a href="https://www.kotlincn.net/docs/books.html" target="_blank" rel="noopener">几本书</a></p>
-<h2 id="开源项目列表"><a href="#开源项目列表" class="headerlink" title="开源项目列表"></a>开源项目列表</h2><p>kotlin的项目如今已经非常多了，你上github搜索kotlin，如今已经超越java。排行第一了。</p>
-<ul>
-<li>一些推荐开源项目</li>
-</ul>
-<p><strong>地址</strong><br><a href="https://www.kotlincn.net/docs/resources.html" target="_blank" rel="noopener">kotlin开源项目</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/17/kotlin资源/" data-id="cjh695yjv001eeiqedvck3za2" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li></ul>
 
     </footer>
   </div>
@@ -684,7 +675,7 @@ val result = list.filter{
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
     </div>
   </div>
 
@@ -695,6 +686,10 @@ val result = list.filter{
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blogs/2018/08/01/听高老师讲架构1/">(no title)</a>
+          </li>
         
           <li>
             <a href="/blogs/2018/03/26/遗憾的婚礼见证人/">遗憾的婚礼见证人</a>
@@ -710,10 +705,6 @@ val result = list.filter{
         
           <li>
             <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
-          </li>
-        
-          <li>
-            <a href="/blogs/2017/12/03/计算机专业的变化/">计算机专业的变化</a>
           </li>
         
       </ul>
