@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -156,10 +156,101 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_类与继承/" data-id="cjk9xomrf000wowqe1vrcp2g8" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_类与继承/" data-id="cjl2cx9ri0010zxqez5aqumsv" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-kotlin入门_抽象类和接口" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/01/kotlin入门_抽象类和接口/" class="article-date">
+  <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_抽象类和接口/">kotlin入门_抽象类和接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h2><p>抽象方法用<code>absract</code>修饰，只有声明，没有实现，形如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abstract fun methodOk()</span><br></pre></td></tr></table></figure>
+<p>抽象方法有如下特点：</p>
+<ol>
+<li>抽象方法必须用abstract关键字进行修饰</li>
+<li>抽象方法不用手动添加open，默认被open修饰</li>
+<li>抽象方法没有具体的实现</li>
+<li>含有抽象方法的类成为抽象类，必须由abtract关键字修饰</li>
+</ol>
+<h2 id="抽象属性"><a href="#抽象属性" class="headerlink" title="抽象属性"></a>抽象属性</h2><p>抽象属性就是在var或val前被abstract修饰，抽象属性的声明格式为：</p>
+<ol>
+<li>抽象属性在抽象类中不能被初始化</li>
+<li>在子类没有主构造函数，要对抽象属性，手动初始化。如果子类中有主构造函数，抽象属性可以在主构造函数中声明</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abstract var addr : String</span><br><span class="line">abstract val weight : Float</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var y: String = &quot;hello&quot;</span><br><span class="line">     get() =  y + &quot;,yes&quot; // error , 正确用法：field + &quot;, yes&quot;</span><br><span class="line">     set(value) &#123;</span><br><span class="line">	     field = value</span><br><span class="line">	  &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 抽象类</span><br><span class="line"></span><br><span class="line">含有**抽象属性**或者**抽象方法**的类，称之为抽象类。抽象类必须用abstract修饰。</span><br><span class="line">实例:</span><br></pre></td></tr></table></figure>
+<p>abstract class Person {<br>    abstract val gender: String = “female”<br>    abstract fun haha()<br>    fun eat() {<br>            println(“eat some thing”)<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">抽象类特点如下：</span><br><span class="line"></span><br><span class="line">1. 抽象方法必须为`public或者protected`（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public；</span><br><span class="line">2.	抽象类不能用来创建对象；</span><br><span class="line">3.	如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。如果抽象类中含有抽象属性，再实现子类中必须将抽象属性初始化，除非子类也为抽象类。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 接口</span><br><span class="line"></span><br><span class="line">接口和抽象类不同的是，**接口不能保存状态，可以有属性但必须是抽象的**。</span><br><span class="line">接口是通过关键字 interface 来定义的：</span><br></pre></td></tr></table></figure></p>
+<p>interface MyInterface {<br>    val func : Int<br>    fun bar()<br>    fun foo() {<br>    //函数体是可选的<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 接口中的属性</span><br><span class="line"></span><br><span class="line">接口也可以有属性，但因为接口不能保存状态，所以属性必须是无状态的。</span><br></pre></td></tr></table></figure>
+<p>interface A {<br>    val x: String<br>    fun foo()<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 重写多个接口的冲突</span><br></pre></td></tr></table></figure></p>
+<pre><code>interdace A {      fun foo() { print(“A”) }      fun bar()  }
+interface B {
+   fun foo() { print(&quot;B&quot;) }
+   fun bar() { print(&quot;bar&quot;) }
+} 
+
+class C : A {
+    override fun bar() { print(&quot;bar&quot;) }
+}
+
+class D : A, B {
+    override fun foo() {
+        super&lt;A&gt;.foo()
+        super&lt;B&gt;.foo()
+    }
+
+    override fun bar() {
+        super.bar()
+    }
+} 
+</code></pre><p>```</p>
+<p>我们要在类D中分别调用接口A和B的foo方法，可以用语法<code>super&lt;A&gt;.foo()， super&lt;B&gt;.foo()</code>的形式调用。但是在bar()方法中，调用父类bar方法，没有冲突，就可以直接使用<code>super.foo()</code>形式调用。</p>
+<h2 id="抽象类和接口的差异"><a href="#抽象类和接口的差异" class="headerlink" title="抽象类和接口的差异"></a>抽象类和接口的差异</h2><h3 id="语法层面上的区别"><a href="#语法层面上的区别" class="headerlink" title="语法层面上的区别"></a>语法层面上的区别</h3><ol>
+<li>接口不能保存状态，可以有属性但必须是抽象的，而抽类型可以有属性。</li>
+<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+</ol>
+<h3 id="设计上的区别"><a href="#设计上的区别" class="headerlink" title="设计上的区别"></a>设计上的区别</h3><p>接口和抽象类，一个被子类实现，一个被子类继承，子类都要实现他们的抽象方法，覆盖抽象属性；但表达的现实关系不一样。例如一个鸡，和一个蜻蜓，他们都会飞，他们属于不同类型，那么我们会定义一个Fly的接口，鸡和蜻蜓实现fly接口；但他们都是动物，这里，可以定义Animal抽象类，动物也具有一些普遍特性，比如有血有肉，比如都会吃东西。那就可以用属性和方法实现这些。</p>
+<p>接口，描述的是对象<em>“有没有”</em>的关系。抽象类，描述的是对象<em>”是不是“</em>的关系。是二者在设计上的区别。</p>
+<p>参考：<br><a href="http://blog.csdn.net/io_field/article/details/52860971" target="_blank" rel="noopener">kotlin抽象类和接口</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_抽象类和接口/" data-id="cjl2cx9r6000pzxqeqyt3wxoy" class="article-share-link">Compartir</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
 
     </footer>
   </div>
@@ -232,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjk9xomps000jowqe0xgtlsou" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_ 基础语法/" data-id="cjl2cx9qt000ezxqel055jq5p" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -319,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_返回与跳转/" data-id="cjk9xomrm000zowqe7f5sk7y2" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_返回与跳转/" data-id="cjl2cx9rg000xzxqebs6wcuwp" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -356,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/31/git常用命令/" data-id="cjk9xomlo0004owqewdsqh2f8" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/31/git常用命令/" data-id="cjl2cx9q70007zxqew2wl9283" class="article-share-link">Compartir</a>
       
       
     </footer>
@@ -366,9 +457,9 @@
 
 
   
-    <article id="post-新公司一点感受" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-最近的知识点总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blogs/2017/05/22/新公司一点感受/" class="article-date">
+    <a href="/blogs/2017/05/22/最近的知识点总结/" class="article-date">
   <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
 </a>
     
@@ -376,25 +467,28 @@
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/05/22/新公司一点感受/">新公司一点感受</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="最近的一点感受"><a href="#最近的一点感受" class="headerlink" title="最近的一点感受"></a>最近的一点感受</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我们要管好我们自己，这需要很强大的毅力，很自觉的勇气。</span><br><span class="line">尤其是自己想要，和真实做到，真的是差了几条街。</span><br><span class="line"></span><br><span class="line">想要的东西总是太多了，然而，自己不去争取，自然就没有机会获得啦。</span><br></pre></td></tr></table></figure>
-<p>上面的，都是在随意乱写啦。</p>
+        <hr>
+<p>title: 最近的知识点总结</p>
+<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">健全的灵魂寄宿在健全的精神，和健全的身体中！</span><br><span class="line">                              -- 《噬魂师》</span><br></pre></td></tr></table></figure>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安卓 应用 人工智能 dagger2 rxjava retrofit MVP模式</span><br></pre></td></tr></table></figure>
+<p>最近加入新公司，感觉需要学的知识太多了，不过，最要还是搞安卓应用，framework层这一块。所以还算是比较熟悉的领域，我上周研究了一阵子MVP模式。</p>
+<h2 id="MVP模式"><a href="#MVP模式" class="headerlink" title="MVP模式"></a>MVP模式</h2><p>这里我们不得不提到MVC模式，MVVM模式。</p>
+<h3 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h3><p>在前2年，软件开发架构讨论最多的还是MVC模式，即，模型-视图-控制器模式。这里借一张图来说明：<br><img style="{width:200px; height: 200px}" src="图一"><br>其中，Model层用来获取业务数据，关于数据的CRUD，都可以放到这里完成；<br>View层则负责展示数据，刷新界面数据；<br>Control会负责执行业务逻辑;</p>
+<p>3者关系一般是单向控制的。即：<br>control -&gt; model -&gt; view -&gt; control</p>
+<p>但并不一定，有时候，我们可以在view层控制，发送命令给control，继续后面的控制；<br>有时候，我们可以在control层发出命令，改变model，继续后面的控制；</p>
+<h3 id="MVP模式-MVC的改进版"><a href="#MVP模式-MVC的改进版" class="headerlink" title="MVP模式 - MVC的改进版"></a>MVP模式 - MVC的改进版</h3><p>对于MVC模式，model和view可以直接交互，但我们有时候不希望这样，希望所有的界面展示都由一个中间代理presenter来控制，而界面变化后，也由presenter通知model进行数据更改。这里，因此就有了这样的关系：</p>
+<p>model &lt;-&gt; presenter &lt;-&gt;view</p>
+<p>和MVC的区别在于，model和view不再直接交互。二者的交互都通过p进行。</p>
+<h3 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h3><p>对于有些应用，可能界面和数据高度耦合，很难区分开，那么我们就会把presenter层改成ModelView层，<br>3者的关系就变成这样：</p>
+<p>Model &lt;-&gt; ModelView -&gt;View<br>即Model和ModelView是双向通信的，二者变化互相影响，当ModelView变化后，就会引起View的变化。</p>
+<p>参考：<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">阮一峰网络日志</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/新公司一点感受/" data-id="cjk9xomv0001vowqecrn5mrd3" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/最近的知识点总结/" data-id="cjl2cx9su002dzxqeke7dc2i8" class="article-share-link">Compartir</a>
       
       
     </footer>
@@ -471,48 +565,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjk9xomjn0000owqeqmmfe54x" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-最近的知识点总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/05/22/最近的知识点总结/" class="article-date">
-  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 最近的知识点总结</p>
-<h2 id="date"><a href="#date" class="headerlink" title="date: "></a>date: 1495451136000</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">健全的灵魂寄宿在健全的精神，和健全的身体中！</span><br><span class="line">                              -- 《噬魂师》</span><br></pre></td></tr></table></figure>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安卓 应用 人工智能 dagger2 rxjava retrofit MVP模式</span><br></pre></td></tr></table></figure>
-<p>最近加入新公司，感觉需要学的知识太多了，不过，最要还是搞安卓应用，framework层这一块。所以还算是比较熟悉的领域，我上周研究了一阵子MVP模式。</p>
-<h2 id="MVP模式"><a href="#MVP模式" class="headerlink" title="MVP模式"></a>MVP模式</h2><p>这里我们不得不提到MVC模式，MVVM模式。</p>
-<h3 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h3><p>在前2年，软件开发架构讨论最多的还是MVC模式，即，模型-视图-控制器模式。这里借一张图来说明：<br><img style="{width:200px; height: 200px}" src="图一"><br>其中，Model层用来获取业务数据，关于数据的CRUD，都可以放到这里完成；<br>View层则负责展示数据，刷新界面数据；<br>Control会负责执行业务逻辑;</p>
-<p>3者关系一般是单向控制的。即：<br>control -&gt; model -&gt; view -&gt; control</p>
-<p>但并不一定，有时候，我们可以在view层控制，发送命令给control，继续后面的控制；<br>有时候，我们可以在control层发出命令，改变model，继续后面的控制；</p>
-<h3 id="MVP模式-MVC的改进版"><a href="#MVP模式-MVC的改进版" class="headerlink" title="MVP模式 - MVC的改进版"></a>MVP模式 - MVC的改进版</h3><p>对于MVC模式，model和view可以直接交互，但我们有时候不希望这样，希望所有的界面展示都由一个中间代理presenter来控制，而界面变化后，也由presenter通知model进行数据更改。这里，因此就有了这样的关系：</p>
-<p>model &lt;-&gt; presenter &lt;-&gt;view</p>
-<p>和MVC的区别在于，model和view不再直接交互。二者的交互都通过p进行。</p>
-<h3 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h3><p>对于有些应用，可能界面和数据高度耦合，很难区分开，那么我们就会把presenter层改成ModelView层，<br>3者的关系就变成这样：</p>
-<p>Model &lt;-&gt; ModelView -&gt;View<br>即Model和ModelView是双向通信的，二者变化互相影响，当ModelView变化后，就会引起View的变化。</p>
-<p>参考：<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">阮一峰网络日志</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/最近的知识点总结/" data-id="cjk9xomv6001yowqedtp5zc1t" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/android23示例代码阅读/" data-id="cjl2cx9pd0000zxqepaz6p3fi" class="article-share-link">Compartir</a>
       
       
     </footer>
@@ -547,7 +600,45 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/22/如何查看android源码/" data-id="cjk9xomuq001towqew5ogqeik" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/22/如何查看android源码/" data-id="cjl2cx9so0029zxqec92026hb" class="article-share-link">Compartir</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-新公司一点感受" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/05/22/新公司一点感受/" class="article-date">
+  <time datetime="2017-05-22T11:05:36.000Z" itemprop="datePublished">2017-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/05/22/新公司一点感受/">新公司一点感受</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="最近的一点感受"><a href="#最近的一点感受" class="headerlink" title="最近的一点感受"></a>最近的一点感受</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我们要管好我们自己，这需要很强大的毅力，很自觉的勇气。</span><br><span class="line">尤其是自己想要，和真实做到，真的是差了几条街。</span><br><span class="line"></span><br><span class="line">想要的东西总是太多了，然而，自己不去争取，自然就没有机会获得啦。</span><br></pre></td></tr></table></figure>
+<p>上面的，都是在随意乱写啦。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/22/新公司一点感受/" data-id="cjl2cx9sr002czxqet2todpk0" class="article-share-link">Compartir</a>
       
       
     </footer>
@@ -1744,68 +1835,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/14/tapoutXT运动健身食物计划/" data-id="cjk9xomtr001oowqezxzf23sy" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/14/tapoutXT运动健身食物计划/" data-id="cjl2cx9t3002lzxqex950giwg" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-gitpages" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/05/13/gitpages/" class="article-date">
-  <time datetime="2017-05-13T14:05:49.000Z" itemprop="datePublished">2017-05-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/05/13/gitpages/">gitpages</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="事先说明"><a href="#事先说明" class="headerlink" title="事先说明"></a>事先说明</h2><ul>
-<li>之前用wordpress搭配新网域名，蛮好的，就是wordpress自身不支持markdown语法。<br>不论装插件啦，从markdown编辑器生成静态网页啦，效果都不是很好。同时介绍gitpages还不错，就鼓捣了一下。然而，鼓捣了一个下午的时间，就卡在，<strong>如何不添加www</strong>也能访问gitpages个人主页这个问题上了。</li>
-</ul>
-<p>这里两部分gitpages使用篇，和新网dns解析配置篇，介绍如何搭建这样一个小型个人博客。</p>
-<h2 id="gitpages使用套路"><a href="#gitpages使用套路" class="headerlink" title="gitpages使用套路"></a>gitpages使用套路</h2><p>gitpages其实蛮好用。你上<a href="https://github.com" target="_blank" rel="noopener">github</a>网站上，自己新建个仓库。一步一步走下去。这样一个个人网站其实就搭成了。</p>
-<p>如下:<br>登录进入github网站。<br>点击右上角的创建新仓库:<br><img src="http://oojk8e1qn.bkt.clouddn.com/gitpages-create-repository.png" style="{width: 300px; height: 300px}"></p>
-<p>然后就进入创建仓库界面.仓库名字起个特别点的。例如username/liru， 接着，就是进入Settings界面，我们会看到Settings，Features，Merge button，GitHub Pages等项目。<br>让我们把目光停留在GitHub Pages，首先，选Source，只能选<strong>master branch</strong>对吧？ok,确定。然后，点save。 gitHub Pages 是不是出现了：Your site is ready to be published at <a href="https://username.github.io/liru/这样的字样？" target="_blank" rel="noopener">https://username.github.io/liru/这样的字样？</a></p>
-<p>接着，在浏览器里，输入<strong><a href="https://username.github.io/liru/" target="_blank" rel="noopener">https://username.github.io/liru/</a></strong>,会车，看看，不是看到自己的readMe.md 文件？哦，忘了说了，前提是你创建仓库的时候勾选了创建这个ReadMe.md 文件，没关系，现在创建也来得及。</p>
-<h1 id="新网dns解析配置套路"><a href="#新网dns解析配置套路" class="headerlink" title="新网dns解析配置套路"></a>新网dns解析配置套路</h1><p>接下来咱就到第二步了.为什么是新网，不是万网，godaddy？因为一年前就买了这个域名啦！当然是原谅自己sb啦！（补充，可以转移出去）</p>
-<p>然后这一下午时间就在搞这一件事了。<a href="http://域名.com为什么访问不了?" target="_blank" rel="noopener">http://域名.com为什么访问不了?</a></p>
-<h2 id="大致原因有"><a href="#大致原因有" class="headerlink" title="大致原因有:"></a>大致原因有:</h2><ol>
-<li><p>你的url包含了破折号—。记得在gitpages的帮助指南里有提到。<br><strong><br>If the URL for your Pages site contains a username or organization name that begins or ends in a dash, or contains consecutive dashes, then people browsing with Linux will receive a server error when they visit the site. To fix this, change your GitHub username to remove non-alphanumeric characters. For instructions on how to do this, see “Changing your GitHub username.”
-</strong></p>
-</li>
-<li><p>新网CNAME设置不对.正确的配置的应该是这样的:</p>
-</li>
-</ol>
-<p><img src="http://oojk8e1qn.bkt.clouddn.com/xinnetconfig.png" style="{width: 800px; height: 200px}"><br>然后在刚才的Settings里，GitHub Pages有个Custom domain,输入你的域名<strong>domain.com</strong>,就可以了。</p>
-<p>新网配置的A记录，是10分钟后生效。所以10分钟后再访问下你的域名吧。</p>
-<p>这是一个基础，后续咱们好要搞事情。先这样!</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/13/gitpages/" data-id="cjk9xomlg0003owqeee78er42" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li></ul>
 
     </footer>
   </div>
@@ -1818,7 +1851,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blogs/page/2/">&laquo; zurück</a><a class="page-number" href="/blogs/">1</a><a class="page-number" href="/blogs/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blogs/page/4/">4</a><a class="extend next" rel="next" href="/blogs/page/4/">weiter &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blogs/page/2/">&laquo; Previo</a><a class="page-number" href="/blogs/">1</a><a class="page-number" href="/blogs/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blogs/page/4/">4</a><a class="extend next" rel="next" href="/blogs/page/4/">Siguiente &raquo;</a>
   </nav>
 
 </section>
@@ -1827,7 +1860,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categorías</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
     </div>
@@ -1839,7 +1872,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/生活小事/">生活小事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/android架构/">android架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/生活小事/">生活小事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
     </div>
   </div>
 
@@ -1847,16 +1880,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nube de Tags</h3>
     <div class="widget tagcloud">
-      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/生活小事/" style="font-size: 10px;">生活小事</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/android架构/" style="font-size: 15px;">android架构</a> <a href="/blogs/tags/c/" style="font-size: 15px;">c++</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/生活小事/" style="font-size: 10px;">生活小事</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archivos</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
     </div>
@@ -1866,12 +1899,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Posts recientes</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/blogs/2018/08/01/听高老师讲架构1/">(no title)</a>
+            <a href="/blogs/2018/08/19/听高老师讲架构2/">听高老师讲架构2-Messenger框架的妙用</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/08/19/听高老师讲架构1/">听高老师讲架构1</a>
           </li>
         
           <li>
@@ -1884,10 +1921,6 @@
         
           <li>
             <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
-          </li>
-        
-          <li>
-            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
           </li>
         
       </ul>
@@ -1903,7 +1936,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 tom<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

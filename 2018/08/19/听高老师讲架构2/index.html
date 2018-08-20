@@ -5,17 +5,19 @@
   
 
   
-  <title>Tag: DSL | cdkd123&#39;s notes</title>
+  <title>听高老师讲架构2-Messenger框架的妙用 | cdkd123&#39;s notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不定期更新">
-<meta property="og:type" content="website">
-<meta property="og:title" content="cdkd123&#39;s notes">
-<meta property="og:url" content="http://yoursite.com/tags/DSL/index.html">
+  <meta name="description" content="Messenger框架设计的出发点 如何利用Messenger框架实现单向通信 如何利用Messenger框架实现双向通信  Messenger框架设计的出发点对于activity中多线程执行环境，多线程去调用Service，比较容易失控。可以通过messenger，对proxy-stub类进行了一层包装, 实现了多线程环境下，调用Service的主线程执行。  messenger的实现原理，其">
+<meta name="keywords" content="c++,android架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听高老师讲架构2-Messenger框架的妙用">
+<meta property="og:url" content="http://yoursite.com/2018/08/19/听高老师讲架构2/index.html">
 <meta property="og:site_name" content="cdkd123&#39;s notes">
-<meta property="og:description" content="不定期更新">
+<meta property="og:description" content="Messenger框架设计的出发点 如何利用Messenger框架实现单向通信 如何利用Messenger框架实现双向通信  Messenger框架设计的出发点对于activity中多线程执行环境，多线程去调用Service，比较容易失控。可以通过messenger，对proxy-stub类进行了一层包装, 实现了多线程环境下，调用Service的主线程执行。  messenger的实现原理，其">
+<meta property="og:updated_time" content="2018-08-19T15:54:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cdkd123&#39;s notes">
-<meta name="twitter:description" content="不定期更新">
+<meta name="twitter:title" content="听高老师讲架构2-Messenger框架的妙用">
+<meta name="twitter:description" content="Messenger框架设计的出发点 如何利用Messenger框架实现单向通信 如何利用Messenger框架实现双向通信  Messenger框架设计的出发点对于activity中多线程执行环境，多线程去调用Service，比较容易失控。可以通过messenger，对proxy-stub类进行了一层包装, 实现了多线程环境下，调用Service的主线程执行。  messenger的实现原理，其">
   
     <link rel="alternate" href="/blogs/atom.xml" title="cdkd123&#39;s notes" type="application/atom+xml">
   
@@ -66,40 +68,62 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blogs/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blogs/2017/12/01/kotlin入门-DSL的使用/" class="archive-article-date">
-  <time datetime="2017-12-01T08:31:26.000Z" itemprop="datePublished">Dec 1</time>
+        <section id="main"><article id="post-听高老师讲架构2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2018/08/19/听高老师讲架构2/" class="article-date">
+  <time datetime="2018-08-19T15:48:00.000Z" itemprop="datePublished">2018-08-19</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blogs/2017/12/01/kotlin入门-DSL的使用/">kotlin入门_DSL的使用</a>
+    <h1 class="article-title" itemprop="name">
+      听高老师讲架构2-Messenger框架的妙用
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>Messenger框架设计的出发点</li>
+<li>如何利用Messenger框架实现单向通信</li>
+<li>如何利用Messenger框架实现双向通信</li>
+</ul>
+<h2 id="Messenger框架设计的出发点"><a href="#Messenger框架设计的出发点" class="headerlink" title="Messenger框架设计的出发点"></a>Messenger框架设计的出发点</h2><p>对于activity中多线程执行环境，多线程去调用Service，比较容易失控。可以通过messenger，对proxy-stub类进行了一层包装, 实现了多线程环境下，调用Service的主线程执行。 </p>
+<p>messenger的实现原理，其实是对proxy-stub模式再一次的封装，实现了框架层更简化的调用。<br>activity可以通过Messenger向Service发送消息，实现近程，远程单向沟通。</p>
+<h2 id="Messenger框架实现多线程单向通信"><a href="#Messenger框架实现多线程单向通信" class="headerlink" title="Messenger框架实现多线程单向通信"></a>Messenger框架实现多线程单向通信</h2><h2 id="Messenger框架实现双向通信"><a href="#Messenger框架实现双向通信" class="headerlink" title="Messenger框架实现双向通信"></a>Messenger框架实现双向通信</h2><pre><code>扩展：通过Messenger对IBinder的包装，可以实现activity和service的双向通信。 
+</code></pre><p>实现原理：Handler本身包含MessengerImpl的实现，而MessengerImpl实现了IBinder接口，所以，在给myService发消息时，可以把自己的Ib接口，放在消息里，service收到消息，就可以获取ib接口了。接着就可以给handler发送消息了。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/19/听高老师讲架构2/" data-id="cjl2cx9sh0025zxqe9tw7ffhi" class="article-share-link">Compartir</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/android架构/">android架构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/c/">c++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blogs/2018/08/19/听高老师讲架构1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">听高老师讲架构1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/blogs/atom.xml" title="RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -67,6 +67,76 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-kotlin入门-lambda表达式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2017/11/24/kotlin入门-lambda表达式/" class="article-date">
+  <time datetime="2017-11-24T08:01:11.000Z" itemprop="datePublished">2017-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blogs/2017/11/24/kotlin入门-lambda表达式/">kotlin入门_lambda表达式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>一个 lambda 表达式或匿名函数是一个“函数字面值”，即<em>一个未声明的函数</em>， 但立即做为表达式传递。考虑下面的例子：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(strings, &#123; a, b -&gt; a.length &lt; b.length &#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>lambda表达式一般用在高阶函数</strong>。</p>
+<p>上面的 max 是一个高阶函数，换句话说它接受一个函数作为第二个参数。其第二个参数是一个表达式，它本身是一个函数，即函数字面值。写成函数的话，它相当于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun compare(a: String, b: String): Boolean = a.length &lt; b.length</span><br></pre></td></tr></table></figure>
+<h2 id="和普通函数，匿名函数的区别"><a href="#和普通函数，匿名函数的区别" class="headerlink" title="和普通函数，匿名函数的区别"></a>和普通函数，匿名函数的区别</h2><p>上面提供的 lambda 表达式语法<em>缺少的一个东西是指定函数的返回类型的能力</em>。在大多数情况下，这是不必要的。因为返回类型可以自动推断出来。<br>然而，如果确实需要显式指定，可以使用另一种语法：<em>匿名函数</em>。</p>
+<ol>
+<li>普通函数声明：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun funname(x: Int, y: Int): Int &#123;</span><br><span class="line">	return x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数名称，参数名，参数类型，返回值类型，函数体统统写清楚了。表达清晰，代码规范。这就是普通函数的声明。</p>
+<ol>
+<li>匿名函数的声明：</li>
+</ol>
+<p><strong>匿名函数不需要声明函数名，参数名，甚至返回值类型。</strong> 直接写函数体就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fun(x: Int, y: Int): Int = x + y</span><br><span class="line"></span><br><span class="line">参数和返回类型的指定方式与常规函数相同，除了能够从上下文推断出的参数类型可以省略：</span><br><span class="line">ints.filter(fun(item) = item &gt; 0)</span><br></pre></td></tr></table></figure>
+<p><strong>请注意，匿名函数参数总是在括号内传递。允许将函数留在圆括号外的简写语法仅适用于 lambda 表达式。</strong></p>
+<p>总结一下它们的区别：</p>
+<ol>
+<li>普通函数，需要先声明“函数名，参数，返回类型”，再使用。</li>
+<li>匿名函数，省掉了函数名称，但依然要指定”参数类型，名字，返回类型。</li>
+<li>lambda表达式，根本不需要声明，调用时，符合调用者声明的函数类型即可。 </li>
+</ol>
+<h2 id="labda表达式的使用场景："><a href="#labda表达式的使用场景：" class="headerlink" title="labda表达式的使用场景："></a>labda表达式的使用场景：</h2><h3 id="作为函数参数"><a href="#作为函数参数" class="headerlink" title="作为函数参数"></a>作为函数参数</h3><p>先看下面代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val list = listOf(1, 5, 3, 4)</span><br><span class="line">val result = list.filter(&#123;</span><br><span class="line">	it -&gt; it &gt; 3</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这就是lambda表达式的一般使用形式。it表达式该lambda表达式只有一个参数it。当然，如果函数的最后一个参数传递的是lmabda表达式。可以省略“圆括号”。即：</p>
+<pre><code>val list = listOf(1, 5, 3, 4)
+val result = list.filter{
+    it -&gt; it &gt; 3
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/24/kotlin入门-lambda表达式/" data-id="cjl2cx9qd000bzxqej45kmb38" class="article-share-link">Compartir</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-kotlin资源" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -110,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/17/kotlin资源/" data-id="cjk9xomsw001dowqez7uifxff" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/17/kotlin资源/" data-id="cjl2cx9rz001izxqemoyst04w" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li></ul>
@@ -213,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/14/kotlin每日一练_集合类的使用/" data-id="cjk9xoms30016owqeyq9hqx4s" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/14/kotlin每日一练_集合类的使用/" data-id="cjl2cx9ru001bzxqedask1q4m" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -270,7 +340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/08/kotlin入门-反射/" data-id="cjk9xomoi000cowqevi1dpk3o" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/08/kotlin入门-反射/" data-id="cjl2cx9qn000czxqelspl1p4c" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/反射/">反射</a></li></ul>
@@ -347,7 +417,7 @@ init2(&quot;18&quot;)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/08/kotlin入门_偏函数/" data-id="cjk9xomp8000fowqe85hbqfnq" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/08/kotlin入门_偏函数/" data-id="cjl2cx9qx000gzxqewec574vy" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li></ul>
@@ -424,7 +494,7 @@ init2(&quot;18&quot;)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/07/kotlin入门_函数复合与柯里化/" data-id="cjk9xomq0000kowqelwu79mir" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/07/kotlin入门_函数复合与柯里化/" data-id="cjl2cx9r9000szxqe2zt7wny3" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li></ul>
@@ -520,7 +590,7 @@ init2(&quot;18&quot;)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/03/kotlin入门_高阶函数/" data-id="cjk9xomsk001aowqepsm4zm68" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/03/kotlin入门_高阶函数/" data-id="cjl2cx9rq0017zxqezr6f3pkk" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
@@ -591,7 +661,7 @@ init2(&quot;18&quot;)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/" data-id="cjk9xomqq000sowqen7mnkl6z" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_数据类密封类嵌套类内部类枚举/" data-id="cjl2cx9rd000vzxqepbau4fck" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -686,7 +756,7 @@ init2(&quot;18&quot;)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_伴生对象与扩展方法/" data-id="cjk9xomox000eowqeasvb1qwy" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_伴生对象与扩展方法/" data-id="cjl2cx9r2000kzxqensktooee" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -753,98 +823,7 @@ init2(&quot;18&quot;)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_属性和属性委托/" data-id="cjk9xomq7000nowqe71chie9b" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-kotlin入门_抽象类和接口" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blogs/2017/11/01/kotlin入门_抽象类和接口/" class="article-date">
-  <time datetime="2017-11-01T09:16:36.000Z" itemprop="datePublished">2017-11-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blogs/categories/kotlin/">kotlin</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blogs/2017/11/01/kotlin入门_抽象类和接口/">kotlin入门_抽象类和接口</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h2><p>抽象方法用<code>absract</code>修饰，只有声明，没有实现，形如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abstract fun methodOk()</span><br></pre></td></tr></table></figure>
-<p>抽象方法有如下特点：</p>
-<ol>
-<li>抽象方法必须用abstract关键字进行修饰</li>
-<li>抽象方法不用手动添加open，默认被open修饰</li>
-<li>抽象方法没有具体的实现</li>
-<li>含有抽象方法的类成为抽象类，必须由abtract关键字修饰</li>
-</ol>
-<h2 id="抽象属性"><a href="#抽象属性" class="headerlink" title="抽象属性"></a>抽象属性</h2><p>抽象属性就是在var或val前被abstract修饰，抽象属性的声明格式为：</p>
-<ol>
-<li>抽象属性在抽象类中不能被初始化</li>
-<li>在子类没有主构造函数，要对抽象属性，手动初始化。如果子类中有主构造函数，抽象属性可以在主构造函数中声明</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abstract var addr : String</span><br><span class="line">abstract val weight : Float</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var y: String = &quot;hello&quot;</span><br><span class="line">     get() =  y + &quot;,yes&quot; // error , 正确用法：field + &quot;, yes&quot;</span><br><span class="line">     set(value) &#123;</span><br><span class="line">	     field = value</span><br><span class="line">	  &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 抽象类</span><br><span class="line"></span><br><span class="line">含有**抽象属性**或者**抽象方法**的类，称之为抽象类。抽象类必须用abstract修饰。</span><br><span class="line">实例:</span><br></pre></td></tr></table></figure>
-<p>abstract class Person {<br>    abstract val gender: String = “female”<br>    abstract fun haha()<br>    fun eat() {<br>            println(“eat some thing”)<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">抽象类特点如下：</span><br><span class="line"></span><br><span class="line">1. 抽象方法必须为`public或者protected`（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public；</span><br><span class="line">2.	抽象类不能用来创建对象；</span><br><span class="line">3.	如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。如果抽象类中含有抽象属性，再实现子类中必须将抽象属性初始化，除非子类也为抽象类。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 接口</span><br><span class="line"></span><br><span class="line">接口和抽象类不同的是，**接口不能保存状态，可以有属性但必须是抽象的**。</span><br><span class="line">接口是通过关键字 interface 来定义的：</span><br></pre></td></tr></table></figure></p>
-<p>interface MyInterface {<br>    val func : Int<br>    fun bar()<br>    fun foo() {<br>    //函数体是可选的<br>    }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 接口中的属性</span><br><span class="line"></span><br><span class="line">接口也可以有属性，但因为接口不能保存状态，所以属性必须是无状态的。</span><br></pre></td></tr></table></figure>
-<p>interface A {<br>    val x: String<br>    fun foo()<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 重写多个接口的冲突</span><br></pre></td></tr></table></figure></p>
-<pre><code>interdace A {      fun foo() { print(“A”) }      fun bar()  }
-interface B {
-   fun foo() { print(&quot;B&quot;) }
-   fun bar() { print(&quot;bar&quot;) }
-} 
-
-class C : A {
-    override fun bar() { print(&quot;bar&quot;) }
-}
-
-class D : A, B {
-    override fun foo() {
-        super&lt;A&gt;.foo()
-        super&lt;B&gt;.foo()
-    }
-
-    override fun bar() {
-        super.bar()
-    }
-} 
-</code></pre><p>```</p>
-<p>我们要在类D中分别调用接口A和B的foo方法，可以用语法<code>super&lt;A&gt;.foo()， super&lt;B&gt;.foo()</code>的形式调用。但是在bar()方法中，调用父类bar方法，没有冲突，就可以直接使用<code>super.foo()</code>形式调用。</p>
-<h2 id="抽象类和接口的差异"><a href="#抽象类和接口的差异" class="headerlink" title="抽象类和接口的差异"></a>抽象类和接口的差异</h2><h3 id="语法层面上的区别"><a href="#语法层面上的区别" class="headerlink" title="语法层面上的区别"></a>语法层面上的区别</h3><ol>
-<li>接口不能保存状态，可以有属性但必须是抽象的，而抽类型可以有属性。</li>
-<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
-</ol>
-<h3 id="设计上的区别"><a href="#设计上的区别" class="headerlink" title="设计上的区别"></a>设计上的区别</h3><p>接口和抽象类，一个被子类实现，一个被子类继承，子类都要实现他们的抽象方法，覆盖抽象属性；但表达的现实关系不一样。例如一个鸡，和一个蜻蜓，他们都会飞，他们属于不同类型，那么我们会定义一个Fly的接口，鸡和蜻蜓实现fly接口；但他们都是动物，这里，可以定义Animal抽象类，动物也具有一些普遍特性，比如有血有肉，比如都会吃东西。那就可以用属性和方法实现这些。</p>
-<p>接口，描述的是对象<em>“有没有”</em>的关系。抽象类，描述的是对象<em>”是不是“</em>的关系。是二者在设计上的区别。</p>
-<p>参考：<br><a href="http://blog.csdn.net/io_field/article/details/52860971" target="_blank" rel="noopener">kotlin抽象类和接口</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_抽象类和接口/" data-id="cjk9xomqk000qowqej8n218gc" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/11/01/kotlin入门_属性和属性委托/" data-id="cjl2cx9r4000mzxqerhepnw5p" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li></ul>
@@ -860,7 +839,7 @@ class D : A, B {
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blogs/">&laquo; zurück</a><a class="page-number" href="/blogs/">1</a><span class="page-number current">2</span><a class="page-number" href="/blogs/page/3/">3</a><a class="page-number" href="/blogs/page/4/">4</a><a class="extend next" rel="next" href="/blogs/page/3/">weiter &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blogs/">&laquo; Previo</a><a class="page-number" href="/blogs/">1</a><span class="page-number current">2</span><a class="page-number" href="/blogs/page/3/">3</a><a class="page-number" href="/blogs/page/4/">4</a><a class="extend next" rel="next" href="/blogs/page/3/">Siguiente &raquo;</a>
   </nav>
 
 </section>
@@ -869,7 +848,7 @@ class D : A, B {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
+    <h3 class="widget-title">Categorías</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blogs/categories/kotlin/">kotlin</a></li></ul>
     </div>
@@ -881,7 +860,7 @@ class D : A, B {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/生活小事/">生活小事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/DSL/">DSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/android架构/">android架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/gitpages使用指南/">gitpages使用指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/java异常/">java异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/">kotlin 入门视频笔记 java和kotlin共存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/kotlin资源/">kotlin资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/lambda表达式/">lambda表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/tapout/">tapout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/偏函数-partial-function/">偏函数 (partial function)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/健身/">健身</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/动画状态机/">动画状态机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/反射/">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/复合函数/">复合函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/生活小事/">生活小事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/类与继承/">类与继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/评论/">评论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/食物识别/">食物识别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/高阶函数/">高阶函数</a></li></ul>
     </div>
   </div>
 
@@ -889,16 +868,16 @@ class D : A, B {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nube de Tags</h3>
     <div class="widget tagcloud">
-      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/生活小事/" style="font-size: 10px;">生活小事</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
+      <a href="/blogs/tags/DSL/" style="font-size: 10px;">DSL</a> <a href="/blogs/tags/android架构/" style="font-size: 15px;">android架构</a> <a href="/blogs/tags/c/" style="font-size: 15px;">c++</a> <a href="/blogs/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/blogs/tags/gitpages使用指南/" style="font-size: 10px;">gitpages使用指南</a> <a href="/blogs/tags/html/" style="font-size: 10px;">html</a> <a href="/blogs/tags/java异常/" style="font-size: 10px;">java异常</a> <a href="/blogs/tags/kotlin/" style="font-size: 20px;">kotlin</a> <a href="/blogs/tags/kotlin-入门视频笔记-java和kotlin共存/" style="font-size: 10px;">kotlin 入门视频笔记 java和kotlin共存</a> <a href="/blogs/tags/kotlin资源/" style="font-size: 10px;">kotlin资源</a> <a href="/blogs/tags/lambda表达式/" style="font-size: 10px;">lambda表达式</a> <a href="/blogs/tags/tapout/" style="font-size: 10px;">tapout</a> <a href="/blogs/tags/unity3d/" style="font-size: 10px;">unity3d</a> <a href="/blogs/tags/偏函数-partial-function/" style="font-size: 10px;">偏函数 (partial function)</a> <a href="/blogs/tags/健身/" style="font-size: 10px;">健身</a> <a href="/blogs/tags/动画状态机/" style="font-size: 10px;">动画状态机</a> <a href="/blogs/tags/反射/" style="font-size: 10px;">反射</a> <a href="/blogs/tags/复合函数/" style="font-size: 10px;">复合函数</a> <a href="/blogs/tags/生活小事/" style="font-size: 10px;">生活小事</a> <a href="/blogs/tags/类与继承/" style="font-size: 10px;">类与继承</a> <a href="/blogs/tags/评论/" style="font-size: 10px;">评论</a> <a href="/blogs/tags/食物识别/" style="font-size: 10px;">食物识别</a> <a href="/blogs/tags/高阶函数/" style="font-size: 10px;">高阶函数</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archivos</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2017/04/">April 2017</a></li></ul>
     </div>
@@ -908,12 +887,16 @@ class D : A, B {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Posts recientes</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/blogs/2018/08/01/听高老师讲架构1/">(no title)</a>
+            <a href="/blogs/2018/08/19/听高老师讲架构2/">听高老师讲架构2-Messenger框架的妙用</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/08/19/听高老师讲架构1/">听高老师讲架构1</a>
           </li>
         
           <li>
@@ -926,10 +909,6 @@ class D : A, B {
         
           <li>
             <a href="/blogs/2018/01/25/u3d动画状态机/">u3d动画状态机</a>
-          </li>
-        
-          <li>
-            <a href="/blogs/2017/12/06/kotlin听课笔记/">kotlin入门视频听课笔记</a>
           </li>
         
       </ul>
@@ -945,7 +924,7 @@ class D : A, B {
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 tom<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
